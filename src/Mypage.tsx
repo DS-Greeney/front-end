@@ -1,10 +1,10 @@
 import React from 'react';
 import {View, Text} from 'react-native';
 
-export default function MypageScreen() {
+export default function Mypage() {
   return (
     <View>
-      <Text>MypageScreen</Text>
+      <Text>Mypage</Text>
     </View>
   );
 }

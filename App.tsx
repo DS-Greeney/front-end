@@ -1,32 +1,31 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
-
-import * as React from 'react';
+import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 
-// import {Ionicons} from '@expo/vector-icons';
+import Home from './src/Home';
+import Search from './src/Search';
+import Map from './src/Map';
+import Mypage from './src/Mypage';
 
-import HomeScreen from './src/screens/HomeScreen';
-import SearchScreen from './src/screens/SearchScreen';
-import MapScreen from './src/screens/MapScreen';
-import MypageScreen from './src/screens/MypageScreen';
-
-const Tab = createBottomTabNavigator();
+const Stack = createBottomTabNavigator();
 
 export default function App() {
   return (
     <NavigationContainer>
-      <Tab.Navigator>
-        <Tab.Screen name="Home" component={HomeScreen} />
-        <Tab.Screen name="Search" component={SearchScreen} />
-        <Tab.Screen name="Map" component={MapScreen} />
-        <Tab.Screen name="Mypage" component={MypageScreen} />
-      </Tab.Navigator>
+      <Stack.Navigator screenOptions={{headerShown: false}}>
+        <Stack.Screen name="Home" component={Home} options={{title: '홈'}} />
+        <Stack.Screen
+          name="Search"
+          component={Search}
+          options={{title: '검색'}}
+        />
+        <Stack.Screen name="Map" component={Map} options={{title: '지도'}} />
+        <Stack.Screen
+          name="Mypage"
+          component={Mypage}
+          options={{title: '마이'}}
+        />
+      </Stack.Navigator>
     </NavigationContainer>
   );
 }

@@ -1,10 +1,10 @@
 import React from 'react';
 import {View, Text} from 'react-native';
 
-export default function MapScreen() {
+export default function Map() {
   return (
     <View>
-      <Text>MapScreen</Text>
+      <Text>Map</Text>
     </View>
   );
 }
