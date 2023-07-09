@@ -1,29 +1,31 @@
 import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
-import Home from './src/Home';
-import Search from './src/Search';
-import Map from './src/Map';
-import Mypage from './src/Mypage';
+import MainNavigator from './src/navigation/MainNavigator';
+import Home from './src/pages/Home';
+import Search from './src/pages/Search';
+import Map from './src/pages/Map';
+import Mypage from './src/pages/Mypage';
 
-const Stack = createBottomTabNavigator();
+const Stack = createNativeStackNavigator();
 
 export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator screenOptions={{headerShown: false}}>
-        <Stack.Screen name="Home" component={Home} options={{title: '홈'}} />
+        <Stack.Screen name="MainNavigator" component={MainNavigator} />
+        <Stack.Screen name="Home" component={Home} options={{title: 'Home'}} />
         <Stack.Screen
           name="Search"
           component={Search}
           options={{title: '검색'}}
         />
-        <Stack.Screen name="Map" component={Map} options={{title: '지도'}} />
+        <Stack.Screen name="Map" component={Map} options={{title: 'Map'}} />
         <Stack.Screen
           name="Mypage"
           component={Mypage}
-          options={{title: '마이'}}
+          options={{title: 'Mypage'}}
         />
       </Stack.Navigator>
     </NavigationContainer>
