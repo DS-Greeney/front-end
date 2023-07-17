@@ -4,6 +4,7 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
 import MainNavigator from './src/navigation/MainNavigator';
 import Home from './src/pages/Home';
+import SignUp from './src/pages/SignUp';
 import Search from './src/pages/Search';
 import Map from './src/pages/Map';
 import Mypage from './src/pages/Mypage';
@@ -15,7 +16,20 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator screenOptions={{headerShown: false}}>
         <Stack.Screen name="MainNavigator" component={MainNavigator} />
-        <Stack.Screen name="Home" component={Home} options={{title: 'Home'}} />
+        <Stack.Group>
+          <Stack.Screen
+            name="Home"
+            component={Home}
+            options={{title: 'Home'}}
+          />
+          <Stack.Screen
+            name="SignUp"
+            component={SignUp}
+            options={{
+              title: '회원가입',
+            }}
+          />
+        </Stack.Group>
         <Stack.Screen
           name="Search"
           component={Search}
@@ -25,7 +39,7 @@ export default function App() {
         <Stack.Screen
           name="Mypage"
           component={Mypage}
-          options={{title: 'Mypage'}}
+          options={{title: '마이페이지'}}
         />
       </Stack.Navigator>
     </NavigationContainer>
