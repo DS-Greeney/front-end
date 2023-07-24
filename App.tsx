@@ -44,7 +44,7 @@ export default function App() {
         <Stack.Screen
           name="Login"
           component={Login}
-          options={{title: 'Login'}}
+          options={{title: '로그인'}}
         />
         <Stack.Screen
           name="Mypage"

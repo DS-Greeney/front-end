@@ -4,6 +4,7 @@ import Home from '../pages/Home';
 import Search from '../pages/Search';
 import Map from '../pages/Map';
 import Mypage from '../pages/Mypage';
+import Login from '../pages/Login';
 
 const Tab = createBottomTabNavigator();
 
@@ -12,6 +13,7 @@ export default function MainNavigator() {
     /* Tab header 숨기기 */
     <Tab.Navigator screenOptions={{headerShown: false}}>
       <Tab.Screen name="Home" component={Home} />
+      <Tab.Screen name="Login" component={Login} />
       <Tab.Screen name="Search" component={Search} />
       <Tab.Screen name="Map" component={Map} />
       <Tab.Screen name="Mypage" component={Mypage} />
