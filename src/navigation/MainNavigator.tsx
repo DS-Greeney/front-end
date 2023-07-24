@@ -9,7 +9,8 @@ const Tab = createBottomTabNavigator();
 
 export default function MainNavigator() {
   return (
-    <Tab.Navigator>
+    /* Tab header 숨기기 */
+    <Tab.Navigator screenOptions={{headerShown: false}}>
       <Tab.Screen name="Home" component={Home} />
       <Tab.Screen name="Search" component={Search} />
       <Tab.Screen name="Map" component={Map} />

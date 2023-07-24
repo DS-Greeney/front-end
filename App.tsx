@@ -8,6 +8,7 @@ import Home from './src/pages/Home';
 import SignUp from './src/pages/SignUp';
 import Search from './src/pages/Search';
 import Map from './src/pages/Map';
+import Login from './src/pages/Login';
 import Mypage from './src/pages/Mypage';
 
 const Stack = createNativeStackNavigator();
@@ -15,6 +16,7 @@ const Stack = createNativeStackNavigator();
 export default function App() {
   return (
     <NavigationContainer>
+      {/* root header 숨기기 */}
       <Stack.Navigator screenOptions={{headerShown: false}}>
         <Stack.Screen name="MainNavigator" component={MainNavigator} />
         <Stack.Group>
@@ -39,6 +41,11 @@ export default function App() {
           options={{title: '검색'}}
         />
         <Stack.Screen name="Map" component={Map} options={{title: 'Map'}} />
+        <Stack.Screen
+          name="Login"
+          component={Login}
+          options={{title: 'Login'}}
+        />
         <Stack.Screen
           name="Mypage"
           component={Mypage}
