@@ -5,10 +5,51 @@ import {
   StyleSheet,
   TouchableOpacity,
   ScrollView,
+  Alert,
 } from 'react-native';
 
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import IconC from 'react-native-vector-icons/MaterialCommunityIcons';
+
+const withdrawal = () => {
+  Alert.alert(
+    '탈퇴',
+    '정말로 탈퇴하시겠습니까?',
+    [
+      {text: '취소', onPress: () => {}},
+      {
+        text: '탈퇴',
+        onPress: () => {
+          //onDelete(id);
+        },
+      },
+    ],
+    {
+      cancelable: true,
+      onDismiss: () => {},
+    },
+  );
+};
+
+const logout = () => {
+  Alert.alert(
+    '로그아웃',
+    '로그아웃하시겠습니까?',
+    [
+      {text: '취소', onPress: () => {}},
+      {
+        text: '로그아웃',
+        onPress: () => {
+          //onDelete(id);
+        },
+      },
+    ],
+    {
+      cancelable: true,
+      onDismiss: () => {},
+    },
+  );
+};
 
 export default function Mypage() {
   return (
@@ -105,7 +146,8 @@ export default function Mypage() {
             backgroundColor: '#fff',
             borderRadius: 20,
             marginLeft: 80,
-          }}>
+          }}
+          onPress={() => logout()}>
           <Text style={{color: '#000'}}>로그아웃</Text>
         </TouchableOpacity>
       </View>
@@ -165,7 +207,9 @@ export default function Mypage() {
             <TouchableOpacity style={[styles.btnView2]}>
               <Text style={{fontSize: 20, color: '#000'}}>개인정보 처리방침</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={[styles.btnView2]}>
+            <TouchableOpacity
+              style={[styles.btnView2]}
+              onPress={() => withdrawal()}>
               <Text style={{fontSize: 20, color: '#000'}}>회원탈퇴</Text>
             </TouchableOpacity>
           </TouchableOpacity>
