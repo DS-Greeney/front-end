@@ -7,9 +7,12 @@ import {
   ScrollView,
 } from 'react-native';
 
+import Icon from 'react-native-vector-icons/MaterialIcons';
+import IconC from 'react-native-vector-icons/MaterialCommunityIcons';
+
 export default function Mypage() {
   return (
-    <View style={[styles.view]}>
+    <View style={styles.view}>
       <View style={{flexDirection: 'row'}}>
         <TouchableOpacity
           style={{
@@ -35,7 +38,7 @@ export default function Mypage() {
                 height: 27,
                 width: 90,
                 margin: 5,
-                backgroundColor: '#eee',
+                backgroundColor: '#fff',
                 borderRadius: 20,
                 marginLeft: 80,
               }}>
@@ -54,7 +57,7 @@ export default function Mypage() {
               backgroundColor: '#1A6F3F',
               borderRadius: 20,
             }}>
-            <Text style={{color: '#eee'}}>친환경 애호가</Text>
+            <Text style={{color: '#fff'}}>친환경 애호가</Text>
           </TouchableOpacity>
           <Text style={{fontSize: 15}}>이메일: abc@abc.com</Text>
           <Text style={{fontSize: 15}}>휴대폰 번호: 010-000-000</Text>
@@ -71,7 +74,7 @@ export default function Mypage() {
             width: 90,
             marginTop: 5,
             marginLeft: 10,
-            backgroundColor: '#eee',
+            backgroundColor: '#fff',
             borderRadius: 20,
           }}>
           <Text style={{color: '#000'}}>이미지 변경</Text>
@@ -85,7 +88,7 @@ export default function Mypage() {
             height: 27,
             width: 90,
             margin: 5,
-            backgroundColor: '#eee',
+            backgroundColor: '#fff',
             borderRadius: 20,
           }}>
           <Text style={{color: '#000'}}>칭호 변경</Text>
@@ -99,7 +102,7 @@ export default function Mypage() {
             height: 27,
             width: 90,
             margin: 5,
-            backgroundColor: '#eee',
+            backgroundColor: '#fff',
             borderRadius: 20,
             marginLeft: 80,
           }}>
@@ -109,19 +112,24 @@ export default function Mypage() {
       <View>
         <ScrollView style={styles.scrollView}>
           <TouchableOpacity disabled={true} style={[styles.box, {height: 280}]}>
-            <TouchableOpacity style={[styles.btnView1]}>
+            <TouchableOpacity style={styles.btnView1}>
+              <Icon name="list-alt" size={32} color="#1A6F3F" style={{marginRight: 5}} />
               <Text style={{fontSize: 20, color: '#000'}}>내가 쓴 글</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={[styles.btnView1]}>
+            <TouchableOpacity style={styles.btnView1}>
+              <Icon name="wechat" size={32} color="#1A6F3F" style={{marginRight: 5}} />
               <Text style={{fontSize: 20, color: '#000'}}>내가 댓글 단 글</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={[styles.btnView1]}>
+            <TouchableOpacity style={styles.btnView1}>
+              <Icon name="rate-review" size={32} color="#1A6F3F" style={{marginRight: 5}} />
               <Text style={{fontSize: 20, color: '#000'}}>내가 쓴 후기</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={[styles.btnView1]}>
+            <TouchableOpacity style={styles.btnView1}>
+              <Icon name="shopping-cart" size={32} color="#1A6F3F" style={{marginRight: 5}} />
               <Text style={{fontSize: 20, color: '#000'}}>찜한 목록</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={[styles.btnView1]}>
+            <TouchableOpacity style={styles.btnView1}>
+              <IconC name="medal" size={32} color="#1A6F3F" style={{marginRight: 5}} />
               <Text style={{fontSize: 20, color: '#000'}}>달성한 도전 과제</Text>
             </TouchableOpacity>
           </TouchableOpacity>
@@ -168,17 +176,21 @@ export default function Mypage() {
 }
 
 const styles = StyleSheet.create({
-  view: {flex: 1},
+  view: {
+    backgroundColor: '#FFFFFF',
+    flex: 1,
+  },
   scrollView: {
-    height: 430,
+    height: 490,
     marginHorizontal: 30,
   },
   btnView1: {
-    backgroundColor: '#eee',
-    padding: 12,
+    backgroundColor: '#fff',
+    padding: 10,
+    flexDirection: 'row',
   },
   btnView2: {
-    backgroundColor: '#eee',
+    backgroundColor: '#fff',
     paddingLeft: 12,
     paddingVertical: 7,
   },
@@ -194,7 +206,7 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderColor: '#999',
     marginBottom: 5,
-    backgroundColor: '#eee',
+    backgroundColor: '#fff',
     borderRadius: 20,
     padding: 10,
     marginTop: 15,
