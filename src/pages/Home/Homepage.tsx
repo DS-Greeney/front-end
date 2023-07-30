@@ -11,30 +11,30 @@ import {
 } from 'react-native';
 import Swiper from 'react-native-swiper';
 
-export default function Home() {
+export default function Homepage({navigation}: any) {
   const ImageMenuArray = [
     {
-      image: require('../assets/images/tour.png'),
+      image: require('../../assets/images/home/tour.png'),
       text: '생태 관광',
     },
     {
-      image: require('../assets/images/hotel.png'),
+      image: require('../../assets/images/home/hotel.png'),
       text: '친환경 호텔',
     },
     {
-      image: require('../assets/images/restaurant.png'),
+      image: require('../../assets/images/home/restaurant.png'),
       text: '비건 식당',
     },
     {
-      image: require('../assets/images/market.png'),
+      image: require('../../assets/images/home/market.png'),
       text: '여행 상품',
     },
     {
-      image: require('../assets/images/course.png'),
+      image: require('../../assets/images/home/course.png'),
       text: 'AI 추천코스',
     },
     {
-      image: require('../assets/images/community.png'),
+      image: require('../../assets/images/home/community.png'),
       text: '커뮤니티',
     },
     // require 사용하여 정적 이미지 불러오기.
@@ -44,27 +44,37 @@ export default function Home() {
     {
       title: '요즘 떠오르는 친환경 관광',
       image: [
-        require('../assets/images/swiper1_main.png'),
-        require('../assets/images/swiper2_main.png'),
-        require('../assets/images/swiper3_main.png'),
+        require('../../assets/images/home/swiper1_main.png'),
+        require('../../assets/images/home/swiper2_main.png'),
+        require('../../assets/images/home/swiper3_main.png'),
       ],
     },
     {
       title: '누구나 참여 가능! 친환경 축제',
       image: [
-        require('../assets/images/swiper2_main.png'),
-        require('../assets/images/swiper3_main.png'),
-        require('../assets/images/swiper1_main.png'),
+        require('../../assets/images/home/swiper2_main.png'),
+        require('../../assets/images/home/swiper3_main.png'),
+        require('../../assets/images/home/swiper1_main.png'),
       ],
     },
     {
       title: '여행을 더욱 특별하게 만들어주는 여행 상품',
       image: [
-        require('../assets/images/swiper3_main.png'),
-        require('../assets/images/swiper1_main.png'),
-        require('../assets/images/swiper2_main.png'),
+        require('../../assets/images/home/swiper3_main.png'),
+        require('../../assets/images/home/swiper1_main.png'),
+        require('../../assets/images/home/swiper2_main.png'),
       ],
     },
+  ];
+
+  // 페이지 추가 시 수정하기
+  const navigateList = [
+    'TourSpot',
+    'Homepage',
+    'Homepage',
+    'Homepage',
+    'Homepage',
+    'Homepage',
   ];
 
   return (
@@ -74,7 +84,7 @@ export default function Home() {
         <View style={styles.headtitle}>
           <Image
             style={styles.logo}
-            source={require('../assets/images/logo.png')}
+            source={require('../../assets/images/home/logo.png')}
           />
         </View>
         <View style={styles.searchBar}>
@@ -90,7 +100,10 @@ export default function Home() {
         <View style={styles.menuContainer}>
           {ImageMenuArray.map((menuList, idx) => {
             return (
-              <TouchableOpacity key={idx} style={styles.menuItem}>
+              <TouchableOpacity
+                key={idx}
+                style={styles.menuItem}
+                onPress={() => navigation.navigate(navigateList[idx])}>
                 <View style={styles.menuwrap}>
                   <Image style={styles.images} source={menuList.image} />
                   <Text style={styles.title}>{menuList.text}</Text>
@@ -112,9 +125,18 @@ export default function Home() {
                 autoplayTimeout={4}
                 showsButtons={true}
                 //버튼 이미지로 넣었음 ㅋ 나중에 커스텀 해야함
-                prevButton={<Image style={styles.prevBtnImage} source={require('../assets/images/prev_btn.png')} />}
-                nextButton={<Image style={styles.nextBtnImage} source={require('../assets/images/next_btn.png')} />}
-                >
+                prevButton={
+                  <Image
+                    style={styles.prevBtnImage}
+                    source={require('../../assets/images/home/prev_btn.png')}
+                  />
+                }
+                nextButton={
+                  <Image
+                    style={styles.nextBtnImage}
+                    source={require('../../assets/images/home/next_btn.png')}
+                  />
+                }>
                 {/* <View style={styles.slide} key={index}> */}
                 {/* <View style={styles.imageContainer} key={index}> */}
                 {item.image.map((image, idx) => (
@@ -185,7 +207,6 @@ const styles = StyleSheet.create({
     marginTop: 2,
     marginBottom: 20,
   },
-  searchInput: {},
   images: {
     width: 54,
     height: 54,
