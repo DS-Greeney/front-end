@@ -9,6 +9,7 @@ import {
   ScrollView,
   TouchableOpacity,
 } from 'react-native';
+import SearchBar from '../../components/SearchBar';
 import Swiper from 'react-native-swiper';
 
 export default function Homepage({navigation}: any) {
@@ -87,13 +88,7 @@ export default function Homepage({navigation}: any) {
             source={require('../../assets/images/home/logo.png')}
           />
         </View>
-        <View style={styles.searchBar}>
-          <TextInput
-            style={styles.searchInput}
-            placeholder={'어디로 여행을 떠날 예정이신가요?'}
-            autoFocus
-          />
-        </View>
+        <SearchBar placeholderText={'어디로 여행을 떠날 예정이신가요?'} />
       </View>
 
       <ScrollView horizontal={false} style={styles.container}>
@@ -197,15 +192,6 @@ const styles = StyleSheet.create({
   logo: {
     width: 161,
     height: 43,
-  },
-  searchBar: {
-    width: 340,
-    height: 37,
-    backgroundColor: '#F3F3F3',
-    borderRadius: 30,
-    paddingLeft: 30,
-    marginTop: 2,
-    marginBottom: 20,
   },
   images: {
     width: 54,
