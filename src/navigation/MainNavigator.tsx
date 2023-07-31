@@ -7,6 +7,10 @@ import Home from '../pages/Home';
 import Search from '../pages/Search';
 import Map from '../pages/Map';
 import Mypage from '../pages/Mypage';
+import Login from '../pages/Login';
+import SignUp from '../pages/SignUp';
+import TourAttractionDetile from '../components/TourAttractionDetile';
+import RestaurantDetile from '../components/RestaurantDetile';
 
 const Tab = createBottomTabNavigator();
 
@@ -25,6 +29,10 @@ export default function MainNavigator() {
           ),
         }}
       />
+      <Tab.Screen name="Login" component={Login} />
+      <Tab.Screen name="SignUp" component={SignUp} />
+      <Tab.Screen name="tour" component={TourAttractionDetile} />
+      <Tab.Screen name="food" component={RestaurantDetile} />
       <Tab.Screen
         name="Search"
         component={Search}

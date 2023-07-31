@@ -56,7 +56,7 @@ export default function SignUp() {
 
   const handleConfirm = (date) => {
     hideDatePicker();
-    onChangeText(date.format('yyyy년 MM월 dd일'));
+    onChangeText(date.format('yyyy년 MM월 dd일')); //백에 보낼 때 yyyyMMdd로
   };
 
   return (
@@ -129,7 +129,7 @@ export default function SignUp() {
               justifyContent: 'center',
               height: 22,
               width: 42,
-              backgroundColor: '#eee',
+              backgroundColor: '#fff',
               borderRadius: 15,
             }}>
             <Text style={[styles.smallText]}>남자</Text>
@@ -142,7 +142,7 @@ export default function SignUp() {
               justifyContent: 'center',
               height: 22,
               width: 42,
-              backgroundColor: '#eee',
+              backgroundColor: '#fff',
               borderRadius: 15,
               marginLeft: 10,
             }}>
@@ -156,7 +156,7 @@ export default function SignUp() {
               justifyContent: 'center',
               height: 22,
               width: 62,
-              backgroundColor: '#eee',
+              backgroundColor: '#fff',
               borderRadius: 15,
               marginLeft: 10,
             }}>
@@ -184,6 +184,7 @@ const styles = StyleSheet.create({
   view: {
     flex: 1,
     marginTop: 20,
+    backgroundColor: '#FFFFFF',
   },
   textView: {
     paddingHorizontal: 30,
@@ -194,7 +195,6 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 13,
     color: '#1A6F3F',
-    textAlign: "right",
   },
   smallText: {
     fontSize: 11,
@@ -227,7 +227,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     height: 22,
     width: 52,
-    backgroundColor: '#eee',
+    backgroundColor: '#fff',
     marginLeft: 10,
   },
   numInput: {

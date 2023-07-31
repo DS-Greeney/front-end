@@ -56,6 +56,7 @@ export default function Mypage() {
     <View style={styles.view}>
       <View style={{flexDirection: 'row'}}>
         <TouchableOpacity
+          disabled={true}
           style={{
             alignItems: 'center',
             justifyContent: 'center',
@@ -93,12 +94,12 @@ export default function Mypage() {
               alignItems: 'center',
               justifyContent: 'center',
               height: 27,
-              width: 100,
+              width: 155,
               marginBottom: 5,
               backgroundColor: '#1A6F3F',
               borderRadius: 20,
             }}>
-            <Text style={{color: '#fff'}}>친환경 애호가</Text>
+            <Text style={{color: '#fff'}}>존경받는 환경 보호 영웅</Text>
           </TouchableOpacity>
           <Text style={{fontSize: 15}}>이메일: abc@abc.com</Text>
           <Text style={{fontSize: 15}}>휴대폰 번호: 010-000-000</Text>
