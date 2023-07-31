@@ -7,9 +7,11 @@ import {
   ScrollView,
   Alert,
 } from 'react-native';
-
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import IconC from 'react-native-vector-icons/MaterialCommunityIcons';
+
+import Header from '../components/Common/Header';
+import {useNavigation} from '@react-navigation/native';
 
 const withdrawal = () => {
   Alert.alert(
@@ -52,8 +54,10 @@ const logout = () => {
 };
 
 export default function Mypage() {
+  let navigation = useNavigation();
   return (
     <View style={styles.view}>
+      <Header navigation={navigation} type={'HOME'} title={'마이페이지'} />
       <View style={{flexDirection: 'row'}}>
         <TouchableOpacity
           disabled={true}

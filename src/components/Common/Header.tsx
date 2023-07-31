@@ -10,12 +10,21 @@ interface propType {
 
 const Header = ({title, type, navigation}: propType) => {
   const goBack = useCallback(() => navigation.pop(), []);
+  const goHome = useCallback(() => navigation.navigate('Homepage'), []);
 
   return (
     <View style={styles.container}>
       <View style={styles.head}>
         {type === 'BACK' && (
           <TouchableOpacity onPress={goBack}>
+            <Image
+              style={{width: 20, height: 20}}
+              source={require('../../assets/images/back-arrow.png')}
+            />
+          </TouchableOpacity>
+        )}
+        {type === 'HOME' && (
+          <TouchableOpacity onPress={goHome}>
             <Image
               style={{width: 20, height: 20}}
               source={require('../../assets/images/back-arrow.png')}

@@ -9,38 +9,25 @@ import {
 } from 'react-native';
 import {useState} from 'react';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
-
-Date.prototype.format = function(f) {
-  if (!this.valueOf()) return ' ';
-  var d = this;
-  return f.replace(/(yyyy|MM|dd)/gi, function($1) {
-      switch ($1) {
-          case "yyyy": return d.getFullYear();
-          case "MM": return (d.getMonth() + 1).zf(2);
-          case "dd": return d.getDate().zf(2);
-          default: return $1;
-      }
-  });
-};
-
-String.prototype.string = function(len){var s = '', i = 0; while (i++ < len) { s += this; } return s;};
-String.prototype.zf = function(len){return "0".string(len - this.length) + this;};
-Number.prototype.zf = function(len){return this.toString().zf(len);};
+import axios from 'axios';
 
 export default function SignUp() {
-  // const [userName, setUserName] = useState('');
-  // const [useremail, setUserEmail] = useState('');
-  // const [userpassword, setUserPassword] = useState('');
-  // const [userPasswordchk, setUserPasswordchk] = useState('');
-  // const [userPhoneNum, setUserPhoneNum] = useState('');
-  // const [userBirth, setUserBirth] = useState('');
-  // const [userGender, setUserGender] = useState('');
+  Date.prototype.format = function(f) {
+    if (!this.valueOf()) return ' ';
+    var d = this;
+    return f.replace(/(yyyy|MM|dd)/gi, function($1) {
+        switch ($1) {
+            case "yyyy": return d.getFullYear();
+            case "MM": return (d.getMonth() + 1).zf(2);
+            case "dd": return d.getDate().zf(2);
+            default: return $1;
+        }
+    });
+  };
 
-  // const genderListData = [
-  //   {id: 1, menu: '남자'},
-  //   {id: 2, menu: '여자'},
-  //   {id: 3, menu: '선택 안 함'},
-  // ];
+  String.prototype.string = function(len){var s = '', i = 0; while (i++ < len) { s += this; } return s;};
+  String.prototype.zf = function(len){return "0".string(len - this.length) + this;};
+  Number.prototype.zf = function(len){return this.toString().zf(len);};
 
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
   const placeholder = '날짜를 입력해주세요';
@@ -56,15 +43,65 @@ export default function SignUp() {
 
   const handleConfirm = (date) => {
     hideDatePicker();
-    onChangeText(date.format('yyyy년 MM월 dd일')); //백에 보낼 때 yyyyMMdd로
+    onChangeText(date.format('yyyy년 MM월 dd일'));
+    handleInputChange('userBirthdate', date.format('yyyyMMdd'));
   };
+
+  const dummySpotData=[
+    {
+      userNickname: '강수민',
+      userEmail: 'ski03257@naver.com',
+      userPassword: '1234',
+      userPhonenum: '01033972435',
+      userBirthdate: '20001030',
+      userGender: 2,
+    },
+  ];
+
+  interface UserModel {
+    userNickname: string;
+    userEmail: string;
+    userPassword: string;
+    userPhonenum: string;
+    userBirthdate: string;
+    userGender: string;
+  }
+  const [user, setUser] = useState<UserModel>({
+    userNickname: '',
+    userEmail: '',
+    userPassword: '',
+    userPhonenum: '',
+    userBirthdate: '',
+    userGender: '',
+  });
+
+  const genderList = [
+    {id: 1, menu: '남자'},
+    {id: 2, menu: '여자'},
+    {id: 3, menu: '선택 안 함'},
+  ];
+
+  const handleInputChange = (key: string, value: string) => {
+    setUser(prevState => ({
+      ...prevState,
+      [key]: value,
+    }));
+  };
+
+  function handleClick(){
+    console.log(user);
+  }
 
   return (
     <View style={[styles.view]}>
       <ScrollView>
         <View style={[styles.textView]}>
           <Text style={[styles.text, {marginRight: 50}]}>닉네임</Text>
-          <TextInput style={[styles.textInput]}> </TextInput>
+          <TextInput
+            style={[styles.textInput]}
+            onChangeText={text => {
+              handleInputChange('userNickname', text);
+            }}></TextInput>
           <TouchableOpacity style={[styles.chkbutton]}>
             <Text style={[styles.smallText]}>중복확인</Text>
           </TouchableOpacity>
@@ -72,7 +109,11 @@ export default function SignUp() {
         <Text style={[styles.smallText, {marginLeft: 120, marginTop: 5}]}>사용할 수 있는 닉네임입니다.</Text>
         <View style={[styles.textView]}>
           <Text style={[styles.text, {marginRight: 50}]}>이메일</Text>
-          <TextInput style={[styles.textInput]}> </TextInput>
+          <TextInput
+            style={[styles.textInput]}
+            onChangeText={text => {
+              handleInputChange('userEmail', text);
+            }}></TextInput>
           <TouchableOpacity style={[styles.chkbutton]}>
             <Text style={[styles.smallText]}>인증하기</Text>
           </TouchableOpacity>
@@ -80,7 +121,7 @@ export default function SignUp() {
         <Text style={[styles.smallText, {marginLeft: 120, marginTop: 5}]}>인증 완료되었습니다.</Text>
         <View style={[styles.textView]}>
           <Text style={[styles.text, {marginRight: 37}]}>비밀번호</Text>
-          <TextInput style={[styles.textInput]}> </TextInput>
+          <TextInput style={[styles.textInput]}></TextInput>
         </View>
         <View style={[styles.textView, {marginTop: 10}]}>
           <Text style={[styles.text, {marginRight: 10}]}>비밀번호 확인</Text>
@@ -110,6 +151,9 @@ export default function SignUp() {
               underlineColorAndroid="transparent"
               editable={false}
               value={text}
+              onChangeText={text => {
+                handleInputChange('userBirthdate', text);
+              }}
             />
             <DateTimePickerModal
               isVisible={isDatePickerVisible}
@@ -164,6 +208,7 @@ export default function SignUp() {
           </TouchableOpacity>
         </View>
         <TouchableOpacity
+          onPress={handleClick}
           style={{
             borderWidth: 0,
             alignItems: 'center',
@@ -183,7 +228,6 @@ export default function SignUp() {
 const styles = StyleSheet.create({
   view: {
     flex: 1,
-    marginTop: 20,
     backgroundColor: '#FFFFFF',
   },
   textView: {
