@@ -2,8 +2,9 @@ import React, {useState} from 'react';
 import {View, Text, StyleSheet, ScrollView, FlatList} from 'react-native';
 import Header from '../../components/Common/Header';
 import SearchBar from '../../components/SearchBar';
-import FilterBtn from '../../components/filter/FilterBtn';
-import Tourspot from '../../components/Ecotourism/Tourspot';
+// import FilterBtn from '../../components/filter/FilterBtn';
+import Tourspot from '../../components/Recommend/Tourspot';
+import FilterList from '../../components/filter/FilterList';
 import {useNavigation} from '@react-navigation/native';
 
 const areaList = [
@@ -68,18 +69,19 @@ const dummySpotData = [
 
 export default function TourspotPage() {
   let navigation = useNavigation();
-  const [selectArea, setSelectArea] = useState('전체');
+  // const [selectArea, setSelectArea] = useState('전체');
 
-  const handleFilterClick = (name: string) => {
-    setSelectArea(name);
-  };
+  // const handleFilterClick = (name: string) => {
+  //   setSelectArea(name);
+  // };
 
   return (
     <View style={styles.tourspot}>
       <Header navigation={navigation} type={'BACK'} title={'생태 관광'} />
       <SearchBar placeholderText={'검색어를 입력해주세요'} />
+      <FilterList areaList={areaList} />
 
-      <ScrollView horizontal={true} style={styles.filtercontainer}>
+      {/* <ScrollView horizontal={true} style={styles.filtercontainer}>
         {areaList.map((area, idx) => {
           if (selectArea.includes(area)) {
             return (
@@ -101,7 +103,7 @@ export default function TourspotPage() {
             );
           }
         })}
-      </ScrollView>
+      </ScrollView> */}
       <View style={styles.spotlist}>
         <FlatList
           data={dummySpotData}
@@ -119,9 +121,9 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     flex: 1,
   },
-  filtercontainer: {
-    marginHorizontal: 25,
-  },
+  // filtercontainer: {
+  //   marginHorizontal: 25,
+  // },
   spotlist: {
     height: '77%',
   },

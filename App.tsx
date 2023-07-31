@@ -11,6 +11,7 @@ import Map from './src/pages/Map';
 import Login from './src/pages/Login';
 import Mypage from './src/pages/Mypage';
 import TourSpot from './src/pages/Recommend/TourspotPage';
+import Restaurant from './src/pages/Recommend/RestaurantPage';
 
 const Stack = createNativeStackNavigator();
 
@@ -56,6 +57,11 @@ export default function App() {
           name="TourSpot"
           component={TourSpot}
           options={{title: '생태 관광'}}
+        />
+        <Stack.Screen
+          name="Restaurant"
+          component={Restaurant}
+          options={{title: '비건 식당'}}
         />
       </Stack.Navigator>
     </NavigationContainer>

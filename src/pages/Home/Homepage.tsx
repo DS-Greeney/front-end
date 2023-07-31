@@ -72,7 +72,7 @@ export default function Homepage({navigation}: any) {
   const navigateList = [
     'TourSpot',
     'Homepage',
-    'Homepage',
+    'Restaurant',
     'Homepage',
     'Homepage',
     'Homepage',
