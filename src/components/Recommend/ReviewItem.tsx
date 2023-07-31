@@ -3,7 +3,8 @@ import {View, Text, Image, StyleSheet, TouchableOpacity} from 'react-native';
 
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
-export default function ReviewItem() { //pros
+export default function ReviewItem() {
+  //pros
   return (
     <View>
       <View style={{flexDirection: 'row'}}>
@@ -29,11 +30,20 @@ export default function ReviewItem() { //pros
           </View>
         </View>
       </View>
-      <Image style={styles.image3} source={require('../assets/images/swiper1_main.png')} />
-    <Text style={{color: '#000', fontSize: 14, marginHorizontal: 40, marginBottom: 40}}>
-      작성자리뷰작성자리뷰작성자리뷰작성자리뷰작성자리뷰
-    </Text>
-  </View>
+      <Image
+        style={styles.image3}
+        source={require('../../assets/images/home/swiper1_main.png')}
+      />
+      <Text
+        style={{
+          color: '#000',
+          fontSize: 14,
+          marginHorizontal: 40,
+          marginBottom: 40,
+        }}>
+        작성자리뷰작성자리뷰작성자리뷰작성자리뷰작성자리뷰
+      </Text>
+    </View>
   );
 }
 

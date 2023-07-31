@@ -13,9 +13,9 @@ import Swiper from 'react-native-swiper';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import IconC from 'react-native-vector-icons/MaterialCommunityIcons';
 
-import ReviewItem from './ReviewItem';
+import ReviewItem from '../../components/Recommend/ReviewItem';
 
-export default function RestaurantDetile() {
+export default function TourAttractionDetile() {
   let [inputCount, setInputCount] = useState(0);
 
   return (
@@ -26,23 +26,57 @@ export default function RestaurantDetile() {
           showsPagination={true}
           height={350}
           autoplayTimeout={4}>
-          <Image style={styles.image} source={require('../assets/images/swiper1_main.png')} />
-          <Image style={styles.image} source={require('../assets/images/swiper2_main.png')} />
-          <Image style={styles.image} source={require('../assets/images/swiper3_main.png')} />
+          <Image
+            style={styles.image}
+            source={require('../../assets/images/home/swiper1_main.png')}
+          />
+          <Image
+            style={styles.image}
+            source={require('../../assets/images/home/swiper2_main.png')}
+          />
+          <Image
+            style={styles.image}
+            source={require('../../assets/images/home/swiper3_main.png')}
+          />
         </Swiper>
         <View style={styles.title}>
-          <View style={{flexDirection: 'row'}}>
-            <Text style={{fontSize: 30, color: '#000'}}>음식점 이름</Text>
-            <Text style={{fontSize: 20, color: '#666', marginLeft: 20, marginTop: 5, marginBottom: 5}}>음식</Text>
-          </View>
-          <IconC name="cards-heart-outline" size={40} color="#1A6F3F" style={{marginRight: 5}} />
+          <Text style={{fontSize: 30, color: '#000'}}>관광지 이름</Text>
+          <IconC
+            name="cards-heart-outline"
+            size={40}
+            color="#1A6F3F"
+            style={{marginRight: 5}}
+          />
         </View>
-        <Text style={{fontSize: 20, color: '#666', marginLeft: 20, marginTop: 5, marginBottom: 5}}>지역 시군구</Text>
+        <Text
+          style={{
+            fontSize: 20,
+            color: '#666',
+            marginLeft: 20,
+            marginTop: 5,
+            marginBottom: 5,
+          }}>
+          지역 시군구
+        </Text>
         <View style={styles.view2}>
-          <Icon name="star-rate" size={28} color="#FCE25F" style={{marginRight: 5}} />
+          <Icon
+            name="star-rate"
+            size={28}
+            color="#FCE25F"
+            style={{marginRight: 5}}
+          />
           <Text style={{fontSize: 20, color: '#000'}}> 별점 / 5</Text>
         </View>
         <View style={styles.view2}>
+          <Text
+            style={[
+              styles.text,
+              {fontSize: 16, marginBottom: 10, marginTop: 10},
+            ]}>
+            관광지소개글관광지소개글관광지소개글관광지소개글관광지소개글관광지소개글
+          </Text>
+        </View>
+        <View style={styles.view2}>
           <TouchableOpacity
             disabled={true}
             style={{
@@ -53,41 +87,39 @@ export default function RestaurantDetile() {
           {/* <Image source={require('')} /> */}
         </View>
         <View style={styles.view2}>
-          <Text style={[styles.text, {color: '#666', marginRight: 40}]}>주소</Text>
+          <Text style={[styles.text, {color: '#666', marginRight: 40}]}>
+            주소
+          </Text>
           <Text style={styles.text}>주소주소주소주소주소주소</Text>
         </View>
         <View style={styles.view2}>
-          <Text style={[styles.text, {color: '#666', marginRight: 15}]}>전화번호</Text>
+          <Text style={[styles.text, {color: '#666', marginRight: 15}]}>
+            전화번호
+          </Text>
           <Text style={styles.text}>000-000-0000</Text>
         </View>
         <View style={styles.view2}>
-          <Text style={[styles.text, {color: '#666', marginRight: 15}]}>메뉴</Text>
+          <Text style={[styles.text, {color: '#666', marginRight: 15}]}>
+            홈페이지
+          </Text>
+          <Text style={styles.text}>http://www.abcd.net/kr/</Text>
         </View>
         <View style={styles.view2}>
-          <TouchableOpacity
-            disabled={true}
-            style={{
-              height: 130,
-              width: '100%',
-              backgroundColor: '#ccc',
-              borderRadius: 20,
-            }}></TouchableOpacity>
-          {/* <Image source={require('')} /> */}
+          <Text style={[styles.text, {color: '#666', marginRight: 40}]}>
+            주차
+          </Text>
+          <Text style={styles.text}>가능</Text>
         </View>
-        <View style={{marginHorizontal: 20, marginTop: 5, marginBottom: 5}}>
-          <View style={styles.menu}>
-            <Text style={styles.text}>메뉴메뉴메뉴메뉴</Text>
-            <Text style={styles.text}>13,000원</Text>
-          </View>
-          <View style={styles.menu}>
-            <Text style={styles.text}>메뉴메뉴메뉴메뉴</Text>
-            <Text style={styles.text}>13,000원</Text>
-          </View>
-          <View style={styles.menu}>
-            <Text style={styles.text}>메뉴메뉴메뉴메뉴</Text>
-            <Text style={styles.text}>13,000원</Text>
-          </View>
+        <View style={styles.view2}></View>
+        <View style={styles.view2}>
+          <Text style={styles.text}>
+            관광지상세소개글관광지상세소개글관광지상세소개글관광지상세소개글관광지상세소개글관광지상세소개글관광지상세소개글관광지상세소개글관광지상세소개글관광지상세소개글관광지상세소개글관광지상세소개글관광지상세소개글관광지상세소개글관광지상세소개글관광지상세소개글관광지상세소개글관광지상세소개글관광지상세소개글관광지상세소개글관광지상세소개글관광지상세소개글관광지상세소개글
+          </Text>
         </View>
+        <Image
+          style={styles.image2}
+          source={require('../../assets/images/home/swiper1_main.png')}
+        />
         <View style={styles.view2}>
           <TouchableOpacity
             disabled={true}
@@ -105,7 +137,7 @@ export default function RestaurantDetile() {
         </View>
         <TouchableOpacity disabled={true} style={styles.textInput}>
           <TextInput
-            onChangeText={(event) => {
+            onChangeText={event => {
               setInputCount(event.length); //replace(/[\0-\x7f]|([0-\u07ff]|(.))/g, "$&$1$2").
             }}
             textAlignVertical="top"
@@ -114,15 +146,32 @@ export default function RestaurantDetile() {
             numberOfLines={4}
             maxLength={200}
             style={{height: 90}}
-            placeholder='여러분의 소중한 식당 후기를 남겨주세요'
+            placeholder="여러분의 소중한 여행 후기를 남겨주세요"
             placeholderTextColor="#666"></TextInput>
           <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
             <Text style={styles.text}>{inputCount}/200자</Text>
             <View style={{flexDirection: 'row'}}>
-              <Icon name="star-rate" size={22} color="#ccc" style={{marginRight: 5}} />
-              <Text style={{marginRight: 5, color: '#000', fontSize: 14,}}>별점/5</Text>
-              <Icon name="camera-alt" size={22} color="#000" style={{marginRight: 5}} />
-              <Icon name="send" size={22} color="#000" style={{marginRight: 5}} />
+              <Icon
+                name="star-rate"
+                size={22}
+                color="#ccc"
+                style={{marginRight: 5}}
+              />
+              <Text style={{marginRight: 5, color: '#000', fontSize: 14}}>
+                별점/5
+              </Text>
+              <Icon
+                name="camera-alt"
+                size={22}
+                color="#000"
+                style={{marginRight: 5}}
+              />
+              <Icon
+                name="send"
+                size={22}
+                color="#000"
+                style={{marginRight: 5}}
+              />
             </View>
           </View>
         </TouchableOpacity>
@@ -171,11 +220,6 @@ const styles = StyleSheet.create({
     marginHorizontal: 20,
     marginTop: 5,
     marginBottom: 5,
-  },
-  menu: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginTop: 5,
   },
   text: {
     color: '#000',

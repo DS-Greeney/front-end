@@ -1,16 +1,15 @@
 import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import Icon from 'react-native-vector-icons/MaterialIcons';
-import IconC from 'react-native-vector-icons/MaterialCommunityIcons';
-
-import Home from '../pages/Home';
-import Search from '../pages/Search';
+import Homepage from '../pages/Home/Homepage';
+import Search from '../pages/Home/Search';
 import Map from '../pages/Map';
 import Mypage from '../pages/Mypage';
 import Login from '../pages/Login';
 import SignUp from '../pages/SignUp';
-import TourAttractionDetile from '../components/TourAttractionDetile';
-import RestaurantDetile from '../components/RestaurantDetile';
+import TourAttractionDetile from '../pages/Recommend/TourAttractionDetile';
+import RestaurantDetile from '../pages/Recommend/RestaurantDetile';
+import Icon from 'react-native-vector-icons/MaterialIcons';
+import IconC from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const Tab = createBottomTabNavigator();
 
@@ -20,8 +19,8 @@ export default function MainNavigator() {
     <Tab.Navigator
       screenOptions={{headerShown: false, tabBarActiveTintColor: '#1A6F3F'}}>
       <Tab.Screen
-        name="Home"
-        component={Home}
+        name="Homepage"
+        component={Homepage}
         options={{
           title: '홈',
           tabBarIcon: ({color, size}) => (
