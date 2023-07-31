@@ -119,7 +119,7 @@ export default function Homepage({navigation}: any) {
                 autoplay
                 autoplayTimeout={4}
                 showsButtons={true}
-                //버튼 이미지로 넣었음 ㅋ 나중에 커스텀 해야함
+                //버튼 이미지
                 prevButton={
                   <Image
                     style={styles.prevBtnImage}
@@ -201,6 +201,7 @@ const styles = StyleSheet.create({
     flex: 1,
     width: '100%',
     backgroundColor: '#fff',
+    marginTop: 5,
   },
   menuContainer: {
     flexDirection: 'row',
