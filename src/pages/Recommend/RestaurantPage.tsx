@@ -90,7 +90,8 @@ export default function TourspotPage() {
       <View style={styles.container}>
         <View style={styles.line} />
         <FlatList
-          style={styles.veganspots}
+          style={styles.veganlist}
+          numColumns={2}
           data={dummyVeganData}
           renderItem={({item}) => (
             <Veganspot data={item} navigation={navigation} />
@@ -109,13 +110,12 @@ const styles = StyleSheet.create({
   container: {
     height: '77%',
     marginHorizontal: 30,
+    // alignItems: 'center',
   },
   line: {
     borderStyle: 'solid',
     borderWidth: 0.5,
     borderColor: '#B1B1B1',
   },
-  veganspots: {
-    flex: 1,
-  },
+  veganlist: {},
 });
