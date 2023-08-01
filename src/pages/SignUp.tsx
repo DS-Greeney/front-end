@@ -99,15 +99,25 @@ export default function SignUp() {
   };
 
   function handleClick() {
-    // console.log(user);
+    // console.log(user.userNickname);
+    // console.log(user.userEmail);
+    // console.log(user.userPassword);
+    // console.log(user.userPhonenum);
+    // console.log(user.userBirthdate);
     axios
-      .post('http://localhost:8081/api/users/register', {
-        userNickname: user.userNickname,
-        userEmail: user.userEmail,
-        userPassword: user.userPassword,
-        userPhonenum: user.userPhonenum,
-        userBirthdate: user.userBirthdate,
-        userGender: user.userGender,
+      .post('http://10.0.2.2:8082/api/users/register', {
+        userNickname: '강',
+        userEmail: 'ski027@naver.com',
+        userPassword: '24',
+        userPhonenum: '033972435',
+        userBirthdate: '001030',
+        userGender: 1,
+        // userNickname: user.userNickname,
+        // userEmail: user.userEmail,
+        // userPassword: user.userPassword,
+        // userPhonenum: user.userPhonenum,
+        // userBirthdate: user.userBirthdate,
+        // userGender: 3,
       })
       .then(function (response) {
         console.log(response);
