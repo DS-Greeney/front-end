@@ -7,11 +7,18 @@ import {
   TouchableOpacity,
   ScrollView,
 } from 'react-native';
-import {useState} from 'react';
+import {useState, useCallback} from 'react';
+import {useNavigation} from '@react-navigation/native';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import axios from 'axios';
 
+import Header from '../components/Common/Header';
+import FilterBtn from '../components/filter/FilterBtn';
+
 export default function SignUp() {
+  let navigation = useNavigation();
+
   Date.prototype.format = function(f) {
     if (!this.valueOf()) return ' ';
     var d = this;
@@ -47,6 +54,13 @@ export default function SignUp() {
     handleInputChange('userBirthdate', date.format('yyyyMMdd'));
   };
 
+  const [selectArea, setSelectArea] = useState('전체');
+
+  const handleFilterClick = (name: string) => {
+    setSelectArea(name);
+    handleInputChange('userGender', name);
+  };
+
   const dummySpotData=[
     {
       userNickname: '강수민',
@@ -75,11 +89,7 @@ export default function SignUp() {
     userGender: '',
   });
 
-  const genderList = [
-    {id: 1, menu: '남자'},
-    {id: 2, menu: '여자'},
-    {id: 3, menu: '선택 안 함'},
-  ];
+  const genderList = ['남자', '여자', '선택 안 함'];
 
   const handleInputChange = (key: string, value: string) => {
     setUser(prevState => ({
@@ -88,13 +98,29 @@ export default function SignUp() {
     }));
   };
 
-  function handleClick(){
-    console.log(user);
+  function handleClick() {
+    // console.log(user);
+    axios
+      .post('http://localhost:8081/api/users/register', {
+        userNickname: user.userNickname,
+        userEmail: user.userEmail,
+        userPassword: user.userPassword,
+        userPhonenum: user.userPhonenum,
+        userBirthdate: user.userBirthdate,
+        userGender: user.userGender,
+      })
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   }
 
   return (
     <View style={[styles.view]}>
-      <ScrollView>
+      <Header navigation={navigation} type={'BACK'} title={'회원가입'} />
+      <KeyboardAwareScrollView style={{flex: 1}}>
         <View style={[styles.textView]}>
           <Text style={[styles.text, {marginRight: 50}]}>닉네임</Text>
           <TextInput
@@ -110,6 +136,7 @@ export default function SignUp() {
         <View style={[styles.textView]}>
           <Text style={[styles.text, {marginRight: 50}]}>이메일</Text>
           <TextInput
+            keyboardType="email-address"
             style={[styles.textInput]}
             onChangeText={text => {
               handleInputChange('userEmail', text);
@@ -130,11 +157,13 @@ export default function SignUp() {
         <Text style={[styles.smallText, {marginLeft: 120, marginTop: 5}]}>비밀번호가 일치합니다.</Text>
         <View style={[styles.textView]}>
           <Text style={[styles.text, {marginRight: 22}]}>휴대폰 번호</Text>
-          <TextInput style={[styles.numInput, {width: 35}]}> </TextInput>
-          <Text style={{fontSize: 27, color: '#333'}}>-</Text>
-          <TextInput style={[styles.numInput, {width: 45}]}> </TextInput>
-          <Text style={{fontSize: 27, color: '#333'}}>-</Text>
-          <TextInput style={[styles.numInput, {width: 45}]}> </TextInput>
+          <TextInput
+            keyboardType="phone-pad"
+            maxLength={11}
+            style={[styles.numInput, {width: 190}]}
+            onChangeText={text => {
+              handleInputChange('userPhonenum', text);
+            }}></TextInput>
           <TouchableOpacity style={[styles.chkbutton]}>
             <Text style={[styles.smallText]}>인증하기</Text>
           </TouchableOpacity>
@@ -207,6 +236,27 @@ export default function SignUp() {
             <Text style={[styles.smallText]}>선택 안 함</Text>
           </TouchableOpacity>
         </View>
+        {genderList.map((area, idx) => {
+          if (selectArea.includes(area)) {
+            return (
+              <FilterBtn
+                key={idx}
+                name={area}
+                selected={true}
+                onPress={handleFilterClick}
+              />
+            );
+          } else {
+            return (
+              <FilterBtn
+                key={idx}
+                name={area}
+                selected={false}
+                onPress={handleFilterClick}
+              />
+            );
+          }
+        })}
         <TouchableOpacity
           onPress={handleClick}
           style={{
@@ -220,7 +270,7 @@ export default function SignUp() {
           }}>
           <Text style={{fontSize: 25, color: '#000'}}>가입하기</Text>
         </TouchableOpacity>
-      </ScrollView>
+      </KeyboardAwareScrollView>
     </View>
   );
 }
@@ -234,7 +284,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 30,
     flexDirection: 'row',
     alignItems: 'center',
-    marginTop: 30,
+    marginTop: 20,
   },
   text: {
     fontSize: 13,
