@@ -160,24 +160,53 @@ export default function Mypage() {
         <ScrollView style={styles.scrollView}>
           <TouchableOpacity disabled={true} style={[styles.box, {height: 280}]}>
             <TouchableOpacity style={styles.btnView1}>
-              <Icon name="list-alt" size={32} color="#1A6F3F" style={{marginRight: 5}} />
+              <Icon
+                name="list-alt"
+                size={32}
+                color="#1A6F3F"
+                style={{marginRight: 5}}
+              />
               <Text style={{fontSize: 20, color: '#000'}}>내가 쓴 글</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.btnView1}>
-              <Icon name="wechat" size={32} color="#1A6F3F" style={{marginRight: 5}} />
+              <Icon
+                name="wechat"
+                size={32}
+                color="#1A6F3F"
+                style={{marginRight: 5}}
+              />
               <Text style={{fontSize: 20, color: '#000'}}>내가 댓글 단 글</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.btnView1}>
-              <Icon name="rate-review" size={32} color="#1A6F3F" style={{marginRight: 5}} />
+              <Icon
+                name="rate-review"
+                size={32}
+                color="#1A6F3F"
+                style={{marginRight: 5}}
+              />
               <Text style={{fontSize: 20, color: '#000'}}>내가 쓴 후기</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.btnView1}>
-              <Icon name="shopping-cart" size={32} color="#1A6F3F" style={{marginRight: 5}} />
+            <TouchableOpacity
+              style={styles.btnView1}
+              onPress={() => navigation.navigate('Likelist')}>
+              <Icon
+                name="shopping-cart"
+                size={32}
+                color="#1A6F3F"
+                style={{marginRight: 5}}
+              />
               <Text style={{fontSize: 20, color: '#000'}}>찜한 목록</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.btnView1}>
-              <IconC name="medal" size={32} color="#1A6F3F" style={{marginRight: 5}} />
-              <Text style={{fontSize: 20, color: '#000'}}>달성한 도전 과제</Text>
+              <IconC
+                name="medal"
+                size={32}
+                color="#1A6F3F"
+                style={{marginRight: 5}}
+              />
+              <Text style={{fontSize: 20, color: '#000'}}>
+                달성한 도전 과제
+              </Text>
             </TouchableOpacity>
           </TouchableOpacity>
           <TouchableOpacity disabled={true} style={[styles.box, {height: 240}]}>
@@ -186,7 +215,9 @@ export default function Mypage() {
               <Text style={{fontSize: 20, color: '#000'}}>비밀번호 변경</Text>
             </TouchableOpacity>
             <TouchableOpacity style={[styles.btnView2]}>
-              <Text style={{fontSize: 20, color: '#000'}}>이메일 및 휴대폰 재인증</Text>
+              <Text style={{fontSize: 20, color: '#000'}}>
+                이메일 및 휴대폰 재인증
+              </Text>
             </TouchableOpacity>
             <TouchableOpacity style={[styles.btnView2]}>
               <Text style={{fontSize: 20, color: '#000'}}>언어 설정</Text>
@@ -210,7 +241,9 @@ export default function Mypage() {
               <Text style={{fontSize: 20, color: '#000'}}>서비스 이용약관</Text>
             </TouchableOpacity>
             <TouchableOpacity style={[styles.btnView2]}>
-              <Text style={{fontSize: 20, color: '#000'}}>개인정보 처리방침</Text>
+              <Text style={{fontSize: 20, color: '#000'}}>
+                개인정보 처리방침
+              </Text>
             </TouchableOpacity>
             <TouchableOpacity
               style={[styles.btnView2]}

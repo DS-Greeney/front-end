@@ -12,6 +12,7 @@ import Login from './src/pages/Login';
 import Mypage from './src/pages/Mypage';
 import TourSpot from './src/pages/Recommend/TourspotPage';
 import Restaurant from './src/pages/Recommend/RestaurantPage';
+import Likelist from './src/pages/LikelistPage';
 
 const Stack = createNativeStackNavigator();
 
@@ -62,6 +63,11 @@ export default function App() {
           name="Restaurant"
           component={Restaurant}
           options={{title: '비건 식당'}}
+        />
+        <Stack.Screen
+          name="Likelist"
+          component={Likelist}
+          options={{title: '내가 찜한 목록'}}
         />
       </Stack.Navigator>
     </NavigationContainer>
