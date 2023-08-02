@@ -26,7 +26,7 @@ const FilterBtn = ({name, selected, onPress}: propType) => {
 const styles = StyleSheet.create({
   btnwrap: {},
   selectedwrap: {
-    width: 57,
+    width: 65,
     height: 31,
     borderRadius: 30,
     borderColor: 'rgba(0, 0, 0, 0.15)',
@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 5,
   },
   nonewrap: {
-    width: 57,
+    width: 65,
     height: 31,
     borderRadius: 30,
     borderColor: 'rgba(0, 0, 0, 0.15)',

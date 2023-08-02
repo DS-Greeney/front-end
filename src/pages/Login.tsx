@@ -6,11 +6,41 @@ import {
   StyleSheet,
   TextInput,
   TouchableOpacity,
+  Alert,
 } from 'react-native';
+import axios from 'axios';
 
-export default function Login() {
+export default function Login({navigation}: any) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
+  function handleClick() {
+    if (email.trim() === '') {
+      Alert.alert('아이디 입력 확인', '아이디가 입력되지 않았습니다.');
+    } else if (password.trim() === '') {
+      Alert.alert('비밀번호 입력 확인', '비밀번호가 입력되지 않았습니다.');
+    } else {
+      axios
+        .post('http://10.0.2.2:8082/api/users/login', {
+          userEmail: email,
+          userPassword: password,
+        })
+        .then(function (response) {
+          console.log(response.data);
+          if (response.data.success === true) {
+            console.log('로그인 성공');
+            navigation.navigate('Homepage');
+          } else {
+            Alert.alert('로그인 실패', '아이디나 비밀번호를 확인하세요.');
+            setEmail('');
+            setPassword('');
+          }
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    }
+  }
 
   return (
     <SafeAreaView style={styles.loginpage}>
@@ -38,7 +68,7 @@ export default function Login() {
           onChangeText={text => setPassword(text)}
           style={styles.input}
         />
-        <TouchableOpacity style={styles.loginBtn}>
+        <TouchableOpacity style={styles.loginBtn} onPress={handleClick}>
           <Text style={styles.loginText}>로그인</Text>
         </TouchableOpacity>
 
