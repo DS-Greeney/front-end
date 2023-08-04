@@ -13,10 +13,15 @@ import Swiper from 'react-native-swiper';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import IconC from 'react-native-vector-icons/MaterialCommunityIcons';
 
-import ReviewItem from '../../components/Recommend/ReviewItem';
+// import ReviewItem from '../../components/Recommend/ReviewItem';
 
 export default function TourspotDetile() {
   let [inputCount, setInputCount] = useState(0);
+  const [heart, setHeart] = useState(false);
+
+  const toggleHeart = () => {
+    setHeart(previousState => !previousState);
+  };
 
   return (
     <View style={styles.view}>
@@ -41,12 +46,9 @@ export default function TourspotDetile() {
         </Swiper>
         <View style={styles.title}>
           <Text style={{fontSize: 30, color: '#000'}}>관광지 이름</Text>
-          <IconC
-            name="cards-heart-outline"
-            size={40}
-            color="#1A6F3F"
-            style={{marginRight: 5}}
-          />
+          <TouchableOpacity onPress={toggleHeart}>
+            {heart ? <IconC name="cards-heart" size={40} color={'#1A6F3F'}></IconC> : <IconC name="cards-heart-outline" size={40} color={'#1A6F3F'}></IconC>}
+          </TouchableOpacity>
         </View>
         <Text
           style={{
@@ -175,7 +177,7 @@ export default function TourspotDetile() {
             </View>
           </View>
         </TouchableOpacity>
-        <ReviewItem></ReviewItem>
+        {/* <ReviewItem></ReviewItem> */}
       </ScrollView>
     </View>
   );

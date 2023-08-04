@@ -13,10 +13,15 @@ import Swiper from 'react-native-swiper';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import IconC from 'react-native-vector-icons/MaterialCommunityIcons';
 
-import ReviewItem from '../../components/Recommend/ReviewItem';
+// import ReviewItem from '../../components/Recommend/ReviewItem';
 
 export default function RestaurantDetile() {
   let [inputCount, setInputCount] = useState(0);
+  const [heart, setHeart] = useState(false);
+
+  const toggleHeart = () => {
+    setHeart(previousState => !previousState);
+  };
 
   return (
     <View style={styles.view}>
@@ -28,20 +33,20 @@ export default function RestaurantDetile() {
           autoplayTimeout={4}>
           <Image
             style={styles.image}
-            source={require('../../assets/images/home/swiper1_main.png')}
+            source={{uri: 'https://ldb-phinf.pstatic.net/20220927_113/1664252532447EOyPt_JPEG/EA2ABDE6-BD6A-4691-B8E8-92C90BB0EB5B.jpeg'}}
           />
           <Image
             style={styles.image}
-            source={require('../../assets/images/home/swiper2_main.png')}
+            source={{uri: 'https://ldb-phinf.pstatic.net/20220923_217/16638974734680alEP_JPEG/41E392C9-7234-4D69-93AB-77DDEDF480F0.jpeg'}}
           />
           <Image
             style={styles.image}
-            source={require('../../assets/images/home/swiper3_main.png')}
+            source={{uri: 'https://ldb-phinf.pstatic.net/20201026_90/160368567412557Kz0_JPEG/4rUSaHxGQtqwvvUJT-ZthZdG.jpeg.jpg'}}
           />
         </Swiper>
         <View style={styles.title}>
           <View style={{flexDirection: 'row'}}>
-            <Text style={{fontSize: 30, color: '#000'}}>음식점 이름</Text>
+            <Text style={{fontSize: 30, color: '#000'}}>공간녹음</Text>
             <Text
               style={{
                 fontSize: 20,
@@ -50,15 +55,12 @@ export default function RestaurantDetile() {
                 marginTop: 5,
                 marginBottom: 5,
               }}>
-              음식
+              양식
             </Text>
           </View>
-          <IconC
-            name="cards-heart-outline"
-            size={40}
-            color="#1A6F3F"
-            style={{marginRight: 5}}
-          />
+          <TouchableOpacity onPress={toggleHeart}>
+            {heart ? <IconC name="cards-heart" size={40} color={'#1A6F3F'}></IconC> : <IconC name="cards-heart-outline" size={40} color={'#1A6F3F'}></IconC>}
+          </TouchableOpacity>
         </View>
         <Text
           style={{
@@ -68,7 +70,7 @@ export default function RestaurantDetile() {
             marginTop: 5,
             marginBottom: 5,
           }}>
-          지역 시군구
+          서울 강서구 마곡동
         </Text>
         <View style={styles.view2}>
           <Icon
@@ -77,7 +79,7 @@ export default function RestaurantDetile() {
             color="#FCE25F"
             style={{marginRight: 5}}
           />
-          <Text style={{fontSize: 20, color: '#000'}}> 별점 / 5</Text>
+          <Text style={{fontSize: 20, color: '#000'}}> 4.3 / 5</Text>
         </View>
         <View style={styles.view2}>
           <TouchableOpacity
@@ -93,42 +95,32 @@ export default function RestaurantDetile() {
           <Text style={[styles.text, {color: '#666', marginRight: 40}]}>
             주소
           </Text>
-          <Text style={styles.text}>주소주소주소주소주소주소</Text>
+          <Text ellipsizeMode="tail" style={[styles.text, {flex: 1}]}>
+          서울 강서구 공항대로 227 403호 마곡센트럴타워 1차</Text>
         </View>
         <View style={styles.view2}>
           <Text style={[styles.text, {color: '#666', marginRight: 15}]}>
             전화번호
           </Text>
-          <Text style={styles.text}>000-000-0000</Text>
+          <Text style={styles.text}>0507-1327-6998</Text>
         </View>
         <View style={styles.view2}>
           <Text style={[styles.text, {color: '#666', marginRight: 15}]}>
             메뉴
           </Text>
         </View>
-        <View style={styles.view2}>
-          <TouchableOpacity
-            disabled={true}
-            style={{
-              height: 130,
-              width: '100%',
-              backgroundColor: '#ccc',
-              borderRadius: 20,
-            }}></TouchableOpacity>
-          {/* <Image source={require('')} /> */}
-        </View>
-        <View style={{marginHorizontal: 20, marginTop: 5, marginBottom: 5}}>
+        <View style={{marginHorizontal: 20, marginBottom: 5}}>
           <View style={styles.menu}>
-            <Text style={styles.text}>메뉴메뉴메뉴메뉴</Text>
-            <Text style={styles.text}>13,000원</Text>
+            <Text style={styles.text}>녹음 카레</Text>
+            <Text style={styles.text}>17,000원</Text>
           </View>
           <View style={styles.menu}>
-            <Text style={styles.text}>메뉴메뉴메뉴메뉴</Text>
-            <Text style={styles.text}>13,000원</Text>
+            <Text style={styles.text}>후무스 베지보울</Text>
+            <Text style={styles.text}>16,000원</Text>
           </View>
           <View style={styles.menu}>
-            <Text style={styles.text}>메뉴메뉴메뉴메뉴</Text>
-            <Text style={styles.text}>13,000원</Text>
+            <Text style={styles.text}>버섯크림 파스타</Text>
+            <Text style={styles.text}>18,000원</Text>
           </View>
         </View>
         <View style={styles.view2}>
@@ -144,7 +136,7 @@ export default function RestaurantDetile() {
           {/* <Image source={require('')} /> */}
         </View>
         <View style={styles.view2}>
-          <Text style={styles.text}>리뷰(리뷰수)</Text>
+          <Text style={styles.text}>리뷰(23)</Text>
         </View>
         <TouchableOpacity disabled={true} style={styles.textInput}>
           <TextInput
@@ -168,8 +160,8 @@ export default function RestaurantDetile() {
                 color="#ccc"
                 style={{marginRight: 5}}
               />
-              <Text style={{marginRight: 5, color: '#000', fontSize: 14}}>
-                별점/5
+              <Text style={{marginRight: 5, color: '#aaa', fontSize: 14}}>
+                0 / 5
               </Text>
               <Icon
                 name="camera-alt"
@@ -186,7 +178,39 @@ export default function RestaurantDetile() {
             </View>
           </View>
         </TouchableOpacity>
-        <ReviewItem></ReviewItem>
+        <View style={{flexDirection: 'row'}}>
+          <TouchableOpacity
+            disabled={true}
+            style={{
+              alignItems: 'center',
+              justifyContent: 'center',
+              height: 45,
+              width: 45,
+              marginLeft: 20,
+              marginRight: 10,
+              backgroundColor: '#ccc',
+              borderRadius: 50,
+            }}></TouchableOpacity>
+          {/* <Image source={require('')} /> */}
+          <View>
+            <Text style={{fontSize: 15, color: '#000'}}>수민민</Text>
+            <View style={{flexDirection: 'row'}}>
+              <Icon name="star-rate" size={16} color="#FCE25F" />
+              <Text style={{fontSize: 12, color: '#000'}}>4</Text>
+              <Text style={{fontSize: 12, marginLeft: 10}}>2023-05-14</Text>
+            </View>
+          </View>
+        </View>
+        <Image source={{uri: 'https://ldb-phinf.pstatic.net/20220927_243/1664252532434mWlty_JPEG/EA97B633-44FD-409D-9487-FF90FB4099DA.jpeg'}} style={styles.image3} />
+        <Text
+          style={{
+            color: '#000',
+            fontSize: 14,
+            marginHorizontal: 40,
+            marginBottom: 40,
+          }}>
+          정말 맛있습니다
+        </Text>
       </ScrollView>
     </View>
   );
