@@ -11,7 +11,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import IconC from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import Header from '../components/Common/Header';
-import {useNavigation} from '@react-navigation/native';
+// import {useNavigation} from '@react-navigation/native';
 
 const withdrawal = () => {
   Alert.alert(
@@ -53,11 +53,12 @@ const logout = () => {
   );
 };
 
-export default function Mypage() {
-  let navigation = useNavigation();
+export default function Mypage({navigation}: any) {
+  // let navigation = useNavigation();
   return (
     <View style={styles.view}>
-      <Header navigation={navigation} type={'HOME'} title={'마이페이지'} />
+      <Header navigation={navigation} type={'MY'} title={'마이페이지'} />
+      {/* type={'HOME'} 지움 */}
       <View style={{flexDirection: 'row'}}>
         <TouchableOpacity
           disabled={true}

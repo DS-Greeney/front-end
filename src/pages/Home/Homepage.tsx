@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   View,
   Text,
@@ -8,11 +8,23 @@ import {
   FlatList,
   ScrollView,
   TouchableOpacity,
+  Modal,
 } from 'react-native';
 import SearchBar from '../../components/SearchBar';
+// import MainDrawerNavigator from '../../navigation/DrawerNavigator';
+// import {NavigationContainer} from '@react-navigation/native';
 import Swiper from 'react-native-swiper';
+import {DrawerActions, NavigationProp} from '@react-navigation/native';
+import Header from '../../components/Common/Header';
+import SideBar from '../../components/Common/SideBar';
 
 export default function Homepage({navigation}: any) {
+  // const [isModalVisible, setModalVisible] = useState(false);
+
+  // const toggleModal = () => {
+  //   setModalVisible(!isModalVisible);
+  // };
+
   const ImageMenuArray = [
     {
       image: require('../../assets/images/home/tour.png'),
@@ -78,16 +90,46 @@ export default function Homepage({navigation}: any) {
     'Homepage',
   ];
 
+  // const openDrawer = () => {
+  //   navigation.openDrawer();
+  // };
+
   return (
     <View style={styles.home}>
       {/* 헤더 */}
       <View style={styles.header}>
-        <View style={styles.headtitle}>
-          <Image
-            style={styles.logo}
-            source={require('../../assets/images/home/logo.png')}
-          />
-        </View>
+        <SideBar navigation={navigation} />
+        {/* <View style={styles.headtitle}>
+          <View style={styles.logoImg}>
+            <Image
+              style={styles.logo}
+              source={require('../../assets/images/home/logo.png')}
+            />
+          </View>
+          <TouchableOpacity onPress={toggleModal}>
+            <Icon name="menu" size={30} style={styles.icon} />
+          </TouchableOpacity>
+
+          <Modal
+            visible={isModalVisible}
+            animationType="slide"
+            transparent={true}
+            onRequestClose={() => setModalVisible(false)}>
+            <View style={styles.modalContainer}>
+              <View style={styles.modalContent}>
+                <TouchableOpacity onPress={toggleModal}>
+                  <Text>Close Menu</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          </Modal>
+        </View> */}
+        {/* <Header
+          title={''}
+          type={'MAIN'}
+          navigation={navigation}
+          img={'../../assets/images/home/logo.png'}
+        /> */}
         <SearchBar placeholderText={'어디로 여행을 떠날 예정이신가요?'} />
       </View>
 
@@ -98,7 +140,11 @@ export default function Homepage({navigation}: any) {
               <TouchableOpacity
                 key={idx}
                 style={styles.menuItem}
-                onPress={() => navigation.navigate(navigateList[idx])}>
+                onPress={() =>
+                  navigation.navigate(navigateList[idx], {
+                    screen: navigateList[idx],
+                  })
+                }>
                 <View style={styles.menuwrap}>
                   <Image style={styles.images} source={menuList.image} />
                   <Text style={styles.title}>{menuList.text}</Text>
@@ -181,18 +227,33 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   header: {
-    alignItems: 'center',
+    // alignItems: 'center',
   },
-  headtitle: {
-    width: '100%',
-    alignItems: 'center',
-    marginTop: 15,
-    marginBottom: 15,
-  },
-  logo: {
-    width: 161,
-    height: 43,
-  },
+  // headtitle: {
+  //   flexDirection: 'row',
+  //   alignItems: 'center',
+  //   justifyContent: 'center',
+  //   marginVertical: 15,
+  //   marginHorizontal: 30,
+  // },
+  // logoImg: {
+  //   flex: 1,
+  //   marginLeft: 30,
+  //   alignItems: 'center',
+  // },
+  // logo: {
+  //   width: 161,
+  //   height: 43,
+  // },
+  // modalContainer: {
+  //   flex: 1,
+  //   justifyContent: 'flex-end',
+  //   backgroundColor: 'rgba(0, 0, 0, 0.5)',
+  // },
+  // modalContent: {
+  //   backgroundColor: '#fff',
+  //   padding: 20,
+  // },
   images: {
     width: 54,
     height: 54,

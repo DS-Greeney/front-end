@@ -15,6 +15,7 @@ export default function Login({navigation}: any) {
   const [password, setPassword] = useState('');
 
   function handleClick() {
+    navigation.navigate('MainNavigator', {screen: 'Homepage'});
     if (email.trim() === '') {
       Alert.alert('아이디 입력 확인', '아이디가 입력되지 않았습니다.');
     } else if (password.trim() === '') {
@@ -84,7 +85,9 @@ export default function Login({navigation}: any) {
           </TouchableOpacity>
         </View>
 
-        <TouchableOpacity style={styles.signupBtn}>
+        <TouchableOpacity
+          style={styles.signupBtn}
+          onPress={() => navigation.push('SignUp')}>
           <Text style={styles.signupText}>회원가입</Text>
         </TouchableOpacity>
       </View>

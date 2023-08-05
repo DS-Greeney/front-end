@@ -9,6 +9,7 @@ const typeList = ['전체', '관광', '식당', '숙소', '여행코스'];
 export default function LikeListPage() {
   let navigation = useNavigation();
 
+  
   return (
     <View style={styles.likelist}>
       <Header navigation={navigation} type={'BACK'} title={'내가 찜한 목록'} />
