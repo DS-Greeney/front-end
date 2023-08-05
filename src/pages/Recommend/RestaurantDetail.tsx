@@ -11,17 +11,12 @@ import {
 import {useState} from 'react';
 import Swiper from 'react-native-swiper';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import IconC from 'react-native-vector-icons/MaterialCommunityIcons';
+import LikeHeart from '../../components/Like/LikeHeart';
 
 // import ReviewItem from '../../components/Recommend/ReviewItem';
 
 export default function RestaurantDetail() {
   let [inputCount, setInputCount] = useState(0);
-  const [heart, setHeart] = useState(false);
-
-  const toggleHeart = () => {
-    setHeart(previousState => !previousState);
-  };
 
   return (
     <View style={styles.view}>
@@ -58,9 +53,7 @@ export default function RestaurantDetail() {
               양식
             </Text>
           </View>
-          <TouchableOpacity onPress={toggleHeart}>
-            {heart ? <IconC name="cards-heart" size={40} color={'#1A6F3F'}></IconC> : <IconC name="cards-heart-outline" size={40} color={'#1A6F3F'}></IconC>}
-          </TouchableOpacity>
+          <LikeHeart />
         </View>
         <Text
           style={{

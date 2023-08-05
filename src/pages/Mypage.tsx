@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {
   View,
   Text,
@@ -37,7 +37,7 @@ const withdrawal = () => {
   );
 };
 
-const logout = () => {
+const logout = ({navigation}: any) => {
   Alert.alert(
     '로그아웃',
     '로그아웃하시겠습니까?',
@@ -47,6 +47,20 @@ const logout = () => {
         text: '로그아웃',
         onPress: () => {
           //onDelete(id);
+          // axios
+          //   .get('http://10.0.2.2:8082/api/users/logout')
+          //   .then(function (response) {
+          //     console.log(response.data);
+          //     if (response.data.success === true) {
+          //       console.log('로그아웃 성공');
+          //       navigation.navigate('Login');
+          //     } else {
+          //       Alert.alert('로그아웃 실패', '관리자에게 문의하세요.');
+          //     }
+          //   })
+          //   .catch(function (error) {
+          //     console.log(error);
+          //   });
         },
       },
     ],
@@ -59,6 +73,7 @@ const logout = () => {
 
 export default function Mypage() {
   let navigation = useNavigation();
+  const [userId, setUserId] = useState('');
 
   interface UserModel {
     userNickname: string;
@@ -88,7 +103,7 @@ export default function Mypage() {
   function handleClick() {
     axios
       .post('http://10.0.2.2:8082/api/users/info', {
-        userId: '1',
+        userId: '6',
       })
       .then(function (response) {
         console.log(response);
@@ -104,6 +119,25 @@ export default function Mypage() {
         console.log(error);
       });
   }
+
+  useEffect(() => {
+    axios
+      .post('http://10.0.2.2:8082/api/users/info', {
+        userId: '6',
+      })
+      .then(function (response) {
+        console.log(response);
+        handleInputChange('userNickname', response.data.userNickname);
+        handleInputChange('userPassword', response.data.userPassword);
+        handleInputChange('userPhonenum', response.data.userPhonenum);
+        handleInputChange('userPicture', response.data.userPicture);
+        handleInputChange('userTitle', response.data.userTitle);
+        handleInputChange('userEmail', response.data.userEmail);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }, [userId]);
 
   return (
     <View style={styles.view}>
@@ -182,9 +216,9 @@ export default function Mypage() {
               <TouchableOpacity
                 style={styles.btnView1}
                 onPress={() => navigation.navigate('Likelist')}>
-                <Icon
-                  name="shopping-cart"
-                  size={32}
+                <IconC
+                  name="cards-heart"
+                  size={30}
                   color="#1A6F3F"
                   style={{marginRight: 5}}
                 />
@@ -301,7 +335,8 @@ const styles = StyleSheet.create({
   box: {
     borderWidth: 2,
     borderColor: '#999',
-    marginBottom: 30,
+    marginTop: 10,
+    marginBottom: 10,
     backgroundColor: '#fff',
     borderRadius: 20,
     padding: 10,

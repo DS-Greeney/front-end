@@ -7,10 +7,9 @@ import {
   TouchableOpacity,
   Alert,
 } from 'react-native';
-import { useState, useCallback } from 'react';
-import { useNavigation } from '@react-navigation/native';
+import {useState} from 'react';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import axios from 'axios';
 
 import Header from '../components/Common/Header';
@@ -112,7 +111,7 @@ export default function SignUp({navigation}: any) {
 
   function handleClick() {
     genderChange();
-    // console.log(user);
+    console.log(user);
     if (user.userPassword === user.userPasswordchk) {
       axios
         .post('http://10.0.2.2:8082/api/users/register', {
@@ -136,78 +135,95 @@ export default function SignUp({navigation}: any) {
           console.log(error);
         });
     } else {
-      console.log('비밀번호와 비밀번호 확인 다름');
+      Alert.alert('회원가입 실패', '비밀번호가 다릅니다.');
     }
   }
 
   return (
-    <View style={[styles.view]}>
+    <View style={styles.view}>
       <Header navigation={navigation} type={'BACK'} title={'회원가입'} />
-      <KeyboardAwareScrollView style={{ flex: 1 }}>
-        <View style={[styles.textView]}>
-          <Text style={[styles.text, { marginRight: 50 }]}>닉네임</Text>
+      <KeyboardAwareScrollView style={{flex: 1}}>
+        <View style={styles.textView}>
+          <TouchableOpacity disabled={true} style={styles.textBox}>
+            <Text style={styles.text}>닉네임</Text>
+          </TouchableOpacity>
           <TextInput
-            style={[styles.textInput]}
+            style={styles.textInput}
             onChangeText={text => {
               handleInputChange('userNickname', text);
-            }}></TextInput>
-          <TouchableOpacity style={[styles.chkbutton]}>
-            <Text style={[styles.smallText]}>중복확인</Text>
+            }}
+          />
+          <TouchableOpacity style={styles.chkbutton}>
+            <Text style={styles.smallText}>중복확인</Text>
           </TouchableOpacity>
         </View>
-        <Text style={[styles.smallText, { marginLeft: 120, marginTop: 5 }]}>사용할 수 있는 닉네임입니다.</Text>
-        <View style={[styles.textView]}>
-          <Text style={[styles.text, { marginRight: 50 }]}>이메일</Text>
+        <Text style={[styles.smallText, {marginLeft: 120, marginTop: 5}]}>사용할 수 있는 닉네임입니다.</Text>
+        <View style={styles.textView}>
+          <TouchableOpacity disabled={true} style={styles.textBox}>
+            <Text style={styles.text}>이메일</Text>
+          </TouchableOpacity>
           <TextInput
             keyboardType="email-address"
-            style={[styles.textInput]}
+            style={styles.textInput}
             onChangeText={text => {
               handleInputChange('userEmail', text);
-            }}></TextInput>
-          <TouchableOpacity style={[styles.chkbutton]}>
-            <Text style={[styles.smallText]}>인증하기</Text>
+            }}
+          />
+          <TouchableOpacity style={styles.chkbutton}>
+            <Text style={styles.smallText}>인증하기</Text>
           </TouchableOpacity>
         </View>
-        <Text style={[styles.smallText, { marginLeft: 120, marginTop: 5 }]}>인증 완료되었습니다.</Text>
-        <View style={[styles.textView]}>
-          <Text style={[styles.text, { marginRight: 37 }]}>비밀번호</Text>
+        <Text style={[styles.smallText, {marginLeft: 120, marginTop: 5}]}>인증 완료되었습니다.</Text>
+        <View style={styles.textView}>
+          <TouchableOpacity disabled={true} style={styles.textBox}>
+            <Text style={styles.text}>비밀번호</Text>
+          </TouchableOpacity>
           <TextInput
             style={styles.textInput}
             secureTextEntry={true}
             onChangeText={text => {
               handleInputChange('userPassword', text);
-            }}></TextInput>
+            }}
+          />
         </View>
-        <View style={[styles.textView, { marginTop: 10 }]}>
-          <Text style={[styles.text, { marginRight: 10 }]}>비밀번호 확인</Text>
+        <View style={[styles.textView, {marginTop: 10}]}>
+          <TouchableOpacity disabled={true} style={styles.textBox}>
+            <Text style={styles.text}>비밀번호 확인</Text>
+          </TouchableOpacity>
           <TextInput
             style={styles.textInput}
             secureTextEntry={true}
             onChangeText={text => {
               handleInputChange('userPasswordchk', text);
-            }}></TextInput>
+            }}
+          />
         </View>
-        <Text style={[styles.smallText, { marginLeft: 120, marginTop: 5 }]}>비밀번호가 일치합니다.</Text>
-        <View style={[styles.textView]}>
-          <Text style={[styles.text, { marginRight: 22 }]}>휴대폰 번호</Text>
+        <Text style={[styles.smallText, {marginLeft: 120, marginTop: 5}]}>비밀번호가 일치합니다.</Text>
+        <View style={styles.textView}>
+          <TouchableOpacity disabled={true} style={styles.textBox}>
+            <Text style={styles.text}>휴대폰 번호</Text>
+          </TouchableOpacity>
           <TextInput
             keyboardType="phone-pad"
             maxLength={11}
-            style={[styles.numInput, { width: 190 }]}
+            style={[styles.numInput, {width: 183}]}
             onChangeText={text => {
               handleInputChange('userPhonenum', text);
-            }}></TextInput>
-          <TouchableOpacity style={[styles.chkbutton]}>
-            <Text style={[styles.smallText]}>인증하기</Text>
+            }}
+          />
+          <TouchableOpacity style={styles.chkbutton}>
+            <Text style={styles.smallText}>인증하기</Text>
           </TouchableOpacity>
         </View>
-        <Text style={[styles.smallText, { marginLeft: 120, marginTop: 5 }]}>인증 완료되었습니다.</Text>
-        <View style={[styles.textView]}>
-          <Text style={[styles.text, { marginRight: 37 }]}>생년월일</Text>
+        <Text style={[styles.smallText, {marginLeft: 120, marginTop: 5}]}>인증 완료되었습니다.</Text>
+        <View style={styles.textView}>
+          <TouchableOpacity disabled={true} style={styles.textBox}>
+            <Text style={styles.text}>생년월일</Text>
+          </TouchableOpacity>
           <TouchableOpacity onPress={showDatePicker}>
             <TextInput
               pointerEvents="none"
-              style={[styles.dateInput]}
+              style={styles.dateInput}
               placeholder={placeholder}
               placeholderTextColor="#333"
               underlineColorAndroid="transparent"
@@ -225,8 +241,10 @@ export default function SignUp({navigation}: any) {
             />
           </TouchableOpacity>
         </View>
-        <View style={[styles.textView]}>
-          <Text style={[styles.text, { marginRight: 50 }]}>성별</Text>
+        <View style={styles.textView}>
+          <TouchableOpacity disabled={true} style={styles.textBox}>
+            <Text style={styles.text}>성별</Text>
+          </TouchableOpacity>
           {genderList.map((area, idx) => {
             if (selectArea.includes(area)) {
               return (
@@ -249,18 +267,8 @@ export default function SignUp({navigation}: any) {
             }
           })}
         </View>
-        <TouchableOpacity
-          onPress={handleClick}
-          style={{
-            borderWidth: 0,
-            alignItems: 'center',
-            justifyContent: 'center',
-            height: 60,
-            margin: 30,
-            backgroundColor: '#FCE466',
-            borderRadius: 15,
-          }}>
-          <Text style={{ fontSize: 25, color: '#000' }}>가입하기</Text>
+        <TouchableOpacity onPress={handleClick} style={styles.registerBtn}>
+          <Text style={{fontSize: 25, color: '#000'}}>가입하기</Text>
         </TouchableOpacity>
       </KeyboardAwareScrollView>
     </View>
@@ -273,7 +281,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFFFFF',
   },
   textView: {
-    paddingHorizontal: 30,
+    marginHorizontal: 20,
     flexDirection: 'row',
     alignItems: 'center',
     marginTop: 20,
@@ -291,6 +299,7 @@ const styles = StyleSheet.create({
     height: 40,
     fontSize: 15,
     borderWidth: 3,
+    paddingLeft: 10,
     borderRadius: 10,
     borderColor: '#1A6F3F',
     justifyContent: 'center',
@@ -325,5 +334,19 @@ const styles = StyleSheet.create({
     borderRightWidth: 0,
     borderLeftWidth: 0,
     marginRight: 5,
+  },
+  registerBtn: {
+    borderWidth: 0,
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: 60,
+    margin: 30,
+    backgroundColor: '#FCE466',
+    borderRadius: 15,
+  },
+  textBox: {
+    width: 90,
+    alignItems: 'flex-end',
+    paddingRight: 13,
   },
 });

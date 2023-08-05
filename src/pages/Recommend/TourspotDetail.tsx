@@ -11,17 +11,12 @@ import {
 import {useState} from 'react';
 import Swiper from 'react-native-swiper';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import IconC from 'react-native-vector-icons/MaterialCommunityIcons';
+import LikeHeart from '../../components/Like/LikeHeart';
 
 // import ReviewItem from '../../components/Recommend/ReviewItem';
 
 export default function TourspotDetail() {
   let [inputCount, setInputCount] = useState(0);
-  const [heart, setHeart] = useState(false);
-
-  const toggleHeart = () => {
-    setHeart(previousState => !previousState);
-  };
 
   return (
     <View style={styles.view}>
@@ -46,9 +41,7 @@ export default function TourspotDetail() {
         </Swiper>
         <View style={styles.title}>
           <Text style={{fontSize: 30, color: '#000'}}>관광지 이름</Text>
-          <TouchableOpacity onPress={toggleHeart}>
-            {heart ? <IconC name="cards-heart" size={40} color={'#1A6F3F'}></IconC> : <IconC name="cards-heart-outline" size={40} color={'#1A6F3F'}></IconC>}
-          </TouchableOpacity>
+          <LikeHeart />
         </View>
         <Text
           style={{
