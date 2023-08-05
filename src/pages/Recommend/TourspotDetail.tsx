@@ -24,7 +24,7 @@ export default function TourspotDetail() {
         <Swiper
           autoplay
           showsPagination={true}
-          height={350}
+          height={300}
           autoplayTimeout={4}>
           <Image
             style={styles.image}
