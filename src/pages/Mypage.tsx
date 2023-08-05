@@ -62,7 +62,7 @@ export default function Mypage() {
 
   interface UserModel {
     userNickname: string;
-    // userEmail: string;
+    userEmail: string;
     userPassword: string;
     userPhonenum: string;
     userPicture: string;
@@ -71,7 +71,7 @@ export default function Mypage() {
 
   const [user, setUser] = useState<UserModel>({
     userNickname: '',
-    // userEmail: '',
+    userEmail: '',
     userPassword: '',
     userPhonenum: '',
     userPicture: '',
@@ -97,6 +97,7 @@ export default function Mypage() {
         handleInputChange('userPhonenum', response.data.userPhonenum);
         handleInputChange('userPicture', response.data.userPicture);
         handleInputChange('userTitle', response.data.userTitle);
+        handleInputChange('userEmail', response.data.userEmail);
         console.log(user);
       })
       .catch(function (error) {
@@ -145,7 +146,7 @@ export default function Mypage() {
               <Text style={{color: '#fff'}}>{user.userTitle}</Text>
             </TouchableOpacity>
           </View>
-          <Text style={{fontSize: 15}}>이메일: abc@abc.com</Text>
+          <Text style={{fontSize: 15}}>이메일: {user.userEmail}</Text>
           <Text style={{fontSize: 15}}>휴대폰 번호: {user.userPhonenum}</Text>
         </View>
       </View>
