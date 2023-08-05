@@ -113,22 +113,6 @@ export default function Mypage() {
         <View style={{marginTop: 10}}>
           <View style={{flexDirection: 'row'}}>
             <Text style={{fontSize: 25}}>{user.userNickname}</Text>
-            <TouchableOpacity
-              style={{
-                borderWidth: 1,
-                borderColor: '#aaa',
-                alignItems: 'center',
-                justifyContent: 'center',
-                height: 27,
-                width: 90,
-                margin: 5,
-                backgroundColor: '#fff',
-                borderRadius: 20,
-                marginLeft: 80,
-              }}
-              onPress={handleClick}>
-              <Text style={{color: '#000'}}>닉네임 변경</Text>
-            </TouchableOpacity>
           </View>
           <View style={{flexDirection: 'row'}}>
             <TouchableOpacity
@@ -151,13 +135,16 @@ export default function Mypage() {
         </View>
       </View>
       <View style={{flexDirection: 'row', margin: 10}}>
-        <TouchableOpacity style={[styles.btnSmall, {marginLeft: 5}]}>
+        <TouchableOpacity style={styles.btnSmall}>
           <Text style={{color: '#000'}}>이미지 변경</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.btnSmall} onPress={handleClick}>
+          <Text style={{color: '#000'}}>닉네임 변경</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.btnSmall}>
           <Text style={{color: '#000'}}>칭호 변경</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={[styles.btnSmall, {marginLeft: 80}]} onPress={() => logout()}>
+        <TouchableOpacity style={styles.btnSmall} onPress={() => logout()}>
           <Text style={{color: '#000'}}>로그아웃</Text>
         </TouchableOpacity>
       </View>
@@ -289,7 +276,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     height: 27,
     width: 90,
-    margin: 5,
+    marginHorizontal: 2,
     backgroundColor: '#fff',
     borderRadius: 20,
   },
@@ -314,10 +301,9 @@ const styles = StyleSheet.create({
   box: {
     borderWidth: 2,
     borderColor: '#999',
-    marginBottom: 5,
+    marginBottom: 30,
     backgroundColor: '#fff',
     borderRadius: 20,
     padding: 10,
-    marginTop: 15,
   },
 });
