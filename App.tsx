@@ -13,8 +13,8 @@ import Mypage from './src/pages/Mypage';
 import TourSpot from './src/pages/Recommend/TourspotPage';
 import Restaurant from './src/pages/Recommend/RestaurantPage';
 import Likelist from './src/pages/LikelistPage';
-import RestaurantDetile from './src/pages/Recommend/RestaurantDetile';
-import TourspotDetile from './src/pages/Recommend/TourspotDetile';
+import RestaurantDetile from './src/pages/Recommend/RestaurantDetail';
+import TourspotDetile from './src/pages/Recommend/TourspotDetail';
 
 const Stack = createNativeStackNavigator();
 

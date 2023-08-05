@@ -15,7 +15,7 @@ import IconC from 'react-native-vector-icons/MaterialCommunityIcons';
 
 // import ReviewItem from '../../components/Recommend/ReviewItem';
 
-export default function RestaurantDetile() {
+export default function RestaurantDetail() {
   let [inputCount, setInputCount] = useState(0);
   const [heart, setHeart] = useState(false);
 

@@ -15,7 +15,7 @@ import IconC from 'react-native-vector-icons/MaterialCommunityIcons';
 
 // import ReviewItem from '../../components/Recommend/ReviewItem';
 
-export default function TourspotDetile() {
+export default function TourspotDetail() {
   let [inputCount, setInputCount] = useState(0);
   const [heart, setHeart] = useState(false);
 
