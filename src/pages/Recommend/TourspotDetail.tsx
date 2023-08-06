@@ -34,11 +34,15 @@ export default function TourspotDetail() {
           />
           <Image
             style={styles.image}
-            source={require('../../assets/images/home/swiper2_main.png')}
+            source={{
+              uri: 'https://tong.visitkorea.or.kr/cms/resource/46/2526646_image2_1.jpg',
+            }}
           />
           <Image
             style={styles.image}
-            source={require('../../assets/images/home/swiper3_main.png')}
+            source={{
+              uri: 'https://www.knps.or.kr/upload/contest/21/20221108082756351.jpg',
+            }}
           />
         </Swiper>
         <View style={styles.title}>
@@ -62,7 +66,7 @@ export default function TourspotDetail() {
             color="#FCE25F"
             style={{marginRight: 5}}
           />
-          <Text style={{fontSize: 20, color: '#000'}}> 별점 / 5</Text>
+          <Text style={{fontSize: 20, color: '#000'}}> 4.7 / 5</Text>
         </View>
         <View style={styles.view2}>
           <Text
@@ -86,31 +90,22 @@ export default function TourspotDetail() {
           {/* <Image source={require('')} /> */}
         </View>
         <View style={styles.view2}>
-          <Text style={[styles.text, {color: '#666', marginRight: 40}]}>
-            주소
-          </Text>
+          <Text style={styles.extext}>주소</Text>
           <Text style={styles.text}>서울특별시 성북구 보국문로 262</Text>
         </View>
         <View style={styles.view2}>
-          <Text style={[styles.text, {color: '#666', marginRight: 15}]}>
-            전화번호
-          </Text>
+          <Text style={styles.extext}>전화번호</Text>
           <Text style={styles.text}>02-909-0497</Text>
         </View>
         <View style={styles.view2}>
-          <Text style={[styles.text, {color: '#666', marginRight: 15}]}>
-            홈페이지
-          </Text>
+          <Text style={styles.extext}>홈페이지</Text>
           <Text style={styles.text}>http://bukhan.knps.or.kr</Text>
         </View>
         <View style={styles.view2}>
-          <Text style={[styles.text, {color: '#666', marginRight: 40}]}>
-            주차
-          </Text>
+          <Text style={styles.extext}>주차</Text>
           <Text style={styles.text}>경형 2,000원, 중소형 4,000~5,000원, 대형 6,000~7,500원</Text>
         </View>
-        <View style={styles.view2}></View>
-        <View style={styles.view2}>
+        <View style={{margin: 20}}>
           <Text style={styles.text}>
             단위 면적당 가장 많은 탐방객이 찾는 국립공원으로 세계기네스북에
             기록되기도 했던 북한산국립공원은 세계적으로도 드문 도심 속
@@ -122,8 +117,6 @@ export default function TourspotDetail() {
             높이에 비해 산세가 험준하고 경사가 심하다. 암벽과 암봉 등이 주축을
             이루고 있으며 주요 암봉 사이로 수십 개의 맑고 깨끗한 계곡이 울창한
             산림을 형성해 1,300여 종의 동식물이 서식한다.
-            <br />
-            <br />
             최고봉인 백운대(836m)를 중심으로 북쪽에 인수봉, 남쪽에 만경대가 있어
             삼각산으로도 불린다. 지질은 화강암인데 오랜 기간 침식돼 암석이
             지표에 노출되었다. 평균고도가 600~800m이나 높이에 비해 산세가
@@ -131,24 +124,24 @@ export default function TourspotDetail() {
             암봉 사이로 수십 개의 맑고 깨끗한 계곡이 울창한 산림을 형성해
             1,300여 종의 동식물이 서식한다. 북한산은 북한산성 등이 있어 생태
             학습장은 물론 역사 탐방 장소로도 인기가 높다. 탐방코스는 북한산성
-            코스, 대남문코스, 우이암코스, 신선대코스, 백운대코스 등&nbsp; 13개
+            코스, 대남문코스, 우이암코스, 신선대코스, 백운대코스 등 13개
             코스가 있다. 이 중 북한산성 코스는 우이암코스, 백운대코스와 함께
             가장 잘 알려진 코스 가운데 하나로, 조선 숙종 때 쌓은 길이 약 8㎞의
             북한산성을 비롯해 다양한 문화 유적이 있어 생태역사탐방 코스로
-            좋다.&nbsp; 우이암코스는 누구나 쉽게 오를 수 있는 코스로 봄꽃이 많아
+            좋다. 우이암코스는 누구나 쉽게 오를 수 있는 코스로 봄꽃이 많아
             봄철 산행에 알맞다. 백운대 코스는 백운대에 올라 자연의 웅장한 모습을
             감상하기 좋다.
-            <br />
-            <br />* 지정현황 : 북한산성(사적), 북한산진흥왕순수비지(사적) 등
-            <br />
-            <br />◎ 이용안내
-            <br />- 이용요금 : 없음
-            <br />- 화장실 : 있음
           </Text>
+          <Text style={styles.text}>* 지정현황 : 북한산성(사적), 북한산진흥왕순수비지(사적) 등</Text>
+          <Text style={styles.text}>◎ 이용안내</Text>
+          <Text style={styles.text}>- 이용요금 : 없음</Text>
+          <Text style={styles.text}>- 화장실 : 있음</Text>
         </View>
         <Image
           style={styles.image2}
-          source={require('../../assets/images/home/swiper1_main.png')}
+          source={{
+            uri: 'https://www.knps.or.kr/upload/contest/21/20221108082032573.jpg',
+          }}
         />
         <View style={styles.view2}>
           <TouchableOpacity
@@ -177,7 +170,8 @@ export default function TourspotDetail() {
             maxLength={200}
             style={{height: 90}}
             placeholder="여러분의 소중한 여행 후기를 남겨주세요"
-            placeholderTextColor="#666"></TextInput>
+            placeholderTextColor="#666"
+          />
           <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
             <Text style={styles.text}>{inputCount}/200자</Text>
             <View style={{flexDirection: 'row'}}>
@@ -187,8 +181,8 @@ export default function TourspotDetail() {
                 color="#ccc"
                 style={{marginRight: 5}}
               />
-              <Text style={{marginRight: 5, color: '#000', fontSize: 14}}>
-                별점/5
+              <Text style={{marginRight: 5, color: '#aaa', fontSize: 14}}>
+                0 / 5
               </Text>
               <Icon
                 name="camera-alt"
@@ -206,6 +200,44 @@ export default function TourspotDetail() {
           </View>
         </TouchableOpacity>
         {/* <ReviewItem></ReviewItem> */}
+        <View style={{flexDirection: 'row'}}>
+          <TouchableOpacity
+            disabled={true}
+            style={{
+              alignItems: 'center',
+              justifyContent: 'center',
+              height: 45,
+              width: 45,
+              marginLeft: 20,
+              marginRight: 10,
+              backgroundColor: '#ccc',
+              borderRadius: 50,
+            }}></TouchableOpacity>
+          {/* <Image source={require('')} /> */}
+          <View>
+            <Text style={{fontSize: 15, color: '#000'}}>수민민</Text>
+            <View style={{flexDirection: 'row'}}>
+              <Icon name="star-rate" size={16} color="#FCE25F" />
+              <Text style={{fontSize: 12, color: '#000'}}>5</Text>
+              <Text style={{fontSize: 12, marginLeft: 10}}>2023-06-28</Text>
+            </View>
+          </View>
+        </View>
+        <Image
+          source={{
+            uri: 'https://pacer-note-images.pacer.cc/234360796_C22E336D-7AD9-4D0F-A742-B6D5F65B5172_1572620274.jpg',
+          }}
+          style={styles.image3}
+        />
+        <Text
+          style={{
+            color: '#000',
+            fontSize: 14,
+            marginHorizontal: 40,
+            marginBottom: 40,
+          }}>
+          공기가 맑고 좋습니다.
+        </Text>
       </ScrollView>
     </View>
   );
@@ -254,6 +286,12 @@ const styles = StyleSheet.create({
   text: {
     color: '#000',
     fontSize: 14,
+    flex: 1,
+  },
+  extext: {
+    color: '#666',
+    fontSize: 14,
+    width: 70,
   },
   textInput: {
     width: 350,

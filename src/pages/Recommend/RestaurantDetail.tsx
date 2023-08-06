@@ -85,22 +85,16 @@ export default function RestaurantDetail() {
           {/* <Image source={require('')} /> */}
         </View>
         <View style={styles.view2}>
-          <Text style={[styles.text, {color: '#666', marginRight: 40}]}>
-            주소
-          </Text>
+          <Text style={styles.extext}>주소</Text>
           <Text ellipsizeMode="tail" style={[styles.text, {flex: 1}]}>
           서울 강서구 공항대로 227 403호 마곡센트럴타워 1차</Text>
         </View>
         <View style={styles.view2}>
-          <Text style={[styles.text, {color: '#666', marginRight: 15}]}>
-            전화번호
-          </Text>
+          <Text style={styles.extext}>전화번호</Text>
           <Text style={styles.text}>0507-1327-6998</Text>
         </View>
         <View style={styles.view2}>
-          <Text style={[styles.text, {color: '#666', marginRight: 15}]}>
-            메뉴
-          </Text>
+          <Text style={styles.extext}>메뉴</Text>
         </View>
         <View style={{marginHorizontal: 20, marginBottom: 5}}>
           <View style={styles.menu}>
@@ -143,7 +137,8 @@ export default function RestaurantDetail() {
             maxLength={200}
             style={{height: 90}}
             placeholder="여러분의 소중한 식당 후기를 남겨주세요"
-            placeholderTextColor="#666"></TextInput>
+            placeholderTextColor="#666"
+          />
           <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
             <Text style={styles.text}>{inputCount}/200자</Text>
             <View style={{flexDirection: 'row'}}>
@@ -194,7 +189,12 @@ export default function RestaurantDetail() {
             </View>
           </View>
         </View>
-        <Image source={{uri: 'https://ldb-phinf.pstatic.net/20220927_243/1664252532434mWlty_JPEG/EA97B633-44FD-409D-9487-FF90FB4099DA.jpeg'}} style={styles.image3} />
+        <Image
+          source={{
+            uri: 'https://ldb-phinf.pstatic.net/20220927_243/1664252532434mWlty_JPEG/EA97B633-44FD-409D-9487-FF90FB4099DA.jpeg',
+          }}
+          style={styles.image3}
+        />
         <Text
           style={{
             color: '#000',
@@ -257,6 +257,11 @@ const styles = StyleSheet.create({
   text: {
     color: '#000',
     fontSize: 14,
+  },
+  extext: {
+    color: '#666',
+    fontSize: 14,
+    width: 70,
   },
   textInput: {
     width: 350,
