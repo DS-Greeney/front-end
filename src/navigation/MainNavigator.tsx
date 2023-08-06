@@ -7,8 +7,6 @@ import Map from '../pages/Map';
 import Mypage from '../pages/Mypage';
 import Login from '../pages/Login';
 import SignUp from '../pages/SignUp';
-import TourspotDetile from '../pages/Recommend/TourspotDetile';
-import RestaurantDetile from '../pages/Recommend/RestaurantDetile';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import IconC from 'react-native-vector-icons/MaterialCommunityIcons';
 import Header from '../components/Common/Header';

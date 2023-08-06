@@ -16,7 +16,9 @@ interface propType {
 
 const Veganspot = ({data, navigation}: propType) => {
   return (
-    <TouchableOpacity style={styles.container}>
+    <TouchableOpacity
+      style={styles.container}
+      onPress={() => navigation.navigate('RestaurantDetail')}>
       <View style={styles.wrapper}>
         <Image
           source={{uri: data.image}}
