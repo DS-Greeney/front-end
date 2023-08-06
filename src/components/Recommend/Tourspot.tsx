@@ -3,11 +3,12 @@ import {StyleSheet, View, Text, TouchableOpacity, Image} from 'react-native';
 import {NavigationProp} from '@react-navigation/native';
 
 interface dataType {
-  image: string;
-  name: string;
-  location: string;
-  descript: string;
-  tags: string[];
+  // 이미지 지금 null이어서 임의로 추가함
+  mainimage: string;
+  title: string;
+  addr: string;
+  summary: string;
+  areacode: string;
 }
 interface propType {
   data: dataType;
@@ -20,33 +21,47 @@ const Tourspot = ({data, navigation}: propType) => {
       <View style={styles.line} />
       <View style={styles.content}>
         <View style={styles.wrapper}>
-          <Image
-            source={{uri: data.image}}
-            style={{
-              width: '50%',
-              height: 136,
-              resizeMode: 'cover',
-              borderRadius: 10,
-            }}
-          />
+          {data.mainimage === '' ? (
+            <Image
+              source={{
+                uri: 'https://wetravel.cafe24.com/data/editor/1808/20180806103020_c4835f6ce5c51f178656a5ecd3471d53_wk96.png',
+              }}
+              style={{
+                width: '50%',
+                height: 136,
+                resizeMode: 'cover',
+                borderRadius: 10,
+              }}
+            />
+          ) : (
+            <Image
+              source={{uri: data.mainimage}}
+              style={{
+                width: '50%',
+                height: 136,
+                resizeMode: 'cover',
+                borderRadius: 10,
+              }}
+            />
+          )}
 
           <View style={styles.textwrap}>
-            <Text style={styles.name}>{data.name}</Text>
-            <Text style={styles.location}>{data.location}</Text>
+            <Text style={styles.name}>{data.title}</Text>
+            <Text style={styles.location}>{data.addr}</Text>
             <View style={styles.descript}>
               <Text numberOfLines={3} style={styles.innertext}>
-                {data.descript}
+                {data.summary}
               </Text>
             </View>
           </View>
         </View>
 
         {/* 태그 */}
-        <View style={styles.tagwrap}>
+        {/* <View style={styles.tagwrap}>
           {data.tags.map((tag, idx) => (
             <Text style={styles.tag}>#{tag}</Text>
           ))}
-        </View>
+        </View> */}
       </View>
     </TouchableOpacity>
   );
@@ -67,7 +82,7 @@ const styles = StyleSheet.create({
   },
   wrapper: {
     flexDirection: 'row',
-    marginBottom: 12,
+    marginTop: 10,
   },
   textwrap: {
     // flexDirection: 'column',
@@ -83,15 +98,13 @@ const styles = StyleSheet.create({
   location: {
     flexWrap: 'wrap',
     color: '#7A7A7A',
-    fontSize: 15,
-  },
-  descript: {
-    color: '#7A7A7A',
+    fontSize: 14,
   },
   innertext: {
     flexWrap: 'wrap',
     marginVertical: 15,
     fontSize: 13,
+    color: '#7A7A7A',
   },
   tagwrap: {
     flexDirection: 'row',

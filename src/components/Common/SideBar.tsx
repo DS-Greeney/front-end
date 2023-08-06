@@ -95,15 +95,15 @@ const SideBar = ({navigation}: propType) => {
               {menuList.map((name, idx) => {
                 return (
                   <>
-                    {name === '마이페이지' ? (
-                      <TouchableOpacity
-                        key={idx}
-                        onPress={() => {
-                          setModalVisible(false);
-                          navigation.navigate(menuURL[idx]);
-                        }}>
-                        <Text style={styles.menuname}>{name}</Text>
-                      </TouchableOpacity>
+                    <TouchableOpacity
+                      key={idx}
+                      onPress={() => {
+                        setModalVisible(false);
+                        navigation.navigate(menuURL[idx]);
+                      }}>
+                      <Text style={styles.menuname}>{name}</Text>
+                    </TouchableOpacity>
+                    {/* {name === '마이페이지' ? (
                     ) : (
                       <TouchableOpacity
                         onPress={() => {
@@ -120,7 +120,7 @@ const SideBar = ({navigation}: propType) => {
                         }}>
                         <Text style={styles.menuname}>{name}</Text>
                       </TouchableOpacity>
-                    )}
+                    )} */}
                   </>
                   //   <TouchableOpacity
                   //     key={idx}
