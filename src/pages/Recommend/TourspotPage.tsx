@@ -6,6 +6,7 @@ import Tourspot from '../../components/Recommend/Tourspot';
 import FilterList from '../../components/filter/FilterList';
 import {useNavigation} from '@react-navigation/native';
 import axios from 'axios';
+import qs from 'qs';
 
 const areaList = [
   '전체',
@@ -69,6 +70,8 @@ const dummySpotData = [
 
 export default function TourspotPage() {
   const [tourList, setTourlist] = useState([]);
+  const [lat, setLat] = useState(37.6242392);
+  const [log, setLog] = useState(126.9901206);
 
   useEffect(() => {
     getData();
@@ -76,14 +79,23 @@ export default function TourspotPage() {
 
   const getData = async () => {
     try {
-      const response = await axios.get('http://10.0.2.2:8082/tourspot/api', {
-        params: {
-          latitude: '37.6242392',
-          longitude: '126.9901206',
+      const response = await axios.get(
+        'http://10.0.2.2:8082/greeney/main/tourlist',
+        {
+          params: {
+            latitude: lat,
+            longitude: log,
+          },
+          // paramsSerializer: params => {
+          //   return qs.stringify(params, {arrayFormat: 'brackets'});
+          // },
+          // headers: {
+          //   'Content-Type': 'application/json',
+          // },
         },
-      });
-      console.log(response.data.response.body.items.item || []);
-      setTourlist(response.data.response.body.items.item || []); // 서버로부터 받아온 데이터를 상태에 저장합니다.
+      );
+      console.log(response.data || []);
+      setTourlist(response.data.tourlists || []);
     } catch (error) {
       console.error('Error fetching data:', error);
     }

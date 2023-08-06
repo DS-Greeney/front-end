@@ -3,7 +3,7 @@ import {StyleSheet, View, Text, TouchableOpacity, Image} from 'react-native';
 import {NavigationProp} from '@react-navigation/native';
 
 interface dataType {
-  // 이미지 지금 null이어서 임의로 추가함
+  tourspot_id: number;
   mainimage: string;
   title: string;
   addr: string;
@@ -17,7 +17,7 @@ interface propType {
 
 const Tourspot = ({data, navigation}: propType) => {
   return (
-    <TouchableOpacity style={styles.container}>
+    <TouchableOpacity style={styles.container} key={data.tourspot_id}>
       <View style={styles.line} />
       <View style={styles.content}>
         <View style={styles.wrapper}>

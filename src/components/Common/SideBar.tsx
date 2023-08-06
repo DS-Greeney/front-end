@@ -96,7 +96,7 @@ const SideBar = ({navigation}: propType) => {
                 return (
                   <>
                     <TouchableOpacity
-                      key={idx}
+                      key={idx + 'list'}
                       onPress={() => {
                         setModalVisible(false);
                         navigation.navigate(menuURL[idx]);

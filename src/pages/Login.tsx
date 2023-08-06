@@ -13,9 +13,9 @@ import axios from 'axios';
 export default function Login({navigation}: any) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [userId, setUserId] = useState('');
 
   function handleClick() {
-    navigation.navigate('MainNavigator', {screen: 'Homepage'});
     if (email.trim() === '') {
       Alert.alert('아이디 입력 확인', '아이디가 입력되지 않았습니다.');
     } else if (password.trim() === '') {
@@ -30,7 +30,9 @@ export default function Login({navigation}: any) {
           console.log(response.data);
           if (response.data.success === true) {
             console.log('로그인 성공');
-            navigation.navigate('Homepage');
+            // console.log(response.data.userId);
+            setUserId(response.data.userId);
+            navigation.navigate('MainNavigator', {screen: 'Homepage'});
           } else {
             Alert.alert('로그인 실패', '아이디나 비밀번호를 확인하세요.');
             setEmail('');
