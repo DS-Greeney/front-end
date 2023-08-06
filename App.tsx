@@ -13,6 +13,8 @@ import Mypage from './src/pages/Mypage';
 import TourSpot from './src/pages/Recommend/TourspotPage';
 import Restaurant from './src/pages/Recommend/RestaurantPage';
 import Likelist from './src/pages/LikelistPage';
+import RestaurantDetile from './src/pages/Recommend/RestaurantDetail';
+import TourspotDetile from './src/pages/Recommend/TourspotDetail';
 
 const Stack = createNativeStackNavigator();
 
@@ -54,16 +56,30 @@ export default function App() {
           component={Mypage}
           options={{title: '마이페이지'}}
         />
-        <Stack.Screen
-          name="TourSpot"
-          component={TourSpot}
-          options={{title: '생태 관광'}}
-        />
-        <Stack.Screen
-          name="Restaurant"
-          component={Restaurant}
-          options={{title: '비건 식당'}}
-        />
+        <Stack.Group>
+          <Stack.Screen
+            name="TourSpot"
+            component={TourSpot}
+            options={{title: '생태 관광'}}
+          />
+          <Stack.Screen
+            name="TourspotDetile"
+            component={TourspotDetile}
+            options={{title: '관광 상세페이지'}}
+          />
+        </Stack.Group>
+        <Stack.Group>
+          <Stack.Screen
+            name="Restaurant"
+            component={Restaurant}
+            options={{title: '비건 식당'}}
+          />
+          <Stack.Screen
+            name="RestaurantDetile"
+            component={RestaurantDetile}
+            options={{title: '식당 상세페이지'}}
+          />
+        </Stack.Group>
         <Stack.Screen
           name="Likelist"
           component={Likelist}

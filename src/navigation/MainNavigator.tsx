@@ -6,8 +6,6 @@ import Map from '../pages/Map';
 import Mypage from '../pages/Mypage';
 import Login from '../pages/Login';
 import SignUp from '../pages/SignUp';
-import TourspotDetile from '../pages/Recommend/TourspotDetile';
-import RestaurantDetile from '../pages/Recommend/RestaurantDetile';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import IconC from 'react-native-vector-icons/MaterialCommunityIcons';
 
@@ -30,8 +28,6 @@ export default function MainNavigator() {
       />
       <Tab.Screen name="Login" component={Login} />
       <Tab.Screen name="SignUp" component={SignUp} />
-      <Tab.Screen name="tour" component={TourspotDetile} />
-      <Tab.Screen name="food" component={RestaurantDetile} />
       <Tab.Screen
         name="Search"
         component={Search}

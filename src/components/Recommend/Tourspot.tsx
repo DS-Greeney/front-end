@@ -16,7 +16,9 @@ interface propType {
 
 const Tourspot = ({data, navigation}: propType) => {
   return (
-    <TouchableOpacity style={styles.container}>
+    <TouchableOpacity
+      style={styles.container}
+      onPress={() => navigation.navigate('TourspotDetile')}>
       <View style={styles.line} />
       <View style={styles.content}>
         <View style={styles.wrapper}>
