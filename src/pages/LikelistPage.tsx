@@ -68,6 +68,7 @@ const dummySpotData = [
 export default function LikeListPage() {
   let navigation = useNavigation();
 
+  
   return (
     <View style={styles.likelist}>
       <Header navigation={navigation} type={'BACK'} title={'내가 찜한 목록'} />

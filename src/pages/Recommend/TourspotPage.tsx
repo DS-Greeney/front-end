@@ -1,11 +1,12 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {View, Text, StyleSheet, ScrollView, FlatList} from 'react-native';
 import Header from '../../components/Common/Header';
 import SearchBar from '../../components/SearchBar';
-// import FilterBtn from '../../components/filter/FilterBtn';
 import Tourspot from '../../components/Recommend/Tourspot';
 import FilterList from '../../components/filter/FilterList';
 import {useNavigation} from '@react-navigation/native';
+import axios from 'axios';
+import qs from 'qs';
 
 const areaList = [
   '전체',
@@ -68,12 +69,39 @@ const dummySpotData = [
 ];
 
 export default function TourspotPage() {
-  let navigation = useNavigation();
-  // const [selectArea, setSelectArea] = useState('전체');
+  const [tourList, setTourlist] = useState([]);
+  const [lat, setLat] = useState(37.6242392);
+  const [log, setLog] = useState(126.9901206);
 
-  // const handleFilterClick = (name: string) => {
-  //   setSelectArea(name);
-  // };
+  useEffect(() => {
+    getData();
+  }, []);
+
+  const getData = async () => {
+    try {
+      const response = await axios.get(
+        'http://10.0.2.2:8082/greeney/main/tourlist',
+        {
+          params: {
+            latitude: lat,
+            longitude: log,
+          },
+          // paramsSerializer: params => {
+          //   return qs.stringify(params, {arrayFormat: 'brackets'});
+          // },
+          // headers: {
+          //   'Content-Type': 'application/json',
+          // },
+        },
+      );
+      console.log(response.data || []);
+      setTourlist(response.data.tourlists || []);
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  };
+
+  let navigation = useNavigation();
 
   return (
     <View style={styles.tourspot}>
@@ -81,32 +109,9 @@ export default function TourspotPage() {
       <SearchBar placeholderText={'검색어를 입력해주세요'} />
       <FilterList areaList={areaList} />
 
-      {/* <ScrollView horizontal={true} style={styles.filtercontainer}>
-        {areaList.map((area, idx) => {
-          if (selectArea.includes(area)) {
-            return (
-              <FilterBtn
-                key={idx}
-                name={area}
-                selected={true}
-                onPress={handleFilterClick}
-              />
-            );
-          } else {
-            return (
-              <FilterBtn
-                key={idx}
-                name={area}
-                selected={false}
-                onPress={handleFilterClick}
-              />
-            );
-          }
-        })}
-      </ScrollView> */}
       <View style={styles.spotlist}>
         <FlatList
-          data={dummySpotData}
+          data={tourList}
           renderItem={({item}) => (
             <Tourspot data={item} navigation={navigation} />
           )}

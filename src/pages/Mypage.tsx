@@ -16,6 +16,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import IconC from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import Header from '../components/Common/Header';
+// import {useNavigation} from '@react-navigation/native';
 
 const withdrawal = () => {
   Alert.alert(
@@ -100,33 +101,31 @@ export default function Mypage() {
     }));
   };
 
-  function handleClick() {
-    axios
-      .post('http://10.0.2.2:8082/api/users/info', {
-        userId: '6',
-      })
-      .then(function (response) {
-        console.log(response);
-        handleInputChange('userNickname', response.data.userNickname);
-        handleInputChange('userPassword', response.data.userPassword);
-        handleInputChange('userPhonenum', response.data.userPhonenum);
-        handleInputChange('userPicture', response.data.userPicture);
-        handleInputChange('userTitle', response.data.userTitle);
-        handleInputChange('userEmail', response.data.userEmail);
-        console.log(user);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-  }
+  // function handleClick() {
+  //   axios
+  //     .post('http://10.0.2.2:8082/api/users/info', {
+  //       userId: '1',
+  //     })
+  //     .then(function (response) {
+  //       handleInputChange('userNickname', response.data.userNickname);
+  //       handleInputChange('userPassword', response.data.userPassword);
+  //       handleInputChange('userPhonenum', response.data.userPhonenum);
+  //       handleInputChange('userPicture', response.data.userPicture);
+  //       handleInputChange('userTitle', response.data.userTitle);
+  //       handleInputChange('userEmail', response.data.userEmail);
+  //     })
+  //     .catch(function (error) {
+  //       console.log(error);
+  //     });
+  // }
 
   useEffect(() => {
     axios
       .post('http://10.0.2.2:8082/api/users/info', {
-        userId: '6',
+        userId: '1',
       })
       .then(function (response) {
-        console.log(response);
+        // console.log(response);
         handleInputChange('userNickname', response.data.userNickname);
         handleInputChange('userPassword', response.data.userPassword);
         handleInputChange('userPhonenum', response.data.userPhonenum);
@@ -137,13 +136,22 @@ export default function Mypage() {
       .catch(function (error) {
         console.log(error);
       });
-  }, [userId]);
+  }, []);
 
   return (
     <View style={styles.view}>
-      <Header navigation={navigation} type={'HOME'} title={'마이페이지'} />
+      <Header navigation={navigation} type={'MY'} title={'마이페이지'} />
+      {/* type={'HOME'} 지움 */}
       <View style={{flexDirection: 'row'}}>
-        <Image source={{uri: user.userPicture}} style={styles.image} />
+        {user.userPicture === '' ? (
+          <Image
+            source={require('../assets/images/home/dummy_user.jpeg')}
+            style={styles.image}
+          />
+        ) : (
+          <Image source={{uri: user.userPicture}} style={styles.image} />
+        )}
+
         <View style={{marginTop: 10}}>
           <View style={{flexDirection: 'row'}}>
             <Text style={{fontSize: 25}}>{user.userNickname}</Text>
@@ -172,7 +180,7 @@ export default function Mypage() {
         <TouchableOpacity style={styles.btnSmall}>
           <Text style={{color: '#000'}}>이미지 변경</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.btnSmall} onPress={handleClick}>
+        <TouchableOpacity style={styles.btnSmall}>
           <Text style={{color: '#000'}}>닉네임 변경</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.btnSmall}>

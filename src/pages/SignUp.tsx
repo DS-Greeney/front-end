@@ -126,7 +126,7 @@ export default function SignUp({navigation}: any) {
           console.log(response.data);
           if (response.data.success === true) {
             console.log('회원가입 성공');
-            navigation.navigate('Homepage');
+            navigation.navigate('Login');
           } else {
             Alert.alert('회원가입 실패', '입력한 값을 다시 확인해주세요.');
           }
