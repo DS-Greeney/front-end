@@ -66,8 +66,8 @@ export default function Homepage({navigation}: any) {
       title: '누구나 참여 가능! 친환경 축제',
       image: [
         require('../../assets/images/home/swiper2_main.png'),
-        require('../../assets/images/home/swiper6_main.png'),
         require('../../assets/images/home/swiper3_main.png'),
+        require('../../assets/images/home/swiper6_main.png'),
       ],
     },
     {
