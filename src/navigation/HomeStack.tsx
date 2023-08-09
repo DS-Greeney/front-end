@@ -19,6 +19,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import IconC from 'react-native-vector-icons/MaterialCommunityIcons';
 import TourspotDetail from '../pages/Recommend/TourspotDetail';
 import RestaurantDetail from '../pages/Recommend/RestaurantDetail';
+import GreenHotelPage from '../pages/Recommend/GreenHotelPage';
 
 const Stack = createNativeStackNavigator();
 
@@ -68,6 +69,7 @@ export default function HomeStack({navigation, route}: any) {
       {/* <Stack.Screen name="My" component={Mypage} /> */}
       <Stack.Screen name="TourSpot" component={TourSpot} />
       <Stack.Screen name="Restaurant" component={Restaurant} />
+      <Stack.Screen name="GreenHotelPage" component={GreenHotelPage} />
       <Stack.Screen name="TourspotDetail" component={TourspotDetail} />
       <Stack.Screen name="RestaurantDetail" component={RestaurantDetail} />
       <Stack.Screen name="LikelistPage" component={LikelistPage} />

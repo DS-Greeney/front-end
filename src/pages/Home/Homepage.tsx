@@ -83,7 +83,7 @@ export default function Homepage({navigation}: any) {
   // 페이지 추가 시 수정하기
   const navigateList = [
     'TourSpot',
-    'Homepage',
+    'GreenHotelPage',
     'Restaurant',
     'Homepage',
     'Homepage',
