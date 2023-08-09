@@ -62,7 +62,7 @@ export default function TourspotDetail() {
             color="#FCE25F"
             style={{marginRight: 5}}
           />
-          <Text style={{fontSize: 20, color: '#000'}}> 별점 / 5</Text>
+          <Text style={{fontSize: 20, color: '#000'}}> 4.5 / 5</Text>
         </View>
         <View style={styles.view2}>
           <Text
@@ -107,7 +107,7 @@ export default function TourspotDetail() {
           <Text style={[styles.text, {color: '#666', marginRight: 40}]}>
             주차
           </Text>
-          <Text style={styles.text}>경형 2,000원, 중소형 4,000~5,000원, 대형 6,000~7,500원</Text>
+          <Text style={styles.text}>경형 2,000원, 중소형 4,000~5,000원</Text>
         </View>
         <View style={styles.view2}></View>
         <View style={styles.view2}>
@@ -122,8 +122,8 @@ export default function TourspotDetail() {
             높이에 비해 산세가 험준하고 경사가 심하다. 암벽과 암봉 등이 주축을
             이루고 있으며 주요 암봉 사이로 수십 개의 맑고 깨끗한 계곡이 울창한
             산림을 형성해 1,300여 종의 동식물이 서식한다.
-            <br />
-            <br />
+            {/* <br />
+            <br /> */}
             최고봉인 백운대(836m)를 중심으로 북쪽에 인수봉, 남쪽에 만경대가 있어
             삼각산으로도 불린다. 지질은 화강암인데 오랜 기간 침식돼 암석이
             지표에 노출되었다. 평균고도가 600~800m이나 높이에 비해 산세가
@@ -138,12 +138,12 @@ export default function TourspotDetail() {
             좋다.&nbsp; 우이암코스는 누구나 쉽게 오를 수 있는 코스로 봄꽃이 많아
             봄철 산행에 알맞다. 백운대 코스는 백운대에 올라 자연의 웅장한 모습을
             감상하기 좋다.
-            <br />
+            {/* <br />
             <br />* 지정현황 : 북한산성(사적), 북한산진흥왕순수비지(사적) 등
             <br />
             <br />◎ 이용안내
             <br />- 이용요금 : 없음
-            <br />- 화장실 : 있음
+            <br />- 화장실 : 있음 */}
           </Text>
         </View>
         <Image
