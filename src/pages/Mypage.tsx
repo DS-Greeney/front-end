@@ -145,7 +145,7 @@ export default function Mypage() {
       <View style={{flexDirection: 'row'}}>
         {user.userPicture === '' ? (
           <Image
-            source={require('../assets/images/home/dummy_user.jpeg')}
+            source={require('../assets/images/home/dummy_user.png')}
             style={styles.image}
           />
         ) : (

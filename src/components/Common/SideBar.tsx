@@ -80,12 +80,12 @@ const SideBar = ({navigation}: propType) => {
               <View style={styles.userImg}>
                 <Image
                   style={styles.img}
-                  source={require('../../assets/images/home/dummy_user.jpeg')}
+                  source={require('../../assets/images/home/dummy_user.png')}
                 />
               </View>
-              <Text style={styles.username}>닉네임</Text>
+              <Text style={styles.username}>그린</Text>
               <View style={styles.userStack}>
-                <Text style={styles.stackname}>존경받는 환경 보호 영웅</Text>
+                <Text style={styles.stackname}>에코그린세포</Text>
               </View>
             </View>
 

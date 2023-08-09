@@ -58,24 +58,24 @@ export default function Homepage({navigation}: any) {
       title: '요즘 떠오르는 친환경 관광',
       image: [
         require('../../assets/images/home/swiper1_main.png'),
-        require('../../assets/images/home/swiper2_main.png'),
-        require('../../assets/images/home/swiper3_main.png'),
+        require('../../assets/images/home/swiper5_main.jpg'),
+        require('../../assets/images/home/swiper4_main.png'),
       ],
     },
     {
       title: '누구나 참여 가능! 친환경 축제',
       image: [
         require('../../assets/images/home/swiper2_main.png'),
+        require('../../assets/images/home/swiper6_main.png'),
         require('../../assets/images/home/swiper3_main.png'),
-        require('../../assets/images/home/swiper1_main.png'),
       ],
     },
     {
       title: '여행을 더욱 특별하게 만들어주는 여행 상품',
       image: [
-        require('../../assets/images/home/swiper3_main.png'),
-        require('../../assets/images/home/swiper1_main.png'),
-        require('../../assets/images/home/swiper2_main.png'),
+        require('../../assets/images/home/swiper8_main.png'),
+        require('../../assets/images/home/swiper9_main.png'),
+        require('../../assets/images/home/swiper7_main.png'),
       ],
     },
   ];
