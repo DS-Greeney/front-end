@@ -1,5 +1,8 @@
 import React from 'react';
-import {NavigationContainer, getFocusedRouteNameFromRoute} from '@react-navigation/native';
+import {
+  NavigationContainer,
+  getFocusedRouteNameFromRoute,
+} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {useNavigation} from '@react-navigation/native';
 import {Image, StyleSheet} from 'react-native';
@@ -20,13 +23,23 @@ import IconC from 'react-native-vector-icons/MaterialCommunityIcons';
 import TourspotDetail from '../pages/Recommend/TourspotDetail';
 import RestaurantDetail from '../pages/Recommend/RestaurantDetail';
 import GreenHotelPage from '../pages/Recommend/GreenHotelPage';
+import TourProductPage from '../pages/Recommend/TourProductPage';
 
 const Stack = createNativeStackNavigator();
 
 export default function HomeStack({navigation, route}: any) {
   React.useLayoutEffect(() => {
     const routeName = getFocusedRouteNameFromRoute(route);
-    if (routeName === 'Homepage' || routeName === 'Home' || routeName === undefined || routeName === 'Map' || routeName === 'Search' || routeName === 'Mypage' || routeName === 'My' || routeName === 'MyPage') {
+    if (
+      routeName === 'Homepage' ||
+      routeName === 'Home' ||
+      routeName === undefined ||
+      routeName === 'Map' ||
+      routeName === 'Search' ||
+      routeName === 'Mypage' ||
+      routeName === 'My' ||
+      routeName === 'MyPage'
+    ) {
       navigation.setOptions({tabBarStyle: {display: 'flex'}});
     } else {
       navigation.setOptions({tabBarStyle: {display: 'none'}});
@@ -70,6 +83,7 @@ export default function HomeStack({navigation, route}: any) {
       <Stack.Screen name="TourSpot" component={TourSpot} />
       <Stack.Screen name="Restaurant" component={Restaurant} />
       <Stack.Screen name="GreenHotelPage" component={GreenHotelPage} />
+      <Stack.Screen name="TourProductPage" component={TourProductPage} />
       <Stack.Screen name="TourspotDetail" component={TourspotDetail} />
       <Stack.Screen name="RestaurantDetail" component={RestaurantDetail} />
       <Stack.Screen name="LikelistPage" component={LikelistPage} />

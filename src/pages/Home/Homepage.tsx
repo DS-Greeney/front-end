@@ -85,7 +85,7 @@ export default function Homepage({navigation}: any) {
     'TourSpot',
     'GreenHotelPage',
     'Restaurant',
-    'Homepage',
+    'TourProductPage',
     'Homepage',
     'Homepage',
   ];
