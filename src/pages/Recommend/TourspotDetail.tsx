@@ -84,10 +84,14 @@ export default function TourspotDetail() {
             disabled={true}
             style={{
               height: 130,
-              width: '100%',
-              backgroundColor: '#ccc',
+              // width: '100%',
+              // backgroundColor: '#ccc',
+              overflow: 'hidden',
             }}></TouchableOpacity>
-          {/* <Image source={require('')} /> */}
+          <Image
+            style={styles.loadview}
+            source={require('../../assets/images/restaurant/dummy_view.jpg')}
+          />
         </View>
         <View style={styles.view2}>
           <Text style={styles.extext}>주소</Text>
@@ -103,7 +107,9 @@ export default function TourspotDetail() {
         </View>
         <View style={styles.view2}>
           <Text style={styles.extext}>주차</Text>
-          <Text style={styles.text}>경형 2,000원, 중소형 4,000~5,000원, 대형 6,000~7,500원</Text>
+          <Text style={styles.text}>
+            경형 2,000원, 중소형 4,000~5,000원, 대형 6,000~7,500원
+          </Text>
         </View>
         <View style={{margin: 20}}>
           <Text style={styles.text}>
@@ -116,23 +122,25 @@ export default function TourspotDetail() {
             오랜 기간 침식돼 암석이 지표에 노출되었다. 평균고도가 600~800m로
             높이에 비해 산세가 험준하고 경사가 심하다. 암벽과 암봉 등이 주축을
             이루고 있으며 주요 암봉 사이로 수십 개의 맑고 깨끗한 계곡이 울창한
-            산림을 형성해 1,300여 종의 동식물이 서식한다.
-            최고봉인 백운대(836m)를 중심으로 북쪽에 인수봉, 남쪽에 만경대가 있어
+            산림을 형성해 1,300여 종의 동식물이 서식한다. 최고봉인
+            백운대(836m)를 중심으로 북쪽에 인수봉, 남쪽에 만경대가 있어
             삼각산으로도 불린다. 지질은 화강암인데 오랜 기간 침식돼 암석이
             지표에 노출되었다. 평균고도가 600~800m이나 높이에 비해 산세가
             험준하고 경사가 심하다. 암벽과 암봉 등이 주축을 이루고 있으며 주요
             암봉 사이로 수십 개의 맑고 깨끗한 계곡이 울창한 산림을 형성해
             1,300여 종의 동식물이 서식한다. 북한산은 북한산성 등이 있어 생태
             학습장은 물론 역사 탐방 장소로도 인기가 높다. 탐방코스는 북한산성
-            코스, 대남문코스, 우이암코스, 신선대코스, 백운대코스 등 13개
-            코스가 있다. 이 중 북한산성 코스는 우이암코스, 백운대코스와 함께
-            가장 잘 알려진 코스 가운데 하나로, 조선 숙종 때 쌓은 길이 약 8㎞의
-            북한산성을 비롯해 다양한 문화 유적이 있어 생태역사탐방 코스로
-            좋다. 우이암코스는 누구나 쉽게 오를 수 있는 코스로 봄꽃이 많아
-            봄철 산행에 알맞다. 백운대 코스는 백운대에 올라 자연의 웅장한 모습을
-            감상하기 좋다.
+            코스, 대남문코스, 우이암코스, 신선대코스, 백운대코스 등 13개 코스가
+            있다. 이 중 북한산성 코스는 우이암코스, 백운대코스와 함께 가장 잘
+            알려진 코스 가운데 하나로, 조선 숙종 때 쌓은 길이 약 8㎞의
+            북한산성을 비롯해 다양한 문화 유적이 있어 생태역사탐방 코스로 좋다.
+            우이암코스는 누구나 쉽게 오를 수 있는 코스로 봄꽃이 많아 봄철 산행에
+            알맞다. 백운대 코스는 백운대에 올라 자연의 웅장한 모습을 감상하기
+            좋다.
           </Text>
-          <Text style={styles.text}>* 지정현황 : 북한산성(사적), 북한산진흥왕순수비지(사적) 등</Text>
+          <Text style={styles.text}>
+            * 지정현황 : 북한산성(사적), 북한산진흥왕순수비지(사적) 등
+          </Text>
           <Text style={styles.text}>◎ 이용안내</Text>
           <Text style={styles.text}>- 이용요금 : 없음</Text>
           <Text style={styles.text}>- 화장실 : 있음</Text>
@@ -212,14 +220,19 @@ export default function TourspotDetail() {
               marginRight: 10,
               backgroundColor: '#ccc',
               borderRadius: 50,
-            }}></TouchableOpacity>
-          {/* <Image source={require('')} /> */}
+              overflow: 'hidden',
+            }}>
+            <Image
+              style={styles.userImg}
+              source={require('../../assets/images/home/dummy_user.png')}
+            />
+          </TouchableOpacity>
           <View>
-            <Text style={{fontSize: 15, color: '#000'}}>수민민</Text>
+            <Text style={{fontSize: 15, color: '#000'}}>수민</Text>
             <View style={{flexDirection: 'row'}}>
               <Icon name="star-rate" size={16} color="#FCE25F" />
-              <Text style={{fontSize: 12, color: '#000'}}>5</Text>
-              <Text style={{fontSize: 12, marginLeft: 10}}>2023-06-28</Text>
+              <Text style={{fontSize: 12, color: '#000'}}>4.7</Text>
+              <Text style={{fontSize: 12, marginLeft: 10}}>2023-07-28</Text>
             </View>
           </View>
         </View>
@@ -304,5 +317,15 @@ const styles = StyleSheet.create({
     marginTop: 5,
     marginBottom: 30,
     paddingLeft: 10,
+  },
+  loadview: {
+    width: '100%',
+    height: '100%',
+    resizeMode: 'cover',
+  },
+  userImg: {
+    width: '100%',
+    height: '100%',
+    resizeMode: 'cover',
   },
 });

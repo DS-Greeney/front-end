@@ -28,15 +28,21 @@ export default function RestaurantDetail() {
           autoplayTimeout={4}>
           <Image
             style={styles.image}
-            source={{uri: 'https://ldb-phinf.pstatic.net/20220927_113/1664252532447EOyPt_JPEG/EA2ABDE6-BD6A-4691-B8E8-92C90BB0EB5B.jpeg'}}
+            source={{
+              uri: 'https://ldb-phinf.pstatic.net/20220927_113/1664252532447EOyPt_JPEG/EA2ABDE6-BD6A-4691-B8E8-92C90BB0EB5B.jpeg',
+            }}
           />
           <Image
             style={styles.image}
-            source={{uri: 'https://ldb-phinf.pstatic.net/20220923_217/16638974734680alEP_JPEG/41E392C9-7234-4D69-93AB-77DDEDF480F0.jpeg'}}
+            source={{
+              uri: 'https://ldb-phinf.pstatic.net/20220923_217/16638974734680alEP_JPEG/41E392C9-7234-4D69-93AB-77DDEDF480F0.jpeg',
+            }}
           />
           <Image
             style={styles.image}
-            source={{uri: 'https://ldb-phinf.pstatic.net/20201026_90/160368567412557Kz0_JPEG/4rUSaHxGQtqwvvUJT-ZthZdG.jpeg.jpg'}}
+            source={{
+              uri: 'https://ldb-phinf.pstatic.net/20201026_90/160368567412557Kz0_JPEG/4rUSaHxGQtqwvvUJT-ZthZdG.jpeg.jpg',
+            }}
           />
         </Swiper>
         <View style={styles.title}>
@@ -72,22 +78,27 @@ export default function RestaurantDetail() {
             color="#FCE25F"
             style={{marginRight: 5}}
           />
-          <Text style={{fontSize: 20, color: '#000'}}> 4.3 / 5</Text>
+          <Text style={{fontSize: 20, color: '#000'}}> 5 / 5</Text>
         </View>
         <View style={styles.view2}>
           <TouchableOpacity
             disabled={true}
             style={{
               height: 130,
-              width: '100%',
-              backgroundColor: '#ccc',
+              // width: '100%',
+              // backgroundColor: '#ccc',
+              overflow: 'hidden',
             }}></TouchableOpacity>
-          {/* <Image source={require('')} /> */}
+          <Image
+            style={styles.loadview}
+            source={require('../../assets/images/restaurant/dummy_view.jpg')}
+          />
         </View>
         <View style={styles.view2}>
           <Text style={styles.extext}>주소</Text>
           <Text ellipsizeMode="tail" style={[styles.text, {flex: 1}]}>
-          서울 강서구 공항대로 227 403호 마곡센트럴타워 1차</Text>
+            서울 강서구 공항대로 227 403호 마곡센트럴타워 1차
+          </Text>
         </View>
         <View style={styles.view2}>
           <Text style={styles.extext}>전화번호</Text>
@@ -178,14 +189,19 @@ export default function RestaurantDetail() {
               marginRight: 10,
               backgroundColor: '#ccc',
               borderRadius: 50,
-            }}></TouchableOpacity>
-          {/* <Image source={require('')} /> */}
+              overflow: 'hidden',
+            }}>
+            <Image
+              style={styles.userImg}
+              source={require('../../assets/images/home/dummy_user.png')}
+            />
+          </TouchableOpacity>
           <View>
-            <Text style={{fontSize: 15, color: '#000'}}>수민민</Text>
+            <Text style={{fontSize: 15, color: '#000'}}>수민</Text>
             <View style={{flexDirection: 'row'}}>
               <Icon name="star-rate" size={16} color="#FCE25F" />
-              <Text style={{fontSize: 12, color: '#000'}}>4</Text>
-              <Text style={{fontSize: 12, marginLeft: 10}}>2023-05-14</Text>
+              <Text style={{fontSize: 12, color: '#000'}}>5</Text>
+              <Text style={{fontSize: 12, marginLeft: 10}}>2023-07-14</Text>
             </View>
           </View>
         </View>
@@ -202,7 +218,7 @@ export default function RestaurantDetail() {
             marginHorizontal: 40,
             marginBottom: 40,
           }}>
-          정말 맛있습니다
+          정말 맛있습니다. 제가 딱 찾던 식당이었어요!
         </Text>
       </ScrollView>
     </View>
@@ -274,5 +290,15 @@ const styles = StyleSheet.create({
     marginTop: 5,
     marginBottom: 30,
     paddingLeft: 10,
+  },
+  loadview: {
+    width: '100%',
+    height: '100%',
+    resizeMode: 'cover',
+  },
+  userImg: {
+    width: '100%',
+    height: '100%',
+    resizeMode: 'cover',
   },
 });

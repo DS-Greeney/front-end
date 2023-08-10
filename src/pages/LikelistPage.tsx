@@ -68,17 +68,18 @@ const dummySpotData = [
 export default function LikeListPage() {
   let navigation = useNavigation();
 
-  
   return (
     <View style={styles.likelist}>
       <Header navigation={navigation} type={'BACK'} title={'내가 찜한 목록'} />
       <FilterList areaList={typeList} />
-      <FlatList
-        data={dummySpotData}
-        renderItem={({item}) => (
-          <Likelist data={item} navigation={navigation} />
-        )}
-      />
+      <View style={styles.listwrap}>
+        <FlatList
+          data={dummySpotData}
+          renderItem={({item}) => (
+            <Likelist data={item} navigation={navigation} />
+          )}
+        />
+      </View>
     </View>
   );
 }
@@ -87,5 +88,8 @@ const styles = StyleSheet.create({
   likelist: {
     backgroundColor: '#fff',
     flex: 1,
+  },
+  listwrap: {
+    height: '84%',
   },
 });

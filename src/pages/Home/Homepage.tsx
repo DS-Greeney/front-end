@@ -58,8 +58,8 @@ export default function Homepage({navigation}: any) {
       title: '요즘 떠오르는 친환경 관광',
       image: [
         require('../../assets/images/home/swiper1_main.png'),
-        require('../../assets/images/home/swiper2_main.png'),
-        require('../../assets/images/home/swiper3_main.png'),
+        require('../../assets/images/home/swiper5_main.jpg'),
+        require('../../assets/images/home/swiper4_main.png'),
       ],
     },
     {
@@ -67,15 +67,15 @@ export default function Homepage({navigation}: any) {
       image: [
         require('../../assets/images/home/swiper2_main.png'),
         require('../../assets/images/home/swiper3_main.png'),
-        require('../../assets/images/home/swiper1_main.png'),
+        require('../../assets/images/home/swiper6_main.png'),
       ],
     },
     {
       title: '여행을 더욱 특별하게 만들어주는 여행 상품',
       image: [
-        require('../../assets/images/home/swiper3_main.png'),
-        require('../../assets/images/home/swiper1_main.png'),
-        require('../../assets/images/home/swiper2_main.png'),
+        require('../../assets/images/home/swiper8_main.png'),
+        require('../../assets/images/home/swiper9_main.png'),
+        require('../../assets/images/home/swiper7_main.png'),
       ],
     },
   ];
@@ -83,9 +83,9 @@ export default function Homepage({navigation}: any) {
   // 페이지 추가 시 수정하기
   const navigateList = [
     'TourSpot',
-    'Homepage',
+    'GreenHotelPage',
     'Restaurant',
-    'Homepage',
+    'TourProductPage',
     'Homepage',
     'Homepage',
   ];
