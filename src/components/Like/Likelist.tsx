@@ -1,7 +1,8 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {StyleSheet, View, Text, TouchableOpacity, Image} from 'react-native';
 import {NavigationProp} from '@react-navigation/native';
 import LikeHeart from './LikeHeart';
+import IconC from 'react-native-vector-icons/MaterialCommunityIcons';
 
 interface dataType {
   image: string;
@@ -15,7 +16,13 @@ interface propType {
   navigation: NavigationProp<any>;
 }
 
-const Tourspot = ({data, navigation}: propType) => {
+const Likelist = ({data, navigation}: propType) => {
+  const [heart, setHeart] = useState(true);
+
+  const toggleHeart = () => {
+    setHeart(previousState => !previousState);
+  };
+
   return (
     <TouchableOpacity
       style={styles.container}
@@ -37,7 +44,15 @@ const Tourspot = ({data, navigation}: propType) => {
               <Text style={styles.name}>{data.name}</Text>
               <Text style={styles.location}>{data.location}</Text>
             </View>
-            <LikeHeart />
+            {/* <LikeHeart /> */}
+            {/* 찜페이지로 임시 */}
+            <TouchableOpacity onPress={toggleHeart}>
+              {heart ? (
+                <IconC name="cards-heart" size={40} color={'#1A6F3F'} />
+              ) : (
+                <IconC name="cards-heart-outline" size={40} color={'#1A6F3F'} />
+              )}
+            </TouchableOpacity>
           </View>
         </View>
 
@@ -114,4 +129,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Tourspot;
+export default Likelist;
