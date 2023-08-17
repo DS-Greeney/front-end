@@ -47,7 +47,7 @@ export default function TourspotDetail() {
         </Swiper>
         <View style={styles.title}>
           <Text style={{fontSize: 30, color: '#000'}}>북한산국립공원</Text>
-          <LikeHeart />
+          <LikeHeart size={40} />
         </View>
         <Text
           style={{

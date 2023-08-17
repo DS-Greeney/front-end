@@ -59,7 +59,7 @@ export default function RestaurantDetail() {
               양식
             </Text>
           </View>
-          <LikeHeart />
+          <LikeHeart size={40} />
         </View>
         <Text
           style={{

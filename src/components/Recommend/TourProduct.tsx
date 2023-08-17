@@ -2,6 +2,7 @@ import React from 'react';
 import {StyleSheet, View, Text, TouchableOpacity, Image} from 'react-native';
 import {NavigationProp} from '@react-navigation/native';
 import IconC from 'react-native-vector-icons/MaterialCommunityIcons';
+import LikeHeart from '../../components/Like/LikeHeart';
 
 interface dataType {
   image: string;
@@ -24,8 +25,8 @@ const TourProduct = ({data, navigation}: propType) => {
           <Image
             source={{uri: data.image}}
             style={{
-              width: '50%',
-              height: 136,
+              width: 151,
+              height: 142,
               resizeMode: 'cover',
               borderRadius: 10,
             }}
@@ -39,13 +40,10 @@ const TourProduct = ({data, navigation}: propType) => {
                 {data.summary}
               </Text>
             </View>
-            <IconC
-              name="cards-heart"
-              size={20}
-              color={'#1A6F3F'}
-              style={styles.icon}>
+            <View style={styles.heartcontainer}>
+              <LikeHeart size={20} />
               <Text style={styles.heartnum}>{data.heart}</Text>
-            </IconC>
+            </View>
           </View>
         </View>
       </View>
@@ -79,11 +77,14 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     color: '#000',
     fontSize: 18,
+    textAlign: 'center',
   },
   price: {
     flexWrap: 'wrap',
     color: '#8A613C',
-    fontSize: 14,
+    fontSize: 15,
+    textAlign: 'center',
+    paddingTop: 7,
   },
   innertext: {
     flexWrap: 'wrap',
@@ -91,8 +92,14 @@ const styles = StyleSheet.create({
     fontSize: 13,
     color: '#7A7A7A',
   },
-  icon: {
+  heartcontainer: {
+    flexDirection: 'row',
     alignSelf: 'flex-end',
+  },
+  heartnum: {
+    color: '#000',
+    fontSize: 15,
+    paddingLeft: 2,
   },
 });
 
