@@ -12,14 +12,18 @@ import {useState} from 'react';
 import Swiper from 'react-native-swiper';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import LikeHeart from '../../components/Like/LikeHeart';
+import Header from '../../components/Common/Header';
+import {useNavigation} from '@react-navigation/native';
 
 // import ReviewItem from '../../components/Recommend/ReviewItem';
 
 export default function RestaurantDetail() {
   let [inputCount, setInputCount] = useState(0);
+  let navigation = useNavigation();
 
   return (
     <View style={styles.view}>
+      <Header navigation={navigation} type={'BACK'} title={'공간녹음'} />
       <ScrollView style={styles.scrollView}>
         <Swiper
           autoplay
