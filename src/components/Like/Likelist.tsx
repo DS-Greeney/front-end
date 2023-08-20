@@ -46,13 +46,18 @@ const Likelist = ({data, navigation}: propType) => {
             </View>
             {/* <LikeHeart /> */}
             {/* 찜페이지로 임시 */}
-            <TouchableOpacity onPress={toggleHeart}>
-              {heart ? (
-                <IconC name="cards-heart" size={40} color={'#1A6F3F'} />
-              ) : (
-                <IconC name="cards-heart-outline" size={40} color={'#1A6F3F'} />
-              )}
-            </TouchableOpacity>
+            <View style={styles.heratColumn}>
+              <TouchableOpacity onPress={toggleHeart}>
+                {heart ? (
+                  <IconC name="cards-heart" size={40} color={'#1A6F3F'} />
+                ) : (
+                  <IconC name="cards-heart-outline" size={40} color={'#1A6F3F'} />
+                )}
+              </TouchableOpacity>
+              <TouchableOpacity>
+                <Text style={styles.type}>{data.type}</Text>
+              </TouchableOpacity>
+            </View>
           </View>
         </View>
 
@@ -90,7 +95,7 @@ const styles = StyleSheet.create({
   },
   textwrap: {
     marginLeft: 15,
-    width: 170,
+    width: 150,
   },
   name: {
     flexWrap: 'wrap',
@@ -126,6 +131,22 @@ const styles = StyleSheet.create({
     paddingHorizontal: 6,
     marginRight: 5,
     marginVertical: 5,
+  },
+  type: {
+    color: '#000',
+    width: 'auto',
+    fontSize: 12,
+    borderStyle: 'solid',
+    borderWidth: 1,
+    borderColor: '#ddd',
+    borderRadius: 20,
+    paddingVertical: 2,
+    paddingHorizontal: 16,
+  },
+  heratColumn: {
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    alignItems: 'center',
   },
 });
 
