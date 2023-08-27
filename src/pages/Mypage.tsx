@@ -232,7 +232,9 @@ export default function Mypage() {
                 />
                 <Text style={{fontSize: 20, color: '#000'}}>찜한 목록</Text>
               </TouchableOpacity>
-              <TouchableOpacity style={styles.btnView1}>
+              <TouchableOpacity
+                style={styles.btnView1}
+                onPress={() => navigation.navigate('ChallengeAchieve')}>
                 <IconC
                   name="medal"
                   size={32}

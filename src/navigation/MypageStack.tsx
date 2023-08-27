@@ -13,6 +13,7 @@ import TourSpot from '../pages/Recommend/TourspotPage';
 import Restaurant from '../pages/Recommend/RestaurantPage';
 import Likelist from '../pages/LikelistPage';
 import DrawerNavigator from './DrawerNavigator';
+import ChallengeAchieve from '../pages/Challenge/ChallengeAchieve'
 
 const Stack = createNativeStackNavigator();
 
@@ -32,6 +33,7 @@ export default function MypageStack() {
         <Stack.Screen name="TourSpot" component={TourSpot} />
         <Stack.Screen name="Restaurant" component={Restaurant} /> */}
       <Stack.Screen name="Likelist" component={Likelist} />
+      <Stack.Screen name="ChallengeAchieve" component={ChallengeAchieve} />
     </Stack.Navigator>
   );
 }
