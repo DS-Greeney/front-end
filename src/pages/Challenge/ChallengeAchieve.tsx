@@ -2,19 +2,13 @@ import React from 'react';
 import {
   View,
   Text,
-  Image,
   StyleSheet,
   TouchableOpacity,
-  ScrollView,
-  TextInput,
 } from 'react-native';
-import {useState} from 'react';
 import IconC from 'react-native-vector-icons/MaterialCommunityIcons';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import Header from '../../components/Common/Header';
 import {useNavigation} from '@react-navigation/native';
-
-// import ReviewItem from '../../components/Recommend/ReviewItem';
 
 export default function ChallengeAchieve() {
   let navigation = useNavigation();
@@ -49,28 +43,38 @@ export default function ChallengeAchieve() {
         <View style={styles.line} />
         <View style={styles.icon}>
           <View style={styles.iconleft}>
-            <IconC name="medal" size={88} color="#1A6F3F" style={{marginRight: 5}} />
+            <IconC
+              name="medal"
+              size={88}
+              color="#1A6F3F"
+              style={{marginRight: 5}}
+            />
             <View style={styles.textnum}>
               <Text style={{fontSize: 14, color: '#000'}}>오늘 달성 수</Text>
               <Text style={{fontSize: 28, color: '#000'}}>2</Text>
             </View>
           </View>
-          <TouchableOpacity style={{flexDirection: 'row', alignItems: 'center'}}>
+          <TouchableOpacity style={styles.touchable}>
             <Text style={{fontSize: 14, color: '#555'}}>일일 도전 과제</Text>
-            <Icon name="arrow-forward-ios" size={24} color="#aaa" style={{marginRight: 5}} />
+            <Icon
+              name="arrow-forward-ios"
+              size={24}
+              color="#aaa"
+              style={{marginRight: 5}}
+            />
           </TouchableOpacity>
         </View>
-        <TouchableOpacity disabled={true} style={{width: '100%', height: 35, backgroundColor: '#ccc', borderRadius: 20}}>
-          <TouchableOpacity disabled={true} style={{ alignItems: 'center', justifyContent: 'center', width: '60%', height: 35, backgroundColor: '#1A6F3F', borderRadius: 20}}>
+        <TouchableOpacity disabled={true} style={styles.graph1}>
+          <TouchableOpacity disabled={true} style={styles.graph2}>
             <Text style={{fontSize: 18, color: '#eee'}}>3/ 7</Text>
           </TouchableOpacity>
         </TouchableOpacity>
-        <View style={{alignItems: 'flex-end', marginTop: 5, marginBottom: 20,}}>
+        <View style={styles.graphtext}>
           <Text style={{fontSize: 16, color: '#000'}}>환경 보호 새내기</Text>
         </View>
         <View style={styles.line} />
-        <Text style={{fontSize: 20, color: '#000', fontWeight: 'bold', marginVertical: 15}}>현재 닉네임 님의 칭호</Text>
-        <View style={{alignItems: 'center', marginTop: 5, marginBottom: 20,}}>
+        <Text style={styles.title3}>현재 닉네임 님의 칭호</Text>
+        <View style={styles.badge}>
           <TouchableOpacity disabled={true} style={{width: 150, height: 150, backgroundColor: '#ccc', borderRadius: 100}}></TouchableOpacity>
           <Text style={{fontSize: 16, color: '#000',}}>환경 운동가 지망생</Text>
         </View>
@@ -104,6 +108,12 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     fontWeight: 'bold',
   },
+  title3: {
+    fontSize: 20,
+    color: '#000',
+    fontWeight: 'bold',
+    marginVertical: 15,
+  },
   textnum: {
     alignItems: 'center',
   },
@@ -116,12 +126,39 @@ const styles = StyleSheet.create({
   icon: {
     justifyContent: 'space-between',
     flexDirection: 'row',
-    marginVertical: 20,
+    marginTop: 20,
     alignItems: 'center',
   },
   iconleft: {
     justifyContent: 'space-evenly',
     flexDirection: 'row',
     alignItems: 'center',
+  },
+  touchable: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  graph1: {
+    width: '100%',
+    height: 35,
+    backgroundColor: '#ccc',
+    borderRadius: 20,
+  },
+  graph2: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '60%',
+    height: 35,
+    backgroundColor: '#1A6F3F',
+    borderRadius: 20,
+  },
+  graphtext: {
+    alignItems: 'flex-end',
+    marginTop: 5,
+    marginBottom: 20,
+  },
+  badge: {
+    alignItems: 'center',
+    marginTop: 5,
   },
 });
