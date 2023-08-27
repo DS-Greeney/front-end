@@ -3,11 +3,12 @@ import {StyleSheet, View, Text, TouchableOpacity, Image} from 'react-native';
 import {NavigationProp} from '@react-navigation/native';
 
 interface dataType {
-  image: string;
-  type: string;
-  name: string;
-  location: string;
-  scope: number;
+  rstrntCtgry: string;
+  rstrntName: string;
+  rstrntAddr: string;
+  rstrntStar: number;
+  rstrntLa: string;
+  rstrntLo: string;
 }
 interface propType {
   data: dataType;
@@ -21,7 +22,11 @@ const Veganspot = ({data, navigation}: propType) => {
       onPress={() => navigation.navigate('RestaurantDetail')}>
       <View style={styles.wrapper}>
         <Image
-          source={{uri: data.image}}
+          source={{
+            uri: `https://maps.googleapis.com/maps/api/streetview?size=400x400&location=${
+              (data.rstrntLa, data.rstrntLo)
+            }&fov=80&heading=70&pitch=0&key=`, //api 키 불러오기
+          }}
           style={{
             width: 151,
             height: 113,
@@ -31,19 +36,19 @@ const Veganspot = ({data, navigation}: propType) => {
         />
 
         <View style={styles.textwrap}>
-          <Text style={styles.type}>{data.type}</Text>
+          <Text style={styles.type}>{data.rstrntCtgry}</Text>
           <Text style={styles.name} numberOfLines={2}>
-            {data.name}
+            {data.rstrntName}
           </Text>
           <Text style={styles.location} numberOfLines={2}>
-            {data.location}
+            {data.rstrntAddr}
           </Text>
           <View style={styles.scopewrap}>
             <Image
               style={styles.star}
               source={require('../../assets/images/star.png')}
             />
-            <Text style={styles.scope}>{data.scope} / 5</Text>
+            <Text style={styles.scope}>{data.rstrntStar} / 5</Text>
           </View>
         </View>
       </View>

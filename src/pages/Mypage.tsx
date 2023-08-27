@@ -16,6 +16,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import IconC from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import Header from '../components/Common/Header';
+import TitleChange from '../components/Common/TitleChange';
 // import {useNavigation} from '@react-navigation/native';
 
 const withdrawal = () => {
@@ -75,6 +76,15 @@ const logout = ({navigation}: any) => {
 export default function Mypage() {
   let navigation = useNavigation();
   const [userId, setUserId] = useState('');
+  const [isModalVisible, setModalVisible] = useState(false);
+
+  const toggleModal = () => {
+    setModalVisible(!isModalVisible);
+  };
+
+  const closeModal = () => {
+    setModalVisible(false);
+  };
 
   interface UserModel {
     userNickname: string;
@@ -101,24 +111,6 @@ export default function Mypage() {
     }));
   };
 
-  // function handleClick() {
-  //   axios
-  //     .post('http://10.0.2.2:8082/api/users/info', {
-  //       userId: '1',
-  //     })
-  //     .then(function (response) {
-  //       handleInputChange('userNickname', response.data.userNickname);
-  //       handleInputChange('userPassword', response.data.userPassword);
-  //       handleInputChange('userPhonenum', response.data.userPhonenum);
-  //       handleInputChange('userPicture', response.data.userPicture);
-  //       handleInputChange('userTitle', response.data.userTitle);
-  //       handleInputChange('userEmail', response.data.userEmail);
-  //     })
-  //     .catch(function (error) {
-  //       console.log(error);
-  //     });
-  // }
-
   useEffect(() => {
     axios
       .post('http://10.0.2.2:8082/api/users/info', {
@@ -141,7 +133,6 @@ export default function Mypage() {
   return (
     <View style={styles.view}>
       <Header navigation={navigation} type={'MY'} title={'마이페이지'} />
-      {/* type={'HOME'} 지움 */}
       <View style={{flexDirection: 'row'}}>
         {user.userPicture === '' ? (
           <Image
@@ -157,18 +148,7 @@ export default function Mypage() {
             <Text style={{fontSize: 25}}>{user.userNickname}</Text>
           </View>
           <View style={{flexDirection: 'row'}}>
-            <TouchableOpacity
-              disabled={true}
-              style={{
-                borderWidth: 0,
-                alignItems: 'center',
-                justifyContent: 'center',
-                height: 27,
-                marginBottom: 5,
-                backgroundColor: '#1A6F3F',
-                borderRadius: 20,
-                paddingHorizontal: 10,
-              }}>
+            <TouchableOpacity disabled={true} style={styles.title}>
               <Text style={{color: '#fff'}}>{user.userTitle}</Text>
             </TouchableOpacity>
           </View>
@@ -183,9 +163,10 @@ export default function Mypage() {
         <TouchableOpacity style={styles.btnSmall}>
           <Text style={{color: '#000'}}>닉네임 변경</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.btnSmall}>
+        <TouchableOpacity style={styles.btnSmall} onPress={() => toggleModal()}>
           <Text style={{color: '#000'}}>칭호 변경</Text>
         </TouchableOpacity>
+        <TitleChange navigation={navigation} />
         <TouchableOpacity style={styles.btnSmall} onPress={() => logout()}>
           <Text style={{color: '#000'}}>로그아웃</Text>
         </TouchableOpacity>
@@ -193,7 +174,9 @@ export default function Mypage() {
       <View style={styles.view}>
         <ScrollView contentContainerStyle={{flexGrow: 1}}>
           <View style={styles.scrollView}>
-            <TouchableOpacity disabled={true} style={[styles.box, {height: 280}]}>
+            <TouchableOpacity
+              disabled={true}
+              style={[styles.box, {height: 280}]}>
               <TouchableOpacity style={styles.btnView1}>
                 <Icon
                   name="list-alt"
@@ -246,7 +229,9 @@ export default function Mypage() {
                 </Text>
               </TouchableOpacity>
             </TouchableOpacity>
-            <TouchableOpacity disabled={true} style={[styles.box, {height: 240}]}>
+            <TouchableOpacity
+              disabled={true}
+              style={[styles.box, {height: 240}]}>
               <Text style={[styles.titleText]}>설정</Text>
               <TouchableOpacity style={[styles.btnView2]}>
                 <Text style={{fontSize: 20, color: '#000'}}>비밀번호 변경</Text>
@@ -263,7 +248,9 @@ export default function Mypage() {
                 <Text style={{fontSize: 20, color: '#000'}}>알림 설정</Text>
               </TouchableOpacity>
             </TouchableOpacity>
-            <TouchableOpacity disabled={true} style={[styles.box, {height: 320}]}>
+            <TouchableOpacity
+              disabled={true}
+              style={[styles.box, {height: 320}]}>
               <Text style={[styles.titleText]}>이용 안내</Text>
               <TouchableOpacity style={[styles.btnView2]}>
                 <Text style={{fontSize: 20, color: '#000'}}>앱 버전</Text>
@@ -333,6 +320,16 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     paddingLeft: 12,
     paddingVertical: 7,
+  },
+  title: {
+    borderWidth: 0,
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: 27,
+    marginBottom: 5,
+    backgroundColor: '#1A6F3F',
+    borderRadius: 20,
+    paddingHorizontal: 10,
   },
   titleText: {
     fontSize: 20,
