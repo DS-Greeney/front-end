@@ -15,6 +15,7 @@ import LikeHeart from '../../components/Like/LikeHeart';
 import Header from '../../components/Common/Header';
 import {useNavigation} from '@react-navigation/native';
 import axios from 'axios';
+import MapView, {PROVIDER_GOOGLE, Marker} from 'react-native-maps';
 
 // import ReviewItem from '../../components/Recommend/ReviewItem';
 
@@ -65,7 +66,7 @@ export default function TourspotDetail(route) {
   var pos = tourSpot.summary.indexOf('.');
   const afterStr = tourSpot.summary.substr(pos + 2);
   const summaryStr = afterStr.split('*');
-  console.log(tourSpot.summary);
+  // console.log(tourSpot.summary);
 
   const infoIndex = tourSpot.summary.indexOf('이용안내');
   const info = tourSpot.summary.substr(infoIndex - 1);
@@ -128,6 +129,13 @@ export default function TourspotDetail(route) {
     case 39:
       area = '제주도';
       break;
+  }
+  console.log(tourSpot.latitude, tourSpot.longitude);
+
+  function roadmap() {
+    setTimeout(() => {
+      // return ();
+    }, 1000);
   }
 
   return (
@@ -199,9 +207,17 @@ export default function TourspotDetail(route) {
               // backgroundColor: '#ccc',
               overflow: 'hidden',
             }}></TouchableOpacity>
-          <Image
+          <MapView
             style={styles.loadview}
-            source={require('../../assets/images/restaurant/dummy_view.jpg')}
+            provider={PROVIDER_GOOGLE}
+            initialRegion={{
+              // latitude: tourSpot.latitude,
+              // longitude: tourSpot.longitude,
+              latitude: 37.6874303,
+              longitude: 127.0344916,
+              latitudeDelta: 0.001,
+              longitudeDelta: 0.001,
+            }}
           />
         </View>
         <View style={styles.view2}>
