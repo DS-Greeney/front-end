@@ -79,7 +79,7 @@ const dummyVeganData = [
   },
 ];
 
-export default function TourspotPage() {
+export default function RestaurantPage() {
   const [veganList, setVeganlist] = useState([]);
   const [lat, setLat] = useState(37.6242392);
   const [log, setLog] = useState(126.9901206);

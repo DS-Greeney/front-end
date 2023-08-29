@@ -8,22 +8,131 @@ import {
   ScrollView,
   TextInput,
 } from 'react-native';
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 import Swiper from 'react-native-swiper';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import LikeHeart from '../../components/Like/LikeHeart';
 import Header from '../../components/Common/Header';
 import {useNavigation} from '@react-navigation/native';
+import axios from 'axios';
 
 // import ReviewItem from '../../components/Recommend/ReviewItem';
 
-export default function TourspotDetail() {
+interface dataType {
+  areaCode: number;
+  latitude: number;
+  longitude: number;
+  sigunguCode: number;
+  addr: string;
+  mainimage: string;
+  summary: string;
+  tel: string;
+  title: string;
+}
+
+export default function TourspotDetail(route) {
+  const [tourSpot, setTourSpot] = useState<dataType>({
+    areaCode: 0,
+    latitude: 0,
+    longitude: 0,
+    sigunguCode: 0,
+    addr: '',
+    mainimage: '',
+    summary: '',
+    tel: '',
+    title: '',
+  });
   let [inputCount, setInputCount] = useState(0);
   let navigation = useNavigation();
 
+  useEffect(() => {
+    getData();
+  }, []);
+
+  const getData = async () => {
+    try {
+      const response = await axios.get(
+        `http://10.0.2.2:8082/greeney/main/tourlist/detail/${route.route.params}`,
+      );
+      console.log(response.data || []);
+      setTourSpot(response.data.tourspot || []);
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  };
+
+  const firstStr = tourSpot.summary.split('.');
+  var pos = tourSpot.summary.indexOf('.');
+  const afterStr = tourSpot.summary.substr(pos + 2);
+  const summaryStr = afterStr.split('*');
+  console.log(tourSpot.summary);
+
+  const infoIndex = tourSpot.summary.indexOf('이용안내');
+  const info = tourSpot.summary.substr(infoIndex - 1);
+  // console.log(info);
+
+  const linkFirstIndex = tourSpot.summary.indexOf('http://');
+  const linkLastIndex = tourSpot.summary.indexOf('/', linkFirstIndex + 7);
+  const linkTemp = tourSpot.summary.substring(linkFirstIndex, linkLastIndex);
+
+  var area = '';
+  switch (tourSpot.areaCode) {
+    case 1:
+      area = '서울특별시';
+      break;
+    case 2:
+      area = '인천';
+      break;
+    case 3:
+      area = '대전';
+      break;
+    case 4:
+      area = '대구';
+      break;
+    case 5:
+      area = '광주';
+      break;
+    case 6:
+      area = '부산';
+      break;
+    case 7:
+      area = '울산';
+      break;
+    case 8:
+      area = '세종특별자치시';
+      break;
+    case 31:
+      area = '경기도';
+      break;
+    case 32:
+      area = '강원특별자치도';
+      break;
+    case 33:
+      area = '충청북도';
+      break;
+    case 34:
+      area = '충청남도';
+      break;
+    case 35:
+      area = '경상북도';
+      break;
+    case 36:
+      area = '경상남도';
+      break;
+    case 37:
+      area = '전라북도';
+      break;
+    case 38:
+      area = '전라남도';
+      break;
+    case 39:
+      area = '제주도';
+      break;
+  }
+
   return (
     <View style={styles.view}>
-      <Header navigation={navigation} type={'BACK'} title={'북한산국립공원'} />
+      <Header navigation={navigation} type={'BACK'} title={tourSpot.title} />
       <ScrollView style={styles.scrollView}>
         <Swiper
           autoplay
@@ -50,7 +159,7 @@ export default function TourspotDetail() {
           />
         </Swiper>
         <View style={styles.title}>
-          <Text style={{fontSize: 30, color: '#000'}}>북한산국립공원</Text>
+          <Text style={{fontSize: 30, color: '#000'}}>{tourSpot.title}</Text>
           <LikeHeart />
         </View>
         <Text
@@ -61,7 +170,7 @@ export default function TourspotDetail() {
             marginTop: 5,
             marginBottom: 5,
           }}>
-          서울특별시 성북구
+          {area}
         </Text>
         <View style={styles.view2}>
           <Icon
@@ -78,9 +187,7 @@ export default function TourspotDetail() {
               styles.text,
               {fontSize: 16, marginBottom: 10, marginTop: 10},
             ]}>
-            단위 면적당 가장 많은 탐방객이 찾는 국립공원으로 세계기네스북에
-            기록되기도 했던 북한산국립공원은 세계적으로도 드문 도심 속
-            자연공원이다.
+            {firstStr[0] + '.'}
           </Text>
         </View>
         <View style={styles.view2}>
@@ -99,62 +206,32 @@ export default function TourspotDetail() {
         </View>
         <View style={styles.view2}>
           <Text style={styles.extext}>주소</Text>
-          <Text style={styles.text}>서울특별시 성북구 보국문로 262</Text>
+          <Text style={styles.text}>{tourSpot.addr}</Text>
         </View>
         <View style={styles.view2}>
           <Text style={styles.extext}>전화번호</Text>
-          <Text style={styles.text}>02-909-0497</Text>
+          <Text style={styles.text}>{tourSpot.tel}</Text>
         </View>
-        <View style={styles.view2}>
-          <Text style={styles.extext}>홈페이지</Text>
-          <Text style={styles.text}>http://bukhan.knps.or.kr</Text>
-        </View>
-        <View style={styles.view2}>
-          <Text style={styles.extext}>주차</Text>
-          <Text style={styles.text}>
-            경형 2,000원, 중소형 4,000~5,000원, 대형 6,000~7,500원
-          </Text>
-        </View>
-        <View style={{margin: 20}}>
-          <Text style={styles.text}>
-            단위 면적당 가장 많은 탐방객이 찾는 국립공원으로 세계기네스북에
-            기록되기도 했던 북한산국립공원은 세계적으로도 드문 도심 속
-            자연공원이다. 서울특별시 도봉구·강북구·종로구·은평구와 경기도
-            고양시·양주시·의정부시에 걸쳐 있으며, 우이령을 중심으로 남쪽은
-            북한산, 북쪽은 도봉산이다. 최고봉인 백운대(836m)를 중심으로 북쪽에
-            인수봉, 남쪽에 만경대가 있어 삼각산으로도 불린다. 지질은 화강암으로
-            오랜 기간 침식돼 암석이 지표에 노출되었다. 평균고도가 600~800m로
-            높이에 비해 산세가 험준하고 경사가 심하다. 암벽과 암봉 등이 주축을
-            이루고 있으며 주요 암봉 사이로 수십 개의 맑고 깨끗한 계곡이 울창한
-            산림을 형성해 1,300여 종의 동식물이 서식한다. 최고봉인
-            백운대(836m)를 중심으로 북쪽에 인수봉, 남쪽에 만경대가 있어
-            삼각산으로도 불린다. 지질은 화강암인데 오랜 기간 침식돼 암석이
-            지표에 노출되었다. 평균고도가 600~800m이나 높이에 비해 산세가
-            험준하고 경사가 심하다. 암벽과 암봉 등이 주축을 이루고 있으며 주요
-            암봉 사이로 수십 개의 맑고 깨끗한 계곡이 울창한 산림을 형성해
-            1,300여 종의 동식물이 서식한다. 북한산은 북한산성 등이 있어 생태
-            학습장은 물론 역사 탐방 장소로도 인기가 높다. 탐방코스는 북한산성
-            코스, 대남문코스, 우이암코스, 신선대코스, 백운대코스 등 13개 코스가
-            있다. 이 중 북한산성 코스는 우이암코스, 백운대코스와 함께 가장 잘
-            알려진 코스 가운데 하나로, 조선 숙종 때 쌓은 길이 약 8㎞의
-            북한산성을 비롯해 다양한 문화 유적이 있어 생태역사탐방 코스로 좋다.
-            우이암코스는 누구나 쉽게 오를 수 있는 코스로 봄꽃이 많아 봄철 산행에
-            알맞다. 백운대 코스는 백운대에 올라 자연의 웅장한 모습을 감상하기
-            좋다.
-          </Text>
-          <Text style={styles.text}>
-            * 지정현황 : 북한산성(사적), 북한산진흥왕순수비지(사적) 등
-          </Text>
-          <Text style={styles.text}>◎ 이용안내</Text>
-          <Text style={styles.text}>- 이용요금 : 없음</Text>
-          <Text style={styles.text}>- 화장실 : 있음</Text>
-        </View>
-        <Image
-          style={styles.image2}
-          source={{
-            uri: 'https://www.knps.or.kr/upload/contest/21/20221108082032573.jpg',
-          }}
-        />
+        {linkFirstIndex === -1 ? (
+          <View />
+        ) : (
+          <View style={styles.view2}>
+            <Text style={styles.extext}>홈페이지</Text>
+            <Text style={styles.text}>{linkTemp + '/'}</Text>
+          </View>
+        )}
+        <Text style={[styles.text, {margin: 20}]}>{summaryStr[0]}</Text>
+        <Text style={[styles.text, {margin: 20}]}>{info}</Text>
+        {tourSpot.mainimage === '' ? (
+          <Image
+            style={styles.image2}
+            source={{
+              uri: 'https://www.knps.or.kr/upload/contest/21/20221108082032573.jpg',
+            }}
+          />
+        ) : (
+          <Image style={styles.image2} source={{uri: tourSpot.mainimage}} />
+        )}
         <View style={styles.view2}>
           <TouchableOpacity
             disabled={true}
