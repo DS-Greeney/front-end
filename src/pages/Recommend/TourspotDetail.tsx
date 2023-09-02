@@ -15,7 +15,7 @@ import LikeHeart from '../../components/Like/LikeHeart';
 import Header from '../../components/Common/Header';
 import {useNavigation} from '@react-navigation/native';
 import axios from 'axios';
-import MapView, {PROVIDER_GOOGLE, Marker} from 'react-native-maps';
+import MapView, {PROVIDER_GOOGLE} from 'react-native-maps';
 
 // import ReviewItem from '../../components/Recommend/ReviewItem';
 
@@ -82,22 +82,22 @@ export default function TourspotDetail(route) {
       area = '서울특별시';
       break;
     case 2:
-      area = '인천';
+      area = '인천광역시';
       break;
     case 3:
-      area = '대전';
+      area = '대전광역시';
       break;
     case 4:
-      area = '대구';
+      area = '대구광역시';
       break;
     case 5:
-      area = '광주';
+      area = '광주광역시';
       break;
     case 6:
-      area = '부산';
+      area = '부산광역시';
       break;
     case 7:
-      area = '울산';
+      area = '울산광역시';
       break;
     case 8:
       area = '세종특별자치시';
@@ -127,10 +127,9 @@ export default function TourspotDetail(route) {
       area = '전라남도';
       break;
     case 39:
-      area = '제주도';
+      area = '제주특별자치도';
       break;
   }
-  console.log(tourSpot.latitude, tourSpot.longitude);
 
   function roadmap() {
     setTimeout(() => {

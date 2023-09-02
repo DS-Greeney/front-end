@@ -3,6 +3,7 @@ import {StyleSheet, View, Text, TouchableOpacity, Image} from 'react-native';
 import {NavigationProp} from '@react-navigation/native';
 
 interface dataType {
+  rstrntId: number;
   rstrntCtgry: string;
   rstrntName: string;
   rstrntAddr: string;
@@ -19,13 +20,13 @@ const Veganspot = ({data, navigation}: propType) => {
   return (
     <TouchableOpacity
       style={styles.container}
-      onPress={() => navigation.navigate('RestaurantDetail')}>
+      onPress={() => navigation.navigate('RestaurantDetail', data.rstrntId)}>
       <View style={styles.wrapper}>
         <Image
           source={{
             uri: `https://maps.googleapis.com/maps/api/streetview?size=400x400&location=${
               (data.rstrntLa, data.rstrntLo)
-            }&fov=80&heading=70&pitch=0&key=`, //api 키 불러오기
+            }&fov=80&heading=70&pitch=0&key=`, //api 키 불러오기`
           }}
           style={{
             width: 151,
