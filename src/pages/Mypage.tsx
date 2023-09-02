@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState, useContext} from 'react';
 import {
   View,
   Text,
@@ -9,8 +9,8 @@ import {
   Image,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
+import {AppContext} from '../components/Common/Context';
 import axios from 'axios';
-import {useState} from 'react';
 
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import IconC from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -73,8 +73,10 @@ const logout = ({navigation}: any) => {
 };
 
 export default function Mypage() {
+  const {userId} = useContext(AppContext);
+
   let navigation = useNavigation();
-  const [userId, setUserId] = useState('');
+  // const [userId, setUserId] = useState('');
 
   interface UserModel {
     userNickname: string;
@@ -122,10 +124,11 @@ export default function Mypage() {
   useEffect(() => {
     axios
       .post('http://10.0.2.2:8082/api/users/info', {
-        userId: '1',
+        userId: userId,
       })
       .then(function (response) {
         // console.log(response);
+        console.log('id: ', userId);
         handleInputChange('userNickname', response.data.userNickname);
         handleInputChange('userPassword', response.data.userPassword);
         handleInputChange('userPhonenum', response.data.userPhonenum);
@@ -136,11 +139,11 @@ export default function Mypage() {
       .catch(function (error) {
         console.log(error);
       });
-  }, []);
+  }, [userId]);
 
   return (
     <View style={styles.view}>
-      <Header navigation={navigation} type={'MY'} title={'마이페이지'} />
+      <Header navigation={navigation} type={'BACK'} title={'마이페이지'} />
       {/* type={'HOME'} 지움 */}
       <View style={{flexDirection: 'row'}}>
         {user.userPicture === '' ? (
@@ -193,7 +196,9 @@ export default function Mypage() {
       <View style={styles.view}>
         <ScrollView contentContainerStyle={{flexGrow: 1}}>
           <View style={styles.scrollView}>
-            <TouchableOpacity disabled={true} style={[styles.box, {height: 280}]}>
+            <TouchableOpacity
+              disabled={true}
+              style={[styles.box, {height: 280}]}>
               <TouchableOpacity style={styles.btnView1}>
                 <Icon
                   name="list-alt"
@@ -210,7 +215,9 @@ export default function Mypage() {
                   color="#1A6F3F"
                   style={{marginRight: 5}}
                 />
-                <Text style={{fontSize: 20, color: '#000'}}>내가 댓글 단 글</Text>
+                <Text style={{fontSize: 20, color: '#000'}}>
+                  내가 댓글 단 글
+                </Text>
               </TouchableOpacity>
               <TouchableOpacity style={styles.btnView1}>
                 <Icon
@@ -244,7 +251,9 @@ export default function Mypage() {
                 </Text>
               </TouchableOpacity>
             </TouchableOpacity>
-            <TouchableOpacity disabled={true} style={[styles.box, {height: 240}]}>
+            <TouchableOpacity
+              disabled={true}
+              style={[styles.box, {height: 240}]}>
               <Text style={[styles.titleText]}>설정</Text>
               <TouchableOpacity style={[styles.btnView2]}>
                 <Text style={{fontSize: 20, color: '#000'}}>비밀번호 변경</Text>
@@ -261,7 +270,9 @@ export default function Mypage() {
                 <Text style={{fontSize: 20, color: '#000'}}>알림 설정</Text>
               </TouchableOpacity>
             </TouchableOpacity>
-            <TouchableOpacity disabled={true} style={[styles.box, {height: 320}]}>
+            <TouchableOpacity
+              disabled={true}
+              style={[styles.box, {height: 320}]}>
               <Text style={[styles.titleText]}>이용 안내</Text>
               <TouchableOpacity style={[styles.btnView2]}>
                 <Text style={{fontSize: 20, color: '#000'}}>앱 버전</Text>
@@ -273,7 +284,9 @@ export default function Mypage() {
                 <Text style={{fontSize: 20, color: '#000'}}>공지사항</Text>
               </TouchableOpacity>
               <TouchableOpacity style={[styles.btnView2]}>
-                <Text style={{fontSize: 20, color: '#000'}}>서비스 이용약관</Text>
+                <Text style={{fontSize: 20, color: '#000'}}>
+                  서비스 이용약관
+                </Text>
               </TouchableOpacity>
               <TouchableOpacity style={[styles.btnView2]}>
                 <Text style={{fontSize: 20, color: '#000'}}>

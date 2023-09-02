@@ -24,6 +24,7 @@ import TourspotDetail from '../pages/Recommend/TourspotDetail';
 import RestaurantDetail from '../pages/Recommend/RestaurantDetail';
 import GreenHotelPage from '../pages/Recommend/GreenHotelPage';
 import TourProductPage from '../pages/Recommend/TourProductPage';
+import DailyChallenge from '../pages/Challenge/DailyChallenge';
 
 const Stack = createNativeStackNavigator();
 
@@ -87,6 +88,7 @@ export default function HomeStack({navigation, route}: any) {
       <Stack.Screen name="TourspotDetail" component={TourspotDetail} />
       <Stack.Screen name="RestaurantDetail" component={RestaurantDetail} />
       <Stack.Screen name="LikelistPage" component={LikelistPage} />
+      <Stack.Screen name="DailyChallenge" component={DailyChallenge} />
     </Stack.Navigator>
   );
 }

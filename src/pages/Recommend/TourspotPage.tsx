@@ -1,5 +1,6 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useContext} from 'react';
 import {View, Text, StyleSheet, ScrollView, FlatList} from 'react-native';
+import {AppContext} from '../../components/Common/Context';
 import Header from '../../components/Common/Header';
 import SearchBar from '../../components/SearchBar';
 import Tourspot from '../../components/Recommend/Tourspot';
@@ -70,21 +71,23 @@ const dummySpotData = [
 
 export default function TourspotPage() {
   const [tourList, setTourlist] = useState([]);
-  const [lat, setLat] = useState(37.6242392);
-  const [log, setLog] = useState(126.9901206);
+  // const [lat, setLat] = useState(37.6512);
+  // const [log, setLog] = useState(127.0162);
+  const {location} = useContext(AppContext);
 
   useEffect(() => {
     getData();
   }, []);
 
   const getData = async () => {
+    // console.log(location.latitude, location.longitude);
     try {
       const response = await axios.get(
         'http://10.0.2.2:8082/greeney/main/tourlist',
         {
           params: {
-            latitude: lat,
-            longitude: log,
+            latitude: location.latitude,
+            longitude: location.longitude,
           },
           // paramsSerializer: params => {
           //   return qs.stringify(params, {arrayFormat: 'brackets'});
