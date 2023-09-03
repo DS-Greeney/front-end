@@ -16,6 +16,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import IconC from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import Header from '../components/Common/Header';
+import TitleChange from '../components/Common/TitleChange';
 // import {useNavigation} from '@react-navigation/native';
 
 const withdrawal = () => {
@@ -76,7 +77,16 @@ export default function Mypage() {
   const {userId} = useContext(AppContext);
 
   let navigation = useNavigation();
-  // const [userId, setUserId] = useState('');
+  //const [userId, setUserId] = useState('');
+  const [isModalVisible, setModalVisible] = useState(false);
+
+  const toggleModal = () => {
+    setModalVisible(!isModalVisible);
+  };
+
+  const closeModal = () => {
+    setModalVisible(false);
+  };
 
   interface UserModel {
     userNickname: string;
@@ -103,24 +113,6 @@ export default function Mypage() {
     }));
   };
 
-  // function handleClick() {
-  //   axios
-  //     .post('http://10.0.2.2:8082/api/users/info', {
-  //       userId: '1',
-  //     })
-  //     .then(function (response) {
-  //       handleInputChange('userNickname', response.data.userNickname);
-  //       handleInputChange('userPassword', response.data.userPassword);
-  //       handleInputChange('userPhonenum', response.data.userPhonenum);
-  //       handleInputChange('userPicture', response.data.userPicture);
-  //       handleInputChange('userTitle', response.data.userTitle);
-  //       handleInputChange('userEmail', response.data.userEmail);
-  //     })
-  //     .catch(function (error) {
-  //       console.log(error);
-  //     });
-  // }
-
   useEffect(() => {
     axios
       .post('http://10.0.2.2:8082/api/users/info', {
@@ -143,8 +135,12 @@ export default function Mypage() {
 
   return (
     <View style={styles.view}>
+<<<<<<< HEAD
       <Header navigation={navigation} type={'BACK'} title={'마이페이지'} />
       {/* type={'HOME'} 지움 */}
+=======
+      <Header navigation={navigation} type={'MY'} title={'마이페이지'} />
+>>>>>>> b7349b08d5441e3718a62d7f9b76d5090497def4
       <View style={{flexDirection: 'row'}}>
         {user.userPicture === '' ? (
           <Image
@@ -160,18 +156,7 @@ export default function Mypage() {
             <Text style={{fontSize: 25}}>{user.userNickname}</Text>
           </View>
           <View style={{flexDirection: 'row'}}>
-            <TouchableOpacity
-              disabled={true}
-              style={{
-                borderWidth: 0,
-                alignItems: 'center',
-                justifyContent: 'center',
-                height: 27,
-                marginBottom: 5,
-                backgroundColor: '#1A6F3F',
-                borderRadius: 20,
-                paddingHorizontal: 10,
-              }}>
+            <TouchableOpacity disabled={true} style={styles.title}>
               <Text style={{color: '#fff'}}>{user.userTitle}</Text>
             </TouchableOpacity>
           </View>
@@ -186,9 +171,10 @@ export default function Mypage() {
         <TouchableOpacity style={styles.btnSmall}>
           <Text style={{color: '#000'}}>닉네임 변경</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.btnSmall}>
+        <TouchableOpacity style={styles.btnSmall} onPress={() => toggleModal()}>
           <Text style={{color: '#000'}}>칭호 변경</Text>
         </TouchableOpacity>
+        <TitleChange navigation={navigation} />
         <TouchableOpacity style={styles.btnSmall} onPress={() => logout()}>
           <Text style={{color: '#000'}}>로그아웃</Text>
         </TouchableOpacity>
@@ -239,7 +225,9 @@ export default function Mypage() {
                 />
                 <Text style={{fontSize: 20, color: '#000'}}>찜한 목록</Text>
               </TouchableOpacity>
-              <TouchableOpacity style={styles.btnView1}>
+              <TouchableOpacity
+                style={styles.btnView1}
+                onPress={() => navigation.navigate('ChallengeAchieve')}>
                 <IconC
                   name="medal"
                   size={32}
@@ -344,6 +332,16 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     paddingLeft: 12,
     paddingVertical: 7,
+  },
+  title: {
+    borderWidth: 0,
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: 27,
+    marginBottom: 5,
+    backgroundColor: '#1A6F3F',
+    borderRadius: 20,
+    paddingHorizontal: 10,
   },
   titleText: {
     fontSize: 20,

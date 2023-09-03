@@ -14,6 +14,7 @@ const dummySpotData = [
     name: '우도 (해양도립공원)',
     location: '제주 제주시 우도면',
     tags: ['석양이아름다운', '평화', '자전거여행', '여유로운'],
+    type: '관광',
   },
   {
     image:
@@ -21,6 +22,7 @@ const dummySpotData = [
     name: '세종 호수공원',
     location: '세종특별자치시 연기면',
     tags: ['도심속자연', '휴식', '자전거', '여유로운', '연인과'],
+    type: '관광',
   },
   {
     image:
@@ -38,30 +40,35 @@ const dummySpotData = [
       '단풍',
       '가족과',
     ],
+    type: '관광',
   },
   {
     image:
       'https://search.pstatic.net/common/?src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20230724_20%2F1690160821121ohWIm_JPEG%2FIMG_0996.jpeg',
     name: '바이두부',
     location: '서울 용산구 소월로20길 10',
+    type: '식당',
   },
   {
     image:
       'https://search.pstatic.net/common/?src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20230504_283%2F1683190831894in3WR_PNG%2F%25C1%25A6%25B8%25F1_%25BE%25F8%25C0%25BD.png',
     name: '웨스턴 조선 부산',
     location: '부산 해운대구 동백로 67',
+    type: '숙소',
   },
   {
     image:
       'https://search.pstatic.net/common/?src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20220927_113%2F1664252532447EOyPt_JPEG%2FEA2ABDE6-BD6A-4691-B8E8-92C90BB0EB5B.jpeg',
     name: '공간녹음',
     location: '서울 강서구 공항대로 227 403호 마곡센트럴타워 1차',
+    type: '식당',
   },
   {
     image:
       'https://search.pstatic.net/common/?src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20210127_264%2F1611714129836Y6FaW_JPEG%2F%25C0%25A5%25BF%25EB%25B5%25F0%25B7%25B0%25BD%25BA_%25C6%25D0%25B9%25D0%25B8%25AE%25C6%25AE%25C0%25A9_%25BF%25C0%25BC%25C7%25C7%25C1%25B7%25D0%25C6%25AE%25BA%25E4_2.jpg',
     name: '벤티모 호텔 앤 레지던 제주',
     location: '제주 제주시 연삼로 14',
+    type: '숙소',
   },
 ];
 

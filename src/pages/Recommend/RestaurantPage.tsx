@@ -1,10 +1,11 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {View, Text, StyleSheet, ScrollView, FlatList} from 'react-native';
 import Header from '../../components/Common/Header';
 import SearchBar from '../../components/SearchBar';
 import FilterList from '../../components/filter/FilterList';
 import Veganspot from '../../components/Recommend/Veganspot';
 import {useNavigation} from '@react-navigation/native';
+import axios from 'axios';
 
 const areaList = [
   '전체',
@@ -78,7 +79,33 @@ const dummyVeganData = [
   },
 ];
 
-export default function TourspotPage() {
+export default function RestaurantPage() {
+  const [veganList, setVeganlist] = useState([]);
+  const [lat, setLat] = useState(37.6242392);
+  const [log, setLog] = useState(126.9901206);
+
+  useEffect(() => {
+    getData();
+  }, []);
+
+  const getData = async () => {
+    try {
+      const response = await axios.get(
+        'http://10.0.2.2:8082/greeney/main/restaurantlist',
+        {
+          params: {
+            latitude: lat,
+            longitude: log,
+          },
+        },
+      );
+      console.log(response.data.restaurants || []);
+      setVeganlist(response.data.restaurants || []);
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  };
+
   let navigation = useNavigation();
 
   return (
@@ -92,7 +119,7 @@ export default function TourspotPage() {
         <FlatList
           style={styles.veganlist}
           numColumns={2}
-          data={dummyVeganData}
+          data={veganList}
           renderItem={({item}) => (
             <Veganspot data={item} navigation={navigation} />
           )}
