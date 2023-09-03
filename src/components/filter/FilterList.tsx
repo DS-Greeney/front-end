@@ -4,13 +4,16 @@ import FilterBtn from '../../components/filter/FilterBtn';
 
 interface propType {
   areaList: string[];
+  func: (areaCode: string) => any;
 }
 
-const FilterList = ({areaList}: propType) => {
+const FilterList = ({areaList, func}: propType) => {
   const [selectArea, setSelectArea] = useState('전체');
 
-  const handleFilterClick = (name: string) => {
+  const handleFilterClick = (name: string | '전체') => {
     setSelectArea(name);
+
+    return func(name);
   };
 
   return (

@@ -28,7 +28,7 @@ const SideBar = ({navigation}: propType) => {
 
   const menuList = ['마이페이지', '일일 도전과제', '찜 목록', '언어 설정'];
 
-  const menuURL = ['Mypage', 'Mypage', 'LikelistPage', 'Mypage'];
+  const menuURL = ['Mypage', 'DailyChallenge', 'LikelistPage', 'Mypage'];
 
   const logout = () => {
     Alert.alert(

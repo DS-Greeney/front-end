@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState, useContext} from 'react';
 import {
   View,
   Text,
@@ -14,15 +14,40 @@ import SearchBar from '../../components/SearchBar';
 // import MainDrawerNavigator from '../../navigation/DrawerNavigator';
 // import {NavigationContainer} from '@react-navigation/native';
 import Swiper from 'react-native-swiper';
+import {AppContext} from '../../components/Common/Context';
 import {DrawerActions, NavigationProp} from '@react-navigation/native';
 import Header from '../../components/Common/Header';
 import SideBar from '../../components/Common/SideBar';
+import axios from 'axios';
 
 export default function Homepage({navigation}: any) {
+  const {userAuth} = useContext(AppContext);
   // const [isModalVisible, setModalVisible] = useState(false);
 
   // const toggleModal = () => {
   //   setModalVisible(!isModalVisible);
+  // };
+
+  //AUTH
+  // useEffect(() => {
+  //   handleAuth();
+  // }, []);
+
+  // const handleAuth = async () => {
+  //   try {
+  //     const response = await axios.get('http://10.0.2.2:8082/api/users/auth');
+  //     console.log(response.data || []);
+
+  //     userAuth.id = response.data.userId;
+  //     userAuth.isAuth = true;
+  //     userAuth.nickname = response.data.userNickname;
+  //     userAuth.email = response.data.userEmail;
+  //     userAuth.phoneNum = response.data.userPhonenum;
+  //     userAuth.birth = response.data.userBirthdate;
+  //     userAuth.gender = response.data.userGender;
+  //   } catch (error) {
+  //     console.error('Error fetching data:', error);
+  //   }
   // };
 
   const ImageMenuArray = [

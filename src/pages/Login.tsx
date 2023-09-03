@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useContext} from 'react';
 import {
   SafeAreaView,
   View,
@@ -8,14 +8,37 @@ import {
   TouchableOpacity,
   Alert,
 } from 'react-native';
+import {AppContext} from '../components/Common/Context';
 import axios from 'axios';
 
 export default function Login({navigation}: any) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [userId, setUserId] = useState('');
+  // const [id, setUserId] = useState('');
+
+  const {userId, setUserId} = useContext(AppContext);
+
+  // function handleAuth() {
+  //   async () => {
+  //     try {
+  //       const response = await axios.get('http://10.0.2.2:8082/api/users/auth');
+  //       console.log(response.data || []);
+
+  //       userAuth.id = response.data.userId;
+  //       userAuth.isAuth = true;
+  //       userAuth.nickname = response.data.userNickname;
+  //       userAuth.email = response.data.userEmail;
+  //       userAuth.phoneNum = response.data.userPhonenum;
+  //       userAuth.birth = response.data.userBirthdate;
+  //       userAuth.gender = response.data.userGender;
+  //     } catch (error) {
+  //       console.error('Error fetching data:', error);
+  //     }
+  //   };
+  // }
 
   function handleClick() {
+    //navigation.navigate('MainNavigator', {screen: 'Homepage'});
     if (email.trim() === '') {
       Alert.alert('아이디 입력 확인', '아이디가 입력되지 않았습니다.');
     } else if (password.trim() === '') {
@@ -31,7 +54,10 @@ export default function Login({navigation}: any) {
           if (response.data.success === true) {
             console.log('로그인 성공');
             // console.log(response.data.userId);
+            // setUserId(response.data.userId);
+            // setUserId(response.data.userId);
             setUserId(response.data.userId);
+            console.log('userId:', userId);
             navigation.navigate('MainNavigator', {screen: 'Homepage'});
           } else {
             Alert.alert('로그인 실패', '아이디나 비밀번호를 확인하세요.');

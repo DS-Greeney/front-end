@@ -169,7 +169,7 @@ export default function RestaurantDetail(route) {
               {restaurant.rstrntCtgry}
             </Text>
           </View>
-          <LikeHeart />
+          <LikeHeart size={40} />
         </View>
         <Text
           style={{
