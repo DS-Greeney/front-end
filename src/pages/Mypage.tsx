@@ -136,7 +136,6 @@ export default function Mypage() {
   return (
     <View style={styles.view}>
       <Header navigation={navigation} type={'BACK'} title={'마이페이지'} />
-      {/* type={'HOME'} 지움 */}
       <View style={{flexDirection: 'row'}}>
         {user.userPicture === '' ? (
           <Image
