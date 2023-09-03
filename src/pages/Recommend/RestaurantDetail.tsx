@@ -8,18 +8,126 @@ import {
   ScrollView,
   TextInput,
 } from 'react-native';
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 import Swiper from 'react-native-swiper';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import LikeHeart from '../../components/Like/LikeHeart';
+import Header from '../../components/Common/Header';
+import {useNavigation} from '@react-navigation/native';
+import axios from 'axios';
+// import MapView, {PROVIDER_GOOGLE} from 'react-native-maps';
 
 // import ReviewItem from '../../components/Recommend/ReviewItem';
 
-export default function RestaurantDetail() {
+interface dataType {
+  rstrntId: number;
+  rstrntCtgry: string;
+  rstrntName: string;
+  rstrntAddr: string;
+  rstrntStar: number;
+  areaCode: number;
+  rstrntTel: string;
+  rstrntMenuinfo: string;
+  rstrntLa: string;
+  rstrntLo: string;
+}
+
+export default function RestaurantDetail(route) {
+  const [restaurant, setRestaurant] = useState<dataType>({
+    rstrntId: 0,
+    rstrntCtgry: '',
+    rstrntName: '',
+    rstrntAddr: '',
+    rstrntStar: 0,
+    areaCode: 0,
+    rstrntTel: '',
+    rstrntMenuinfo: '',
+    rstrntLa: '',
+    rstrntLo: '',
+  });
   let [inputCount, setInputCount] = useState(0);
+  let navigation = useNavigation();
+
+  useEffect(() => {
+    getData();
+  }, []);
+
+  const getData = async () => {
+    try {
+      const response = await axios.get(
+        `http://10.0.2.2:8082/greeney/main/restaurantlist/detail/${route.route.params}`,
+      );
+      console.log(response.data || []);
+      setRestaurant(response.data.restaurant || []);
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  };
+
+  var area = '';
+  switch (restaurant.areaCode) {
+    case 1:
+      area = '서울특별시';
+      break;
+    case 2:
+      area = '인천광역시';
+      break;
+    case 3:
+      area = '대전광역시';
+      break;
+    case 4:
+      area = '대구광역시';
+      break;
+    case 5:
+      area = '광주광역시';
+      break;
+    case 6:
+      area = '부산광역시';
+      break;
+    case 7:
+      area = '울산광역시';
+      break;
+    case 8:
+      area = '세종특별자치시';
+      break;
+    case 31:
+      area = '경기도';
+      break;
+    case 32:
+      area = '강원특별자치도';
+      break;
+    case 33:
+      area = '충청북도';
+      break;
+    case 34:
+      area = '충청남도';
+      break;
+    case 35:
+      area = '경상북도';
+      break;
+    case 36:
+      area = '경상남도';
+      break;
+    case 37:
+      area = '전라북도';
+      break;
+    case 38:
+      area = '전라남도';
+      break;
+    case 39:
+      area = '제주특별자치도';
+      break;
+  }
+
+  console.log(restaurant);
 
   return (
     <View style={styles.view}>
+      <Header
+        navigation={navigation}
+        type={'BACK'}
+        title={restaurant.rstrntName}
+      />
       <ScrollView style={styles.scrollView}>
         <Swiper
           autoplay
@@ -47,7 +155,9 @@ export default function RestaurantDetail() {
         </Swiper>
         <View style={styles.title}>
           <View style={{flexDirection: 'row'}}>
-            <Text style={{fontSize: 30, color: '#000'}}>공간녹음</Text>
+            <Text style={{fontSize: 30, color: '#000'}}>
+              {restaurant.rstrntName}
+            </Text>
             <Text
               style={{
                 fontSize: 20,
@@ -56,7 +166,7 @@ export default function RestaurantDetail() {
                 marginTop: 5,
                 marginBottom: 5,
               }}>
-              양식
+              {restaurant.rstrntCtgry}
             </Text>
           </View>
           <LikeHeart />
@@ -69,7 +179,7 @@ export default function RestaurantDetail() {
             marginTop: 5,
             marginBottom: 5,
           }}>
-          서울 강서구 마곡동
+          {area}
         </Text>
         <View style={styles.view2}>
           <Icon
@@ -78,7 +188,7 @@ export default function RestaurantDetail() {
             color="#FCE25F"
             style={{marginRight: 5}}
           />
-          <Text style={{fontSize: 20, color: '#000'}}> 5 / 5</Text>
+          <Text style={{fontSize: 20, color: '#000'}}> {restaurant.rstrntStar} / 5</Text>
         </View>
         <View style={styles.view2}>
           <TouchableOpacity
@@ -97,12 +207,12 @@ export default function RestaurantDetail() {
         <View style={styles.view2}>
           <Text style={styles.extext}>주소</Text>
           <Text ellipsizeMode="tail" style={[styles.text, {flex: 1}]}>
-            서울 강서구 공항대로 227 403호 마곡센트럴타워 1차
+            {restaurant.rstrntAddr}
           </Text>
         </View>
         <View style={styles.view2}>
           <Text style={styles.extext}>전화번호</Text>
-          <Text style={styles.text}>0507-1327-6998</Text>
+          <Text style={styles.text}>0{restaurant.rstrntTel}</Text>
         </View>
         <View style={styles.view2}>
           <Text style={styles.extext}>메뉴</Text>
