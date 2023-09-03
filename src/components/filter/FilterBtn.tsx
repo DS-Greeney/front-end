@@ -1,11 +1,32 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {StyleSheet, View, Text, TouchableOpacity} from 'react-native';
 
 interface propType {
+  key: number;
   name: string;
   selected: boolean;
   onPress: (name: string) => any;
 }
+
+// useEffect(() => {
+//   axios
+//     .post('http://10.0.2.2:8082/api/users/info', {
+//       userId: userId,
+//     })
+//     .then(function (response) {
+//       // console.log(response);
+//       console.log('id: ', userId);
+//       handleInputChange('userNickname', response.data.userNickname);
+//       handleInputChange('userPassword', response.data.userPassword);
+//       handleInputChange('userPhonenum', response.data.userPhonenum);
+//       handleInputChange('userPicture', response.data.userPicture);
+//       handleInputChange('userTitle', response.data.userTitle);
+//       handleInputChange('userEmail', response.data.userEmail);
+//     })
+//     .catch(function (error) {
+//       console.log(error);
+//     });
+// }, [userId]);
 
 const FilterBtn = ({name, selected, onPress}: propType) => {
   return (
