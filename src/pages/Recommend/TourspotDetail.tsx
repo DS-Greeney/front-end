@@ -53,7 +53,7 @@ export default function TourspotDetail(route) {
   const getData = async () => {
     try {
       const response = await axios.get(
-        `http://10.0.2.2:8082/greeney/main/tourlist/detail/${route.route.params}`,
+        `http://10.0.2.2:8082/greeney/main/tourlist/detail/${route.route.params.tourspotId}`,
       );
       console.log(response.data || []);
       setTourSpot(response.data.tourspot || []);
@@ -165,20 +165,20 @@ export default function TourspotDetail(route) {
             }}
           />
         </Swiper>
-        <View style={styles.title}>
-          <Text style={{fontSize: 30, color: '#000'}}>{tourSpot.title}</Text>
-          <LikeHeart size={40} />
-        </View>
         <Text
           style={{
             fontSize: 20,
             color: '#666',
             marginLeft: 20,
-            marginTop: 5,
+            marginTop: 20,
             marginBottom: 5,
           }}>
           {area}
         </Text>
+        <View style={styles.title}>
+          <Text style={{fontSize: 30, color: '#000', flex: 1}}>{tourSpot.title}</Text>
+          <LikeHeart size={40} />
+        </View>
         <View style={styles.view2}>
           <Icon
             name="star-rate"
@@ -384,7 +384,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginHorizontal: 20,
-    marginTop: 20,
   },
   view2: {
     flexDirection: 'row',

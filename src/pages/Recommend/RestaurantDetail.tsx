@@ -165,34 +165,30 @@ export default function RestaurantDetail(route) {
             }}
           />
         </Swiper>
-        <View style={styles.title}>
-          <View style={{flexDirection: 'row'}}>
+        <View style={styles.title1}>
+          <Text
+            style={{
+              fontSize: 20,
+              color: '#666',
+            }}>
+            {area}
+          </Text>
+          <Text
+            style={{
+              fontSize: 20,
+              color: '#666',
+            }}>
+            {restaurant.rstrntCtgry}
+          </Text>
+        </View>
+        <View style={styles.title2}>
+          <View style={{flexDirection: 'row', flex: 1}}>
             <Text style={{fontSize: 30, color: '#000'}}>
               {restaurant.rstrntName}
-            </Text>
-            <Text
-              style={{
-                fontSize: 20,
-                color: '#666',
-                marginLeft: 20,
-                marginTop: 5,
-                marginBottom: 5,
-              }}>
-              {restaurant.rstrntCtgry}
             </Text>
           </View>
           <LikeHeart size={40} />
         </View>
-        <Text
-          style={{
-            fontSize: 20,
-            color: '#666',
-            marginLeft: 20,
-            marginTop: 5,
-            marginBottom: 5,
-          }}>
-          {area}
-        </Text>
         <View style={styles.view2}>
           <Icon
             name="star-rate"
@@ -224,7 +220,8 @@ export default function RestaurantDetail(route) {
         </View>
         <View style={styles.view2}>
           <Text style={styles.extext}>전화번호</Text>
-          <Text style={styles.text}>0{restaurant.rstrntTel}</Text>
+          <Text style={styles.text}>{restaurant.rstrntTel}</Text>
+          {/* 전화번호 앞 0, - 처리 */}
         </View>
         <View style={styles.view2}>
           <Text style={styles.extext}>메뉴</Text>
@@ -362,11 +359,18 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     marginHorizontal: 40,
   },
-  title: {
+  title1: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginHorizontal: 20,
     marginTop: 20,
+    marginBottom: 5,
+  },
+  title2: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginHorizontal: 20,
+    marginBottom: 5,
   },
   view2: {
     flexDirection: 'row',

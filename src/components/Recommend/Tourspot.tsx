@@ -20,7 +20,7 @@ const Tourspot = ({data, navigation}: propType) => {
     <TouchableOpacity
       style={styles.container}
       key={data.tourspot_id}
-      onPress={() => navigation.navigate('TourspotDetail', data.tourspot_id)}>
+      onPress={() => navigation.navigate('TourspotDetail', data)}>
       <View style={styles.line} />
       <View style={styles.content}>
         <View style={styles.wrapper}>
