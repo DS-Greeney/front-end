@@ -64,6 +64,20 @@ export default function RestaurantDetail(route) {
     }
   };
 
+  const memu = restaurant.rstrntMenuinfo.split(',');
+
+  const MemuComponent = ({data}) => {
+    return (
+      <View style={{marginHorizontal: 20, marginBottom: 5}}>
+        {data.map((item, index) => (
+          <View key={index} style={styles.menu}>
+            <Text style={styles.text}>{item}</Text>
+          </View>
+        ))}
+      </View>
+    );
+  };
+
   var area = '';
   switch (restaurant.areaCode) {
     case 1:
@@ -118,8 +132,6 @@ export default function RestaurantDetail(route) {
       area = '제주특별자치도';
       break;
   }
-
-  console.log(restaurant);
 
   return (
     <View style={styles.view}>
@@ -217,20 +229,7 @@ export default function RestaurantDetail(route) {
         <View style={styles.view2}>
           <Text style={styles.extext}>메뉴</Text>
         </View>
-        <View style={{marginHorizontal: 20, marginBottom: 5}}>
-          <View style={styles.menu}>
-            <Text style={styles.text}>녹음 카레</Text>
-            <Text style={styles.text}>17,000원</Text>
-          </View>
-          <View style={styles.menu}>
-            <Text style={styles.text}>후무스 베지보울</Text>
-            <Text style={styles.text}>16,000원</Text>
-          </View>
-          <View style={styles.menu}>
-            <Text style={styles.text}>버섯크림 파스타</Text>
-            <Text style={styles.text}>18,000원</Text>
-          </View>
-        </View>
+        <MemuComponent data={memu} />
         <View style={styles.view2}>
           <TouchableOpacity
             disabled={true}
