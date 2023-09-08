@@ -11,6 +11,7 @@ import {
 import {useNavigation} from '@react-navigation/native';
 import {AppContext} from '../components/Common/Context';
 import axios from 'axios';
+import {NavigationProp} from '@react-navigation/native';
 
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import IconC from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -48,21 +49,21 @@ const logout = ({navigation}: any) => {
       {
         text: '로그아웃',
         onPress: () => {
-          //onDelete(id);
-          // axios
-          //   .get('http://10.0.2.2:8082/api/users/logout')
-          //   .then(function (response) {
-          //     console.log(response.data);
-          //     if (response.data.success === true) {
-          //       console.log('로그아웃 성공');
-          //       navigation.navigate('Login');
-          //     } else {
-          //       Alert.alert('로그아웃 실패', '관리자에게 문의하세요.');
-          //     }
-          //   })
-          //   .catch(function (error) {
-          //     console.log(error);
-          //   });
+          // onDelete(id);
+          axios
+            .get('http://10.0.2.2:8082/api/users/logout')
+            .then(function (response) {
+              console.log(response.data);
+              if (response.data.success === true) {
+                console.log('로그아웃 성공');
+                navigation.navigate('Login');
+              } else {
+                Alert.alert('로그아웃 실패', '관리자에게 문의하세요.');
+              }
+            })
+            .catch(function (error) {
+              console.log(error);
+            });
         },
       },
     ],
@@ -111,6 +112,46 @@ export default function Mypage() {
       ...prevState,
       [key]: value,
     }));
+  };
+
+  const ChangePassword = () => {
+    // const pass = '';
+    // ChangePasswordAxios(pass);
+    Alert.alert(
+      '비밀번호 변경',
+      '정말 비밀번호를 변경하시겠습니까?',
+      [
+        {text: '취소', onPress: () => {}, style: 'cancel'},
+        {
+          text: '변경',
+          onPress: () => {},
+          style: 'destructive',
+        },
+      ],
+      {
+        cancelable: true,
+        onDismiss: () => {},
+      },
+    );
+  };
+
+  const ChangeNickname = () => {
+    Alert.alert(
+      '닉네임 변경',
+      '정말 닉네임을 변경하시겠습니까?',
+      [
+        {text: '취소', onPress: () => {}, style: 'cancel'},
+        {
+          text: '변경',
+          onPress: () => navigation.navigate('NicknameChangePage', {userId}),
+          style: 'destructive',
+        },
+      ],
+      {
+        cancelable: true,
+        onDismiss: () => {},
+      },
+    );
   };
 
   useEffect(() => {
@@ -163,14 +204,14 @@ export default function Mypage() {
         <TouchableOpacity style={styles.btnSmall}>
           <Text style={{color: '#000'}}>이미지 변경</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.btnSmall}>
+        <TouchableOpacity style={styles.btnSmall} onPress={() => ChangeNickname()}>
           <Text style={{color: '#000'}}>닉네임 변경</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.btnSmall} onPress={() => toggleModal()}>
           <Text style={{color: '#000'}}>칭호 변경</Text>
         </TouchableOpacity>
         <TitleChange navigation={navigation} />
-        <TouchableOpacity style={styles.btnSmall} onPress={() => logout()}>
+        <TouchableOpacity style={styles.btnSmall} onPress={() => logout(navigation)}>
           <Text style={{color: '#000'}}>로그아웃</Text>
         </TouchableOpacity>
       </View>
@@ -237,47 +278,51 @@ export default function Mypage() {
             <TouchableOpacity
               disabled={true}
               style={[styles.box, {height: 240}]}>
-              <Text style={[styles.titleText]}>설정</Text>
-              <TouchableOpacity style={[styles.btnView2]}>
-                <Text style={{fontSize: 20, color: '#000'}}>비밀번호 변경</Text>
+              <Text style={styles.titleText}>설정</Text>
+              <TouchableOpacity style={styles.btnView2}>
+                <Text
+                  style={{fontSize: 20, color: '#000'}}
+                  onPress={() => ChangePassword()}>
+                  비밀번호 변경
+                </Text>
               </TouchableOpacity>
-              <TouchableOpacity style={[styles.btnView2]}>
+              <TouchableOpacity style={styles.btnView2}>
                 <Text style={{fontSize: 20, color: '#000'}}>
                   이메일 및 휴대폰 재인증
                 </Text>
               </TouchableOpacity>
-              <TouchableOpacity style={[styles.btnView2]}>
+              <TouchableOpacity style={styles.btnView2}>
                 <Text style={{fontSize: 20, color: '#000'}}>언어 설정</Text>
               </TouchableOpacity>
-              <TouchableOpacity style={[styles.btnView2]}>
+              <TouchableOpacity style={styles.btnView2}>
                 <Text style={{fontSize: 20, color: '#000'}}>알림 설정</Text>
               </TouchableOpacity>
             </TouchableOpacity>
             <TouchableOpacity
               disabled={true}
               style={[styles.box, {height: 320}]}>
-              <Text style={[styles.titleText]}>이용 안내</Text>
-              <TouchableOpacity style={[styles.btnView2]}>
+              <Text style={styles.titleText}>이용 안내</Text>
+              <TouchableOpacity style={styles.btnView2}>
                 <Text style={{fontSize: 20, color: '#000'}}>앱 버전</Text>
               </TouchableOpacity>
-              <TouchableOpacity style={[styles.btnView2]}>
+              <TouchableOpacity style={styles.btnView2}>
                 <Text style={{fontSize: 20, color: '#000'}}>문의하기</Text>
               </TouchableOpacity>
-              <TouchableOpacity style={[styles.btnView2]}>
+              <TouchableOpacity style={styles.btnView2}>
                 <Text style={{fontSize: 20, color: '#000'}}>공지사항</Text>
               </TouchableOpacity>
-              <TouchableOpacity style={[styles.btnView2]}>
+              <TouchableOpacity style={styles.btnView2}>
                 <Text style={{fontSize: 20, color: '#000'}}>
                   서비스 이용약관
                 </Text>
               </TouchableOpacity>
-              <TouchableOpacity style={[styles.btnView2]}>
+              <TouchableOpacity style={styles.btnView2}>
                 <Text style={{fontSize: 20, color: '#000'}}>
                   개인정보 처리방침
                 </Text>
               </TouchableOpacity>
               <TouchableOpacity
-                style={[styles.btnView2]}
+                style={styles.btnView2}
                 onPress={() => withdrawal()}>
                 <Text style={{fontSize: 20, color: '#000'}}>회원탈퇴</Text>
               </TouchableOpacity>
