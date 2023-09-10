@@ -57,7 +57,7 @@ export default function RestaurantDetail(route) {
       const response = await axios.get(
         `http://10.0.2.2:8082/greeney/main/restaurantlist/detail/${route.route.params}`,
       );
-      console.log(response.data || []);
+      //console.log(response.data || []);
       setRestaurant(response.data.restaurant || []);
     } catch (error) {
       console.error('Error fetching data:', error);
@@ -188,7 +188,10 @@ export default function RestaurantDetail(route) {
             color="#FCE25F"
             style={{marginRight: 5}}
           />
-          <Text style={{fontSize: 20, color: '#000'}}> {restaurant.rstrntStar} / 5</Text>
+          <Text style={{fontSize: 20, color: '#000'}}>
+            {' '}
+            {restaurant.rstrntStar} / 5
+          </Text>
         </View>
         <View style={styles.view2}>
           <TouchableOpacity
