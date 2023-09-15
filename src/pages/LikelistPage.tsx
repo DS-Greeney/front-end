@@ -1,9 +1,10 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import Header from '../components/Common/Header';
 import FilterList from '../components/filter/FilterList';
 import Likelist from '../components/Like/Likelist';
 import {StyleSheet, View, FlatList} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
+import axios from 'axios';
 
 const typeList = ['전체', '관광', '식당', '숙소', '여행코스'];
 
@@ -74,6 +75,23 @@ const dummySpotData = [
 
 export default function LikeListPage() {
   let navigation = useNavigation();
+  const [likeList, setLikeList] = useState();
+
+  const getData = async () => {
+    try {
+      const response = await axios.get(
+        'http://10.0.2.2:8082/greeney/mypage/like/1',
+      );
+      console.log(response.data || []);
+      // setLikeList(response.data.spotLikeList || []);
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  };
+
+  useEffect(() => {
+    getData();
+  }, []);
 
   return (
     <View style={styles.likelist}>
