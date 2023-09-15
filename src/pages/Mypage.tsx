@@ -177,7 +177,7 @@ export default function Mypage() {
   return (
     <View style={styles.view}>
       <Header navigation={navigation} type={'BACK'} title={'마이페이지'} />
-      <View style={{flexDirection: 'row'}}>
+      <View style={{flexDirection: 'row', marginBottom: 20}}>
         {user.userPicture === '' ? (
           <Image
             source={require('../assets/images/home/dummy_user.png')}
@@ -186,8 +186,7 @@ export default function Mypage() {
         ) : (
           <Image source={{uri: user.userPicture}} style={styles.image} />
         )}
-
-        <View style={{marginTop: 10}}>
+        <View>
           <View style={{flexDirection: 'row'}}>
             <Text style={{fontSize: 25}}>{user.userNickname}</Text>
           </View>
@@ -197,50 +196,13 @@ export default function Mypage() {
             </TouchableOpacity>
           </View>
           <Text style={{fontSize: 15}}>이메일: {user.userEmail}</Text>
-          <Text style={{fontSize: 15}}>휴대폰 번호: {user.userPhonenum}</Text>
         </View>
       </View>
-      <View style={{flexDirection: 'row', margin: 10}}>
-        <TouchableOpacity style={styles.btnSmall}>
-          <Text style={{color: '#000'}}>이미지 변경</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.btnSmall} onPress={() => ChangeNickname()}>
-          <Text style={{color: '#000'}}>닉네임 변경</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.btnSmall} onPress={() => toggleModal()}>
-          <Text style={{color: '#000'}}>칭호 변경</Text>
-        </TouchableOpacity>
-        <TitleChange navigation={navigation} />
-        <TouchableOpacity style={styles.btnSmall} onPress={() => logout(navigation)}>
-          <Text style={{color: '#000'}}>로그아웃</Text>
-        </TouchableOpacity>
-      </View>
+      <View style={styles.line} />
       <View style={styles.view}>
         <ScrollView contentContainerStyle={{flexGrow: 1}}>
           <View style={styles.scrollView}>
-            <TouchableOpacity
-              disabled={true}
-              style={[styles.box, {height: 280}]}>
-              <TouchableOpacity style={styles.btnView1}>
-                <Icon
-                  name="list-alt"
-                  size={32}
-                  color="#1A6F3F"
-                  style={{marginRight: 5}}
-                />
-                <Text style={{fontSize: 20, color: '#000'}}>내가 쓴 글</Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={styles.btnView1}>
-                <Icon
-                  name="wechat"
-                  size={32}
-                  color="#1A6F3F"
-                  style={{marginRight: 5}}
-                />
-                <Text style={{fontSize: 20, color: '#000'}}>
-                  내가 댓글 단 글
-                </Text>
-              </TouchableOpacity>
+            <TouchableOpacity disabled={true} style={styles.box}>
               <TouchableOpacity style={styles.btnView1}>
                 <Icon
                   name="rate-review"
@@ -275,42 +237,35 @@ export default function Mypage() {
                 </Text>
               </TouchableOpacity>
             </TouchableOpacity>
-            <TouchableOpacity
-              disabled={true}
-              style={[styles.box, {height: 240}]}>
+            <TouchableOpacity disabled={true} style={styles.box}>
               <Text style={styles.titleText}>설정</Text>
-              <TouchableOpacity style={styles.btnView2}>
-                <Text
-                  style={{fontSize: 20, color: '#000'}}
-                  onPress={() => ChangePassword()}>
-                  비밀번호 변경
-                </Text>
+              <TouchableOpacity
+                style={styles.btnView2}
+                onPress={() => toggleModal()}>
+                <Text style={{fontSize: 20, color: '#000'}}>칭호 변경</Text>
               </TouchableOpacity>
-              <TouchableOpacity style={styles.btnView2}>
-                <Text style={{fontSize: 20, color: '#000'}}>
-                  이메일 및 휴대폰 재인증
-                </Text>
+              <TouchableOpacity
+                style={styles.btnView2}
+                onPress={() => ChangeNickname()}>
+                <Text style={{fontSize: 20, color: '#000'}}>닉네임 변경</Text>
               </TouchableOpacity>
-              <TouchableOpacity style={styles.btnView2}>
-                <Text style={{fontSize: 20, color: '#000'}}>언어 설정</Text>
+              <TouchableOpacity
+                style={styles.btnView2}
+                onPress={() => ChangePassword()}>
+                <Text style={{fontSize: 20, color: '#000'}}>이미지 변경</Text>
               </TouchableOpacity>
-              <TouchableOpacity style={styles.btnView2}>
-                <Text style={{fontSize: 20, color: '#000'}}>알림 설정</Text>
+              <TouchableOpacity
+                style={styles.btnView2}
+                onPress={() => ChangePassword()}>
+                <Text style={{fontSize: 20, color: '#000'}}>비밀번호 변경</Text>
               </TouchableOpacity>
             </TouchableOpacity>
-            <TouchableOpacity
-              disabled={true}
-              style={[styles.box, {height: 320}]}>
+            <TouchableOpacity disabled={true} style={styles.box}>
               <Text style={styles.titleText}>이용 안내</Text>
-              <TouchableOpacity style={styles.btnView2}>
+              <View style={styles.rowView}>
                 <Text style={{fontSize: 20, color: '#000'}}>앱 버전</Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={styles.btnView2}>
-                <Text style={{fontSize: 20, color: '#000'}}>문의하기</Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={styles.btnView2}>
-                <Text style={{fontSize: 20, color: '#000'}}>공지사항</Text>
-              </TouchableOpacity>
+                <Text style={{fontSize: 20, color: '#000'}}>1.0.0</Text>
+              </View>
               <TouchableOpacity style={styles.btnView2}>
                 <Text style={{fontSize: 20, color: '#000'}}>
                   서비스 이용약관
@@ -320,6 +275,11 @@ export default function Mypage() {
                 <Text style={{fontSize: 20, color: '#000'}}>
                   개인정보 처리방침
                 </Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={styles.btnView2}
+                onPress={() => logout(navigation)}>
+                <Text style={{fontSize: 20, color: '#000'}}>로그아웃</Text>
               </TouchableOpacity>
               <TouchableOpacity
                 style={styles.btnView2}
@@ -335,6 +295,12 @@ export default function Mypage() {
 }
 
 const styles = StyleSheet.create({
+  line: {
+    borderStyle: 'solid',
+    borderWidth: 0.5,
+    borderColor: '#999',
+    marginHorizontal: 15,
+  },
   view: {
     backgroundColor: '#FFFFFF',
     flex: 1,
@@ -347,7 +313,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     height: 100,
     width: 100,
-    marginTop: 20,
     marginHorizontal: 20,
     backgroundColor: '#ccc',
     borderRadius: 50,
@@ -370,8 +335,15 @@ const styles = StyleSheet.create({
   },
   btnView2: {
     backgroundColor: '#fff',
-    paddingLeft: 12,
+    paddingHorizontal: 12,
     paddingVertical: 7,
+  },
+  rowView: {
+    backgroundColor: '#fff',
+    paddingHorizontal: 12,
+    paddingVertical: 7,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
   title: {
     borderWidth: 0,
