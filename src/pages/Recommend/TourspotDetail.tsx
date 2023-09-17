@@ -194,7 +194,9 @@ export default function TourspotDetail(route: any) {
           />
         </Swiper>
         <View style={styles.title}>
-          <Text style={{fontSize: 30, color: '#000'}}>{tourSpot.title}</Text>
+          <Text style={{fontSize: 30, color: '#000', flex: 1}}>
+            {tourSpot.title}
+          </Text>
           <LikeHeart
             category={1}
             size={40}

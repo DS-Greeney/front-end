@@ -4,13 +4,13 @@ import {
   Text,
   StyleSheet,
   TouchableOpacity,
+  Image
 } from 'react-native';
-import IconC from 'react-native-vector-icons/MaterialCommunityIcons';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import Header from '../../components/Common/Header';
 import {useNavigation} from '@react-navigation/native';
 
-export default function ChallengeAchieve() {
+export default function ChallengeComplete() {
   let navigation = useNavigation();
 
   return (
@@ -21,40 +21,35 @@ export default function ChallengeAchieve() {
         title={'달성한 도전 과제'}
       />
       <View style={styles.view2}>
-        <Text style={styles.title}>남은 도전 과제 수는</Text>
-        <View style={styles.title}>
-          <Text style={styles.title2}>7개</Text>
-          <Text style={styles.title}> 입니다</Text>
-        </View>
-        <View style={styles.goal}>
-          <View style={styles.textnum}>
-            <Text style={{fontSize: 16, color: '#000'}}>목표</Text>
-            <Text style={{fontSize: 28, color: '#000'}}>10</Text>
-          </View>
-          <View style={styles.textnum}>
-            <Text style={{fontSize: 16, color: '#000'}}>달성 도전 과제</Text>
-            <Text style={{fontSize: 28, color: '#000'}}>3</Text>
-          </View>
-          <View style={styles.textnum}>
-            <Text style={{fontSize: 16, color: '#000'}}>남은 도전 과제</Text>
-            <Text style={{fontSize: 28, color: '#000'}}>7</Text>
+        <View style={{marginBottom: 20}}>
+          <Text style={styles.title}>지금까지 달성한 도전과제는</Text>
+          <View style={styles.title}>
+            <Text style={styles.title2}>3개</Text>
+            <Text style={styles.title}> 입니다</Text>
           </View>
         </View>
         <View style={styles.line} />
         <View style={styles.icon}>
           <View style={styles.iconleft}>
-            <IconC
-              name="medal"
-              size={88}
-              color="#dda"
-              style={{marginRight: 5}}
+            <Image
+              style={styles.trophy}
+              source={require('../../assets/images/challenge/trophy.png')}
             />
-            <View style={styles.textnum}>
-              <Text style={{fontSize: 14, color: '#000'}}>오늘 달성 수</Text>
-              <Text style={{fontSize: 28, color: '#000'}}>2</Text>
+            <View style={styles.title}>
+              <Text style={styles.title}>다음 목표 달성까지</Text>
+              <Text style={styles.title4}> 7개</Text>
             </View>
           </View>
-          <TouchableOpacity style={styles.touchable}>
+        </View>
+        <TouchableOpacity disabled={true} style={styles.graph1}>
+          <TouchableOpacity
+            disabled={true}
+            style={[styles.graph2, {width: '30%'}]}>
+            <Text style={{fontSize: 18, color: '#eee'}}>3 / 10</Text>
+          </TouchableOpacity>
+        </TouchableOpacity>
+        <View style={styles.graphtext}>
+          <TouchableOpacity style={styles.touchable} onPress={() => navigation.navigate('DailyChallenge')}>
             <Text style={{fontSize: 14, color: '#555'}}>일일 도전 과제</Text>
             <Icon
               name="arrow-forward-ios"
@@ -63,14 +58,6 @@ export default function ChallengeAchieve() {
               style={{marginRight: 5}}
             />
           </TouchableOpacity>
-        </View>
-        <TouchableOpacity disabled={true} style={styles.graph1}>
-          <TouchableOpacity disabled={true} style={[styles.graph2, {width: '30%'}]}>
-            <Text style={{fontSize: 18, color: '#eee'}}>3 / 10</Text>
-          </TouchableOpacity>
-        </TouchableOpacity>
-        <View style={styles.graphtext}>
-          <Text style={{fontSize: 16, color: '#000'}}>환경 보호 새내기</Text>
         </View>
         <View style={styles.line} />
         <Text style={styles.title3}>현재 닉네임 님의 칭호</Text>
@@ -100,7 +87,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     color: '#000',
     flexDirection: 'row',
-    fontWeight: 'bold',
+    alignItems: 'center',
   },
   title2: {
     fontSize: 20,
@@ -111,8 +98,12 @@ const styles = StyleSheet.create({
   title3: {
     fontSize: 20,
     color: '#000',
-    fontWeight: 'bold',
     marginVertical: 15,
+  },
+  title4: {
+    fontSize: 34,
+    color: '#000',
+    flexDirection: 'row',
   },
   textnum: {
     alignItems: 'center',
@@ -133,6 +124,12 @@ const styles = StyleSheet.create({
     justifyContent: 'space-evenly',
     flexDirection: 'row',
     alignItems: 'center',
+    marginBottom: 10,
+  },
+  trophy: {
+    marginRight: 20,
+    height: 60,
+    width: 60,
   },
   touchable: {
     flexDirection: 'row',
@@ -153,7 +150,7 @@ const styles = StyleSheet.create({
   },
   graphtext: {
     alignItems: 'flex-end',
-    marginTop: 5,
+    marginTop: 10,
     marginBottom: 20,
   },
   badge: {

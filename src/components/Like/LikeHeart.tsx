@@ -31,6 +31,7 @@ const LikeHeart = ({
       );
       console.log(response.data);
       setLikeState((prev: number) => prev + 1);
+      setHeart(response.data.like);
     } catch (error) {
       console.error('Error fetching data:', error);
     }

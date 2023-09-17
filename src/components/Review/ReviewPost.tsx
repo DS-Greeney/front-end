@@ -241,7 +241,7 @@ const ReviewPost = ({itemId, reviewData}: propType) => {
       </View>
       {/* //리뷰 목록 */}
       {reviewData.map((review, index) => (
-        <View>
+        <View key={index}>
           <View style={{flexDirection: 'row'}}>
             <TouchableOpacity
               disabled={true}
