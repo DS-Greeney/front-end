@@ -18,11 +18,22 @@ import ImagePicker, {
 import axios from 'axios';
 import {AppContext} from '../../components/Common/Context';
 
-interface propType {
-  itemId: number;
+interface dataType {
+  userNickname: string;
+  tourspotCmntContent: string;
+  tourspotCmntTime: string;
+  tourCmntImg: string[];
+  tourspotCmntStar: number;
+  userPicture: string; //확인필요
 }
 
-const ReviewPost = ({itemId}: propType) => {
+interface propType {
+  itemId: number;
+  reviewData: dataType[];
+}
+
+const ReviewPost = ({itemId, reviewData}: propType) => {
+  console.log(reviewData);
   const {userId} = useContext(AppContext);
   let [inputCount, setInputCount] = useState(0);
   const [content, setContent] = useState('');
@@ -157,68 +168,131 @@ const ReviewPost = ({itemId}: propType) => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.view2}>
-        <Text style={styles.text}>리뷰(14)</Text>
-      </View>
-      <View style={styles.textInput}>
-        <TextInput
-          value={content}
-          onChangeText={event => {
-            setContent(event);
-            setInputCount(event.length); //replace(/[\0-\x7f]|([0-\u07ff]|(.))/g, "$&$1$2").
-          }}
-          textAlignVertical="top"
-          multiline
-          editable
-          numberOfLines={4}
-          maxLength={200}
-          style={{height: 90}}
-          placeholder="여러분의 소중한 여행 후기를 남겨주세요"
-          placeholderTextColor="#C2C2C2"
-        />
-        {selectedImages.map((imagePath, index) => (
-          <Image
-            key={index}
-            source={{uri: imagePath}}
-            style={{width: 20, height: 20}}
+      {/* 리뷰작성 */}
+      <View>
+        <View style={styles.view2}>
+          <Text style={styles.text}>리뷰(14)</Text>
+        </View>
+        <View style={styles.textInput}>
+          <TextInput
+            value={content}
+            onChangeText={event => {
+              setContent(event);
+              setInputCount(event.length); //replace(/[\0-\x7f]|([0-\u07ff]|(.))/g, "$&$1$2").
+            }}
+            textAlignVertical="top"
+            multiline
+            editable
+            numberOfLines={4}
+            maxLength={200}
+            style={{height: 100}}
+            placeholder="여러분의 소중한 여행 후기를 남겨주세요"
+            placeholderTextColor="#C2C2C2"
           />
-        ))}
-        <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-          <Text style={styles.text}>{inputCount}/200자</Text>
-          <View style={{flexDirection: 'row'}}>
-            <View style={styles.star}>
-              <Icon
-                name="star-rate"
-                size={18}
-                color="#D4D4D4"
-                style={{marginRight: 5}}
-              />
-              <Text style={{marginRight: 5, color: '#D4D4D4', fontSize: 14}}>
-                0 / 5
-              </Text>
+          {selectedImages.length >= 1 ? (
+            <View style={{flexDirection: 'row'}}>
+              {selectedImages.map((imagePath, index) => (
+                <Image
+                  key={index}
+                  source={{uri: imagePath}}
+                  style={{width: 20, height: 20, marginRight: 5}}
+                />
+              ))}
             </View>
-            <TouchableOpacity>
-              <Icon
-                name="camera-alt"
-                size={22}
-                color="#000"
-                style={{marginRight: 5}}
-                // onPress={() => onSelectImage()}
-                onPress={requestCameraPermission}
-              />
-            </TouchableOpacity>
-            <TouchableOpacity>
-              <Icon
-                name="send"
-                size={22}
-                color="#000"
-                style={{marginRight: 10}}
-                onPress={handleSubmit}
-              />
-            </TouchableOpacity>
+          ) : (
+            <View style={{height: 20}} />
+          )}
+          <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+            <Text style={styles.text}>{inputCount}/200자</Text>
+            <View style={{flexDirection: 'row'}}>
+              <View style={styles.star}>
+                <Icon
+                  name="star-rate"
+                  size={18}
+                  color="#D4D4D4"
+                  style={{marginRight: 5}}
+                />
+                <Text style={{marginRight: 5, color: '#D4D4D4', fontSize: 14}}>
+                  0 / 5
+                </Text>
+              </View>
+              <TouchableOpacity>
+                <Icon
+                  name="camera-alt"
+                  size={22}
+                  color="#000"
+                  style={{marginRight: 5}}
+                  // onPress={() => onSelectImage()}
+                  onPress={requestCameraPermission}
+                />
+              </TouchableOpacity>
+              <TouchableOpacity>
+                <Icon
+                  name="send"
+                  size={22}
+                  color="#000"
+                  style={{marginRight: 10}}
+                  onPress={handleSubmit}
+                />
+              </TouchableOpacity>
+            </View>
           </View>
         </View>
       </View>
+      {/* //리뷰 목록 */}
+      {reviewData.map((review, index) => (
+        <View>
+          <View style={{flexDirection: 'row'}}>
+            <TouchableOpacity
+              disabled={true}
+              style={{
+                alignItems: 'center',
+                justifyContent: 'center',
+                height: 45,
+                width: 45,
+                marginLeft: 20,
+                marginRight: 10,
+                backgroundColor: '#ccc',
+                borderRadius: 50,
+                overflow: 'hidden',
+              }}>
+              <Image
+                style={styles.userImg}
+                source={require('../../assets/images/home/dummy_user.png')}
+              />
+            </TouchableOpacity>
+            <View>
+              <Text style={{fontSize: 15, color: '#000'}}>
+                {review.userNickname}
+              </Text>
+              <View style={{flexDirection: 'row'}}>
+                <Icon name="star-rate" size={16} color="#FCE25F" />
+                <Text style={{fontSize: 12, color: '#000'}}>
+                  {review.tourspotCmntStar}
+                </Text>
+                <Text style={{fontSize: 12, marginLeft: 10}}>
+                  {review.tourspotCmntTime}
+                </Text>
+              </View>
+            </View>
+          </View>
+          <Image
+            source={{
+              uri: 'https://pacer-note-images.pacer.cc/234360796_C22E336D-7AD9-4D0F-A742-B6D5F65B5172_1572620274.jpg',
+            }}
+            style={styles.image3}
+          />
+          <Text
+            style={{
+              color: '#000',
+              fontSize: 14,
+              marginHorizontal: 40,
+              marginBottom: 40,
+            }}>
+            {review.tourspotCmntContent}
+          </Text>
+        </View>
+      ))}
     </View>
   );
 };
@@ -256,5 +330,18 @@ const styles = StyleSheet.create({
   star: {
     flexDirection: 'row',
     marginRight: 10,
+  },
+  image3: {
+    width: 310,
+    height: 150,
+    resizeMode: 'cover',
+    marginTop: 20,
+    marginBottom: 20,
+    marginHorizontal: 40,
+  },
+  userImg: {
+    width: '100%',
+    height: '100%',
+    resizeMode: 'cover',
   },
 });

@@ -34,6 +34,15 @@ interface dataType {
   title: string;
 }
 
+// interface propType {
+//   user_nickname: string;
+//   tourspot_cmnt_content: string;
+//   tourspot_cmnt_time: string;
+//   tourspot_cmnt_img: string[];
+//   tourspot_cmnt_star: number;
+//   user_picture: string;
+// }
+
 export default function TourspotDetail(route: any) {
   const {userId} = useContext(AppContext);
   const [tourSpot, setTourSpot] = useState<dataType>({
@@ -52,6 +61,15 @@ export default function TourspotDetail(route: any) {
   let navigation = useNavigation();
   let tourspotId = route.route.params.tourspotId;
   const [likeState, setLikeState] = useState(0);
+  const [reviewList, setReviewList] = useState([]);
+  // const [reviewList, setReviewList] = useState<propType>({
+  //   user_nickname: '',
+  //   tourspot_cmnt_content: '',
+  //   tourspot_cmnt_time: '',
+  //   tourspot_cmnt_img: [],
+  //   tourspot_cmnt_star: 0,
+  //   user_picture: '',
+  // });
 
   useEffect(() => {
     getData();
@@ -64,8 +82,9 @@ export default function TourspotDetail(route: any) {
       );
       // console.log(response.data || []);
       setTourSpot(response.data.tourspot || []);
+      setReviewList(response.data.reviewList || []);
       setLikeState(response.data.like || 0);
-      console.log(response.data.like);
+      //console.log(response.data.reviewList);
     } catch (error) {
       console.error('Error fetching data:', error);
     }
@@ -276,7 +295,7 @@ export default function TourspotDetail(route: any) {
           {/* <Image source={require('')} /> */}
         </View>
 
-        <ReviewPost itemId={tourspotId} />
+        <ReviewPost itemId={tourspotId} reviewData={reviewList} />
 
         {/* <View style={styles.view2}>
           <Text style={styles.text}>리뷰(14)</Text>
@@ -324,7 +343,7 @@ export default function TourspotDetail(route: any) {
         </TouchableOpacity> */}
 
         {/* <ReviewItem></ReviewItem> */}
-        <View style={{flexDirection: 'row'}}>
+        {/* <View style={{flexDirection: 'row'}}>
           <TouchableOpacity
             disabled={true}
             style={{
@@ -366,7 +385,7 @@ export default function TourspotDetail(route: any) {
             marginBottom: 40,
           }}>
           공기가 맑고 좋습니다.
-        </Text>
+        </Text> */}
       </ScrollView>
     </View>
   );
