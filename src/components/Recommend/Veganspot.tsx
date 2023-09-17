@@ -24,9 +24,7 @@ const Veganspot = ({data, navigation}: propType) => {
       <View style={styles.wrapper}>
         <Image
           source={{
-            uri: `https://maps.googleapis.com/maps/api/streetview?size=400x400&location=${
-              (data.rstrntLa, data.rstrntLo)
-            }&fov=80&heading=70&pitch=0&key=`, //api 키 불러오기`
+            uri: `https://maps.googleapis.com/maps/api/streetview?size=400x400&location=${(data.rstrntLa)}, ${(data.rstrntLo)}&fov=80&heading=70&pitch=0&key=`, //api 키 불러오기
           }}
           style={{
             width: 151,

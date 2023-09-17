@@ -96,6 +96,7 @@ export default function RestaurantPage() {
           params: {
             latitude: lat,
             longitude: log,
+            areaCode: 0,
           },
         },
       );
