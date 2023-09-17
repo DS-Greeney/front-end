@@ -15,6 +15,7 @@ import LikeHeart from '../../components/Like/LikeHeart';
 import Header from '../../components/Common/Header';
 import {useNavigation} from '@react-navigation/native';
 import axios from 'axios';
+import Config from 'react-native-config';
 // import MapView, {PROVIDER_GOOGLE} from 'react-native-maps';
 
 // import ReviewItem from '../../components/Recommend/ReviewItem';
@@ -33,6 +34,8 @@ interface dataType {
 }
 
 export default function RestaurantDetail(route) {
+  const Key = Config.google_map_api_key;
+
   const [restaurant, setRestaurant] = useState<dataType>({
     rstrntId: 0,
     rstrntCtgry: '',
@@ -56,6 +59,12 @@ export default function RestaurantDetail(route) {
     try {
       const response = await axios.get(
         `http://10.0.2.2:8082/greeney/main/restaurantlist/detail/${route.route.params}`,
+        {
+          params: {
+            rstrntId: route.route.params,
+            userId: 1,
+          },
+        },
       );
       console.log(response.data || []);
       setRestaurant(response.data.restaurant || []);
@@ -141,35 +150,18 @@ export default function RestaurantDetail(route) {
         title={restaurant.rstrntName}
       />
       <ScrollView style={styles.scrollView}>
-        <Swiper
-          autoplay
-          showsPagination={true}
-          height={300}
-          autoplayTimeout={4}>
-          <Image
-            style={styles.image}
-            source={{
-              uri: 'https://ldb-phinf.pstatic.net/20220927_113/1664252532447EOyPt_JPEG/EA2ABDE6-BD6A-4691-B8E8-92C90BB0EB5B.jpeg',
-            }}
-          />
-          <Image
-            style={styles.image}
-            source={{
-              uri: 'https://ldb-phinf.pstatic.net/20220923_217/16638974734680alEP_JPEG/41E392C9-7234-4D69-93AB-77DDEDF480F0.jpeg',
-            }}
-          />
-          <Image
-            style={styles.image}
-            source={{
-              uri: 'https://ldb-phinf.pstatic.net/20201026_90/160368567412557Kz0_JPEG/4rUSaHxGQtqwvvUJT-ZthZdG.jpeg.jpg',
-            }}
-          />
-        </Swiper>
+        <Image
+          source={{
+            uri: `https://maps.googleapis.com/maps/api/streetview?size=400x400&location=${(restaurant.rstrntLa)}, ${(restaurant.rstrntLo)}&fov=80&heading=70&pitch=0&key=${Key}`, //api 키 불러오기
+          }}
+          style={styles.image}
+        />
         <View style={styles.title1}>
           <Text
             style={{
               fontSize: 20,
               color: '#666',
+              marginRight: 5,
             }}>
             {area}
           </Text>
@@ -341,7 +333,7 @@ const styles = StyleSheet.create({
   },
   image: {
     width: '100%',
-    height: '100%',
+    height: 300,
     resizeMode: 'cover',
   },
   image2: {
@@ -361,7 +353,6 @@ const styles = StyleSheet.create({
   },
   title1: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
     marginHorizontal: 20,
     marginTop: 20,
     marginBottom: 5,

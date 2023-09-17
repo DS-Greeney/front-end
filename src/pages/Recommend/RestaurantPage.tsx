@@ -88,6 +88,7 @@ export default function RestaurantPage() {
     getData();
   }, []);
 
+  //areaCode
   const getData = async () => {
     try {
       const response = await axios.get(
