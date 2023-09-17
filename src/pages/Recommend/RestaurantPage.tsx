@@ -88,6 +88,7 @@ export default function RestaurantPage() {
     getData();
   }, []);
 
+  //areaCode
   const getData = async () => {
     try {
       const response = await axios.get(
@@ -96,6 +97,7 @@ export default function RestaurantPage() {
           params: {
             latitude: lat,
             longitude: log,
+            areaCode: 0,
           },
         },
       );
