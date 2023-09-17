@@ -8,13 +8,14 @@ import {
   ScrollView,
   TextInput,
 } from 'react-native';
-import {useState, useEffect} from 'react';
+import {useState, useEffect, useContext} from 'react';
 import Swiper from 'react-native-swiper';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import LikeHeart from '../../components/Like/LikeHeart';
 import Header from '../../components/Common/Header';
 import {useNavigation} from '@react-navigation/native';
 import axios from 'axios';
+import {AppContext} from '../../components/Common/Context';
 // import MapView, {PROVIDER_GOOGLE} from 'react-native-maps';
 
 // import ReviewItem from '../../components/Recommend/ReviewItem';
@@ -32,7 +33,8 @@ interface dataType {
   rstrntLo: string;
 }
 
-export default function RestaurantDetail(route) {
+export default function RestaurantDetail(route: any) {
+  const {userId} = useContext(AppContext);
   const [restaurant, setRestaurant] = useState<dataType>({
     rstrntId: 0,
     rstrntCtgry: '',
@@ -47,6 +49,8 @@ export default function RestaurantDetail(route) {
   });
   let [inputCount, setInputCount] = useState(0);
   let navigation = useNavigation();
+  let rstrntId = route.route.params.rstrntId;
+  const [likeState, setLikeState] = useState(0);
 
   useEffect(() => {
     getData();
@@ -55,7 +59,7 @@ export default function RestaurantDetail(route) {
   const getData = async () => {
     try {
       const response = await axios.get(
-        `http://10.0.2.2:8082/greeney/main/restaurantlist/detail/${route.route.params}`,
+        `http://10.0.2.2:8082/greeney/main/restaurantlist/detail/${rstrntId}?userId=${userId}`,
       );
       //console.log(response.data || []);
       setRestaurant(response.data.restaurant || []);
@@ -119,7 +123,7 @@ export default function RestaurantDetail(route) {
       break;
   }
 
-  console.log(restaurant);
+  //console.log(restaurant);
 
   return (
     <View style={styles.view}>
@@ -169,7 +173,14 @@ export default function RestaurantDetail(route) {
               {restaurant.rstrntCtgry}
             </Text>
           </View>
-          <LikeHeart size={40} />
+          <LikeHeart
+            category={2}
+            size={40}
+            likeState={likeState}
+            setLikeState={setLikeState}
+            itemId={rstrntId}
+            userId={userId}
+          />
         </View>
         <Text
           style={{

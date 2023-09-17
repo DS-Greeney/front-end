@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {
   View,
   Text,
@@ -16,10 +16,13 @@ import Header from '../../components/Common/Header';
 import {useNavigation} from '@react-navigation/native';
 import axios from 'axios';
 import MapView, {PROVIDER_GOOGLE} from 'react-native-maps';
+import {AppContext} from '../../components/Common/Context';
+import ReviewPost from '../../components/Review/ReviewPost';
 
 // import ReviewItem from '../../components/Recommend/ReviewItem';
 
 interface dataType {
+  tourspot_id: number;
   areaCode: number;
   latitude: number;
   longitude: number;
@@ -31,8 +34,10 @@ interface dataType {
   title: string;
 }
 
-export default function TourspotDetail(route) {
+export default function TourspotDetail(route: any) {
+  const {userId} = useContext(AppContext);
   const [tourSpot, setTourSpot] = useState<dataType>({
+    tourspot_id: 0,
     areaCode: 0,
     latitude: 0,
     longitude: 0,
@@ -45,6 +50,8 @@ export default function TourspotDetail(route) {
   });
   let [inputCount, setInputCount] = useState(0);
   let navigation = useNavigation();
+  let tourspotId = route.route.params.tourspotId;
+  const [likeState, setLikeState] = useState(0);
 
   useEffect(() => {
     getData();
@@ -53,10 +60,12 @@ export default function TourspotDetail(route) {
   const getData = async () => {
     try {
       const response = await axios.get(
-        `http://10.0.2.2:8082/greeney/main/tourlist/detail/${route.route.params}`,
+        `http://10.0.2.2:8082/greeney/main/tourlist/detail/${tourspotId}?userId=${userId}`,
       );
-      console.log(response.data || []);
+      // console.log(response.data || []);
       setTourSpot(response.data.tourspot || []);
+      setLikeState(response.data.like || 0);
+      console.log(response.data.like);
     } catch (error) {
       console.error('Error fetching data:', error);
     }
@@ -167,7 +176,14 @@ export default function TourspotDetail(route) {
         </Swiper>
         <View style={styles.title}>
           <Text style={{fontSize: 30, color: '#000'}}>{tourSpot.title}</Text>
-          <LikeHeart size={40} />
+          <LikeHeart
+            category={1}
+            size={40}
+            likeState={likeState}
+            setLikeState={setLikeState}
+            itemId={tourspotId}
+            userId={userId}
+          />
         </View>
         <Text
           style={{
@@ -259,7 +275,10 @@ export default function TourspotDetail(route) {
             }}></TouchableOpacity>
           {/* <Image source={require('')} /> */}
         </View>
-        <View style={styles.view2}>
+
+        <ReviewPost itemId={tourspotId} />
+
+        {/* <View style={styles.view2}>
           <Text style={styles.text}>리뷰(14)</Text>
         </View>
         <TouchableOpacity disabled={true} style={styles.textInput}>
@@ -302,7 +321,8 @@ export default function TourspotDetail(route) {
               />
             </View>
           </View>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
+
         {/* <ReviewItem></ReviewItem> */}
         <View style={{flexDirection: 'row'}}>
           <TouchableOpacity
