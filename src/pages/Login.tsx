@@ -38,7 +38,7 @@ export default function Login({navigation}: any) {
   // }
 
   function handleClick() {
-    //navigation.navigate('MainNavigator', {screen: 'Homepage'});
+    // navigation.navigate('MainNavigator', {screen: 'Homepage'});
     if (email.trim() === '') {
       Alert.alert('아이디 입력 확인', '아이디가 입력되지 않았습니다.');
     } else if (password.trim() === '') {
@@ -46,7 +46,7 @@ export default function Login({navigation}: any) {
     } else {
       axios
         .post('http://10.0.2.2:8082/api/users/login', {
-          userEmail: email,
+          userNickname: email,
           userPassword: password,
         })
         .then(function (response) {
@@ -83,7 +83,7 @@ export default function Login({navigation}: any) {
         </TouchableOpacity>
 
         <TextInput
-          placeholder="이메일을 입력하세요"
+          placeholder="아이디를 입력하세요"
           placeholderTextColor={'#005F29'}
           value={email}
           onChangeText={text => setEmail(text)}
