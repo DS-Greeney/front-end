@@ -1,6 +1,7 @@
 import React from 'react';
 import {StyleSheet, View, Text, TouchableOpacity, Image} from 'react-native';
 import {NavigationProp} from '@react-navigation/native';
+import Config from 'react-native-config';
 
 interface dataType {
   rstrntId: number;
@@ -17,16 +18,15 @@ interface propType {
 }
 
 const Veganspot = ({data, navigation}: propType) => {
+  const Key = Config.google_map_api_key;
   return (
     <TouchableOpacity
       style={styles.container}
-      onPress={() => navigation.navigate('RestaurantDetail', data.rstrntId)}>
+      onPress={() => navigation.navigate('RestaurantDetail', data)}>
       <View style={styles.wrapper}>
         <Image
           source={{
-            uri: `https://maps.googleapis.com/maps/api/streetview?size=400x400&location=${
-              (data.rstrntLa, data.rstrntLo)
-            }&fov=80&heading=70&pitch=0&key=`, //api 키 불러오기`
+            uri: `https://maps.googleapis.com/maps/api/streetview?size=400x400&location=${(data.rstrntLa)}, ${(data.rstrntLo)}&fov=80&heading=70&pitch=0&key=${Key}`, //api 키 불러오기
           }}
           style={{
             width: 151,

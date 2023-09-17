@@ -13,7 +13,9 @@ import TourSpot from '../pages/Recommend/TourspotPage';
 import Restaurant from '../pages/Recommend/RestaurantPage';
 import Likelist from '../pages/LikelistPage';
 import DrawerNavigator from './DrawerNavigator';
-import ChallengeAchieve from '../pages/Challenge/ChallengeAchieve'
+import ChallengeAchieve from '../pages/Challenge/ChallengeComplete';
+import DailyChallenge from '../pages/Challenge/DailyChallenge';
+import NicknameChangePage from '../pages/Settings/NicknameChangePage';
 
 const Stack = createNativeStackNavigator();
 
@@ -34,6 +36,8 @@ export default function MypageStack() {
         <Stack.Screen name="Restaurant" component={Restaurant} /> */}
       <Stack.Screen name="Likelist" component={Likelist} />
       <Stack.Screen name="ChallengeAchieve" component={ChallengeAchieve} />
+      <Stack.Screen name="DailyChallenge" component={DailyChallenge} />
+      <Stack.Screen name="NicknameChangePage" component={NicknameChangePage} />
     </Stack.Navigator>
   );
 }

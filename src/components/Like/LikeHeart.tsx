@@ -1,23 +1,66 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {StyleSheet, TouchableOpacity} from 'react-native';
-
-import {useState} from 'react';
 import IconC from 'react-native-vector-icons/MaterialCommunityIcons';
+import axios from 'axios';
 
 interface dataType {
+  category: number;
   size: number;
+  likeState: number;
+  setLikeState: any;
+  itemId: number | undefined;
+  userId: number | undefined;
 }
 
-const LikeHeart = ({size}: dataType) => {
+const LikeHeart = ({
+  category,
+  size,
+  likeState,
+  setLikeState,
+  itemId,
+  userId,
+}: dataType) => {
   const [heart, setHeart] = useState(false);
 
-  const toggleHeart = () => {
-    setHeart(previousState => !previousState);
+  const clickLike = async () => {
+    // setHeart(previousState => !previousState);
+    console.log(likeState, itemId, userId);
+    try {
+      const response = await axios.post(
+        `http://10.0.2.2:8082/greeney/mypage/like?userId=${userId}&itemId=${itemId}`,
+      );
+      console.log(response.data);
+      setLikeState((prev: number) => prev + 1);
+      setHeart(response.data.like);
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
   };
 
+  const cancleLike = async () => {
+    // setHeart(previousState => !previousState);
+    try {
+      const response = await axios.delete(
+        `http://10.0.2.2:8082/greeney/mypage/dislike?categoryNumber=${category}&spotId=${itemId}&userId=${userId}`,
+      );
+      console.log(response.data);
+      setLikeState(0);
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  };
+
+  // const toggleHeart = () => {
+  //   setHeart(previousState => !previousState);
+  //   // setLike(0);
+  // };
+
   return (
-    <TouchableOpacity onPress={toggleHeart}>
-      {heart ? (
+    <TouchableOpacity
+      onPress={() => {
+        likeState === 1 ? cancleLike() : clickLike();
+      }}>
+      {likeState === 1 ? (
         <IconC name="cards-heart" size={size} color={'#1A6F3F'} />
       ) : (
         <IconC name="cards-heart-outline" size={size} color={'#1A6F3F'} />

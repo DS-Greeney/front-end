@@ -8,13 +8,15 @@ import {
   ScrollView,
   TextInput,
 } from 'react-native';
-import {useState, useEffect} from 'react';
+import {useState, useEffect, useContext} from 'react';
 import Swiper from 'react-native-swiper';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import LikeHeart from '../../components/Like/LikeHeart';
 import Header from '../../components/Common/Header';
 import {useNavigation} from '@react-navigation/native';
 import axios from 'axios';
+import {AppContext} from '../../components/Common/Context';
+import Config from 'react-native-config';
 // import MapView, {PROVIDER_GOOGLE} from 'react-native-maps';
 
 // import ReviewItem from '../../components/Recommend/ReviewItem';
@@ -32,7 +34,10 @@ interface dataType {
   rstrntLo: string;
 }
 
-export default function RestaurantDetail(route) {
+export default function RestaurantDetail(route: any) {
+  const {userId} = useContext(AppContext);
+  const Key = Config.google_map_api_key;
+
   const [restaurant, setRestaurant] = useState<dataType>({
     rstrntId: 0,
     rstrntCtgry: '',
@@ -47,6 +52,8 @@ export default function RestaurantDetail(route) {
   });
   let [inputCount, setInputCount] = useState(0);
   let navigation = useNavigation();
+  let rstrntId = route.route.params.rstrntId;
+  const [likeState, setLikeState] = useState(0);
 
   useEffect(() => {
     getData();
@@ -55,13 +62,27 @@ export default function RestaurantDetail(route) {
   const getData = async () => {
     try {
       const response = await axios.get(
-        `http://10.0.2.2:8082/greeney/main/restaurantlist/detail/${route.route.params}`,
+        `http://10.0.2.2:8082/greeney/main/restaurantlist/detail/${rstrntId}?userId=${userId}`,
       );
-      console.log(response.data || []);
+      //console.log(response.data || []);
       setRestaurant(response.data.restaurant || []);
     } catch (error) {
       console.error('Error fetching data:', error);
     }
+  };
+
+  const memu = restaurant.rstrntMenuinfo.split(',');
+
+  const MemuComponent = ({data}) => {
+    return (
+      <View style={{marginHorizontal: 20, marginBottom: 5}}>
+        {data.map((item, index) => (
+          <View key={index} style={styles.menu}>
+            <Text style={styles.text}>{item}</Text>
+          </View>
+        ))}
+      </View>
+    );
   };
 
   var area = '';
@@ -119,8 +140,6 @@ export default function RestaurantDetail(route) {
       break;
   }
 
-  console.log(restaurant);
-
   return (
     <View style={styles.view}>
       <Header
@@ -129,58 +148,44 @@ export default function RestaurantDetail(route) {
         title={restaurant.rstrntName}
       />
       <ScrollView style={styles.scrollView}>
-        <Swiper
-          autoplay
-          showsPagination={true}
-          height={300}
-          autoplayTimeout={4}>
-          <Image
-            style={styles.image}
-            source={{
-              uri: 'https://ldb-phinf.pstatic.net/20220927_113/1664252532447EOyPt_JPEG/EA2ABDE6-BD6A-4691-B8E8-92C90BB0EB5B.jpeg',
-            }}
-          />
-          <Image
-            style={styles.image}
-            source={{
-              uri: 'https://ldb-phinf.pstatic.net/20220923_217/16638974734680alEP_JPEG/41E392C9-7234-4D69-93AB-77DDEDF480F0.jpeg',
-            }}
-          />
-          <Image
-            style={styles.image}
-            source={{
-              uri: 'https://ldb-phinf.pstatic.net/20201026_90/160368567412557Kz0_JPEG/4rUSaHxGQtqwvvUJT-ZthZdG.jpeg.jpg',
-            }}
-          />
-        </Swiper>
-        <View style={styles.title}>
-          <View style={{flexDirection: 'row'}}>
+        <Image
+          source={{
+            uri: `https://maps.googleapis.com/maps/api/streetview?size=400x400&location=${restaurant.rstrntLa}, ${restaurant.rstrntLo}&fov=80&heading=70&pitch=0&key=${Key}`, //api 키 불러오기
+          }}
+          style={styles.image}
+        />
+        <View style={styles.title1}>
+          <Text
+            style={{
+              fontSize: 20,
+              color: '#666',
+              marginRight: 5,
+            }}>
+            {area}
+          </Text>
+          <Text
+            style={{
+              fontSize: 20,
+              color: '#666',
+            }}>
+            {restaurant.rstrntCtgry}
+          </Text>
+        </View>
+        <View style={styles.title2}>
+          <View style={{flexDirection: 'row', flex: 1}}>
             <Text style={{fontSize: 30, color: '#000'}}>
               {restaurant.rstrntName}
             </Text>
-            <Text
-              style={{
-                fontSize: 20,
-                color: '#666',
-                marginLeft: 20,
-                marginTop: 5,
-                marginBottom: 5,
-              }}>
-              {restaurant.rstrntCtgry}
-            </Text>
           </View>
-          <LikeHeart size={40} />
+          <LikeHeart
+            category={2}
+            size={40}
+            likeState={likeState}
+            setLikeState={setLikeState}
+            itemId={rstrntId}
+            userId={userId}
+          />
         </View>
-        <Text
-          style={{
-            fontSize: 20,
-            color: '#666',
-            marginLeft: 20,
-            marginTop: 5,
-            marginBottom: 5,
-          }}>
-          {area}
-        </Text>
         <View style={styles.view2}>
           <Icon
             name="star-rate"
@@ -188,7 +193,10 @@ export default function RestaurantDetail(route) {
             color="#FCE25F"
             style={{marginRight: 5}}
           />
-          <Text style={{fontSize: 20, color: '#000'}}> {restaurant.rstrntStar} / 5</Text>
+          <Text style={{fontSize: 20, color: '#000'}}>
+            {' '}
+            {restaurant.rstrntStar} / 5
+          </Text>
         </View>
         <View style={styles.view2}>
           <TouchableOpacity
@@ -212,25 +220,13 @@ export default function RestaurantDetail(route) {
         </View>
         <View style={styles.view2}>
           <Text style={styles.extext}>전화번호</Text>
-          <Text style={styles.text}>0{restaurant.rstrntTel}</Text>
+          <Text style={styles.text}>{restaurant.rstrntTel}</Text>
+          {/* 전화번호 앞 0, - 처리 */}
         </View>
         <View style={styles.view2}>
           <Text style={styles.extext}>메뉴</Text>
         </View>
-        <View style={{marginHorizontal: 20, marginBottom: 5}}>
-          <View style={styles.menu}>
-            <Text style={styles.text}>녹음 카레</Text>
-            <Text style={styles.text}>17,000원</Text>
-          </View>
-          <View style={styles.menu}>
-            <Text style={styles.text}>후무스 베지보울</Text>
-            <Text style={styles.text}>16,000원</Text>
-          </View>
-          <View style={styles.menu}>
-            <Text style={styles.text}>버섯크림 파스타</Text>
-            <Text style={styles.text}>18,000원</Text>
-          </View>
-        </View>
+        <MemuComponent data={memu} />
         <View style={styles.view2}>
           <TouchableOpacity
             disabled={true}
@@ -345,7 +341,7 @@ const styles = StyleSheet.create({
   },
   image: {
     width: '100%',
-    height: '100%',
+    height: 300,
     resizeMode: 'cover',
   },
   image2: {
@@ -363,11 +359,17 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     marginHorizontal: 40,
   },
-  title: {
+  title1: {
+    flexDirection: 'row',
+    marginHorizontal: 20,
+    marginTop: 20,
+    marginBottom: 5,
+  },
+  title2: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginHorizontal: 20,
-    marginTop: 20,
+    marginBottom: 5,
   },
   view2: {
     flexDirection: 'row',
