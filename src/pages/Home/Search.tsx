@@ -7,7 +7,7 @@ import {useNavigation} from '@react-navigation/native';
 const dummySpotData = [
   {
     num: 1,
-    keyword: '친환경 관광지',
+    keyword: '서울 호텔',
   },
   {
     num: 2,
@@ -15,23 +15,23 @@ const dummySpotData = [
   },
   {
     num: 3,
-    keyword: '2023 부산 ESG 축제',
+    keyword: '부산',
   },
   {
     num: 4,
-    keyword: '서울 비건 식당',
+    keyword: '서울 한식뷔페',
   },
   {
     num: 5,
-    keyword: '친환경 공방',
+    keyword: '우도',
   },
   {
     num: 6,
-    keyword: '서울 친환경 호텔 추천',
+    keyword: '경기 카페',
   },
   {
     num: 7,
-    keyword: '친환경 축제',
+    keyword: '북한산국립공원',
   },
   {
     num: 8,
@@ -39,11 +39,11 @@ const dummySpotData = [
   },
   {
     num: 9,
-    keyword: '천문대',
+    keyword: '강원 호텔',
   },
   {
     num: 10,
-    keyword: '강원도 여행 추천 코스',
+    keyword: '강원도',
   },
 ];
 
@@ -62,7 +62,7 @@ export default function Search() {
       </View>
       <View style={styles.box}>
         <TouchableOpacity disabled={true}>
-          <Text style={styles.titleText}>인기 검색어 TOP 10</Text>
+          <Text style={styles.titleText}>추천 검색어</Text>
         </TouchableOpacity>
         <FlatList
           data={dummySpotData}
