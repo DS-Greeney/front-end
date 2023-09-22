@@ -2,73 +2,98 @@ import React, {useState} from 'react';
 import {StyleSheet, View, Text, TouchableOpacity, Image} from 'react-native';
 import {NavigationProp} from '@react-navigation/native';
 import LikeHeart from './LikeHeart';
-import IconC from 'react-native-vector-icons/MaterialCommunityIcons';
+import LikelistTour from './LikelistTour';
+
+interface SpotLike {
+  addr: string;
+  areaCode: number;
+  latitude: number;
+  longitude: number;
+  mainimage: string;
+  sigunguCode: number;
+  summary: string;
+  tel: string;
+  title: string;
+  tourspotId: number;
+  tourspotStar: number;
+}
 
 interface dataType {
-  image: string;
-  name: string;
-  location: string;
-  type: string;
-  tags: string[] | '';
+  categoryNumber: number;
+  spotLike: SpotLike;
+  spotLikeId: number;
 }
+// interface dataType {
+//   image: string;
+//   name: string;
+//   location: string;
+//   type: string;
+//   tags: string[] | '';
+// }
 interface propType {
   data: dataType;
   navigation: NavigationProp<any>;
 }
 
 const Likelist = ({data, navigation}: propType) => {
+  // console.log(data.categoryNumber);
   const [heart, setHeart] = useState(true);
 
   const toggleHeart = () => {
     setHeart(previousState => !previousState);
   };
 
-  return (
-    <TouchableOpacity
-      style={styles.container}
-      onPress={() => navigation.navigate('TourspotDetail')}>
-      <View style={styles.line} />
-      <View style={styles.content}>
-        <View style={styles.wrapper}>
-          <Image
-            source={{uri: data.image}}
-            style={{
-              width: 100,
-              height: 100,
-              resizeMode: 'cover',
-              borderRadius: 10,
-            }}
-          />
-          <View style={styles.title}>
-            <View style={styles.textwrap}>
-              <Text style={styles.name}>{data.name}</Text>
-              <Text style={styles.location}>{data.location}</Text>
-            </View>
-            {/* <LikeHeart /> */}
-            {/* 찜페이지로 임시 */}
-            <View style={styles.heratColumn}>
-              <TouchableOpacity onPress={toggleHeart}>
-                {heart ? (
-                  <IconC name="cards-heart" size={40} color={'#1A6F3F'} />
-                ) : (
-                  <IconC name="cards-heart-outline" size={40} color={'#1A6F3F'} />
-                )}
-              </TouchableOpacity>
-              <TouchableOpacity>
-                <Text style={styles.type}>{data.type}</Text>
-              </TouchableOpacity>
-            </View>
-          </View>
-        </View>
+  const renderView = () => {
+    if (data.categoryNumber === 1) {
+      return <LikelistTour data={data.spotLike} />;
+    // } else if (data.categoryNumber === 2) {
+    //   return <ViewType2 data={data} />;
+    // } else if (data.categoryNumber === 3) {
+    //   return <DefaultView data={data} />;
+    }
+  };
 
-        {/* 태그 */}
-        {/* <View style={styles.tagwrap}>
-          {data.tags.map((tag, idx) => (
-            <Text style={styles.tag}>#{tag}</Text>
-          ))}
-        </View> */}
-      </View>
-    </TouchableOpacity>
+  return (
+    <View>{renderView()}</View>
+    // <TouchableOpacity
+    //   style={styles.container}
+    //   onPress={() => navigation.navigate('TourspotDetail')}>
+    //   <View style={styles.line} />
+    //   <View style={styles.content}>
+    //     <View style={styles.wrapper}>
+    //       <Image
+    //         source={{uri: data.image}}
+    //         style={{
+    //           width: 100,
+    //           height: 100,
+    //           resizeMode: 'cover',
+    //           borderRadius: 10,
+    //         }}
+    //       />
+    //       <View style={styles.title}>
+    //         <View style={styles.textwrap}>
+    //           <Text style={styles.name}>{data.spotLike.title}</Text>
+    //           <Text style={styles.location}>{data.location}</Text>
+    //         </View>
+    //         {/* <LikeHeart /> */}
+    //         {/* 찜페이지로 임시 */}
+    //         <View style={styles.heratColumn}>
+    //           <LikeHeart
+    //             category={2}
+    //             size={40}
+    //             likeState={likeState}
+    //             setLikeState={setLikeState}
+    //             itemId={rstrntId}
+    //             userId={userId}
+    //           />
+    //           <TouchableOpacity>
+    //             <Text style={styles.type}>{data.type}</Text>
+    //           </TouchableOpacity>
+    //         </View>
+    //       </View>
+    //     </View>
+    //   </View>
+    // </TouchableOpacity>
   );
 };
 
