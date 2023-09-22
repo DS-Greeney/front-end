@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import {
   View,
   Text,
@@ -9,9 +9,68 @@ import {
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import Header from '../../components/Common/Header';
 import {useNavigation} from '@react-navigation/native';
+import axios from 'axios';
+import {AppContext} from '../../components/Common/Context';
 
 export default function ChallengeComplete() {
   let navigation = useNavigation();
+  const {userId} = useContext(AppContext);
+
+  interface ChallengeInfoModel {
+    goal: number;
+    userTitleList: string[];
+    userRemainChallengeNum: number;
+    userChallengeNum: number;
+    userNowTitle: string;
+    userNickname: string;
+  }
+
+  const [challengeInfo, setChallengeInfo] = useState<ChallengeInfoModel>({
+    goal: 0,
+    userTitleList: [''],
+    userRemainChallengeNum: 0,
+    userChallengeNum: 0,
+    userNowTitle: '',
+    userNickname: '',
+  });
+
+  const handleInputChange = (key: string, value: string) => {
+    setChallengeInfo(prevState => ({
+      ...prevState,
+      [key]: value,
+    }));
+  };
+
+  useEffect(() => {
+    axios
+      .get(`http://10.0.2.2:8082/greeney/mypage/challengeInfo?userId=${userId}`,
+        {
+          userId: userId,
+        },
+      )
+      .then(function (response) {
+        handleInputChange('goal', response.data.goal);
+        handleInputChange('userTitleList', response.data.userTitleList);
+        handleInputChange('userRemainChallengeNum', response.data.userRemainChallengeNum);
+        handleInputChange('userChallengeNum', response.data.userChallengeNum);
+        handleInputChange('userNowTitle', response.data.userNowTitle);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+    axios
+      .post(`http://10.0.2.2:8082/api/users/info`, {
+        userId: userId,
+      })
+      .then(function (response) {
+        handleInputChange('userNickname', response.data.userNickname);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }, [userId]);
+
+  const variableWidthPercentage = `${(challengeInfo.userChallengeNum / challengeInfo.goal) * 100}%`;
 
   return (
     <View style={styles.view}>
@@ -22,9 +81,9 @@ export default function ChallengeComplete() {
       />
       <View style={styles.view2}>
         <View style={{marginBottom: 20}}>
-          <Text style={styles.title}>지금까지 달성한 도전과제는</Text>
+          <Text style={styles.title}>지금까지 달성한 도전 과제는</Text>
           <View style={styles.title}>
-            <Text style={styles.title2}>3개</Text>
+            <Text style={styles.title2}>{challengeInfo.userChallengeNum}개</Text>
             <Text style={styles.title}> 입니다</Text>
           </View>
         </View>
@@ -37,33 +96,35 @@ export default function ChallengeComplete() {
             />
             <View style={styles.title}>
               <Text style={styles.title}>다음 목표 달성까지</Text>
-              <Text style={styles.title4}> 7개</Text>
+              <Text style={styles.title4}> {challengeInfo.userRemainChallengeNum}개</Text>
             </View>
           </View>
         </View>
         <TouchableOpacity disabled={true} style={styles.graph1}>
           <TouchableOpacity
             disabled={true}
-            style={[styles.graph2, {width: '30%'}]}>
-            <Text style={{fontSize: 18, color: '#eee'}}>3 / 10</Text>
-          </TouchableOpacity>
+            style={[styles.graph2, {width: `${variableWidthPercentage}`}]}
+          />
         </TouchableOpacity>
-        <View style={styles.graphtext}>
-          <TouchableOpacity style={styles.touchable} onPress={() => navigation.navigate('DailyChallenge')}>
-            <Text style={{fontSize: 14, color: '#555'}}>일일 도전 과제</Text>
-            <Icon
-              name="arrow-forward-ios"
-              size={24}
-              color="#aaa"
-              style={{marginRight: 5}}
-            />
-          </TouchableOpacity>
+        <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+          <Text style={{fontSize: 18, color: '#000'}}>{challengeInfo.userChallengeNum} / {challengeInfo.goal}</Text>
+          <View style={styles.graphtext}>
+            <TouchableOpacity style={styles.touchable} onPress={() => navigation.navigate('DailyChallenge')}>
+              <Text style={{fontSize: 14, color: '#555'}}>일일 도전 과제</Text>
+              <Icon
+                name="arrow-forward-ios"
+                size={24}
+                color="#aaa"
+                style={{marginRight: 5}}
+              />
+            </TouchableOpacity>
+          </View>
         </View>
         <View style={styles.line} />
-        <Text style={styles.title3}>현재 닉네임 님의 칭호</Text>
+        <Text style={styles.title3}>현재 {challengeInfo.userNickname}님의 칭호</Text>
         <View style={styles.badge}>
           <TouchableOpacity disabled={true} style={{width: 150, height: 150, backgroundColor: '#ccc', borderRadius: 100}}></TouchableOpacity>
-          <Text style={{fontSize: 16, color: '#000'}}>환경 운동가 지망생</Text>
+          <Text style={{fontSize: 16, color: '#000'}}>{challengeInfo.userNowTitle}</Text>
         </View>
       </View>
     </View>
