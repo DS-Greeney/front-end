@@ -93,7 +93,6 @@ export default function Mypage() {
     userNickname: string;
     userEmail: string;
     userPassword: string;
-    userPhonenum: string;
     userPicture: string;
     userTitle: string;
   }
@@ -102,7 +101,6 @@ export default function Mypage() {
     userNickname: '',
     userEmail: '',
     userPassword: '',
-    userPhonenum: '',
     userPicture: '',
     userTitle: '',
   });
@@ -121,10 +119,14 @@ export default function Mypage() {
       '비밀번호 변경',
       '정말 비밀번호를 변경하시겠습니까?',
       [
-        {text: '취소', onPress: () => {}, style: 'cancel'},
+        {
+          text: '취소',
+          onPress: () => {},
+          style: 'cancel',
+        },
         {
           text: '변경',
-          onPress: () => {},
+          onPress: () => navigation.navigate('PassChangePage', {userId}),
           style: 'destructive',
         },
       ],
@@ -137,8 +139,8 @@ export default function Mypage() {
 
   const ChangeNickname = () => {
     Alert.alert(
-      '닉네임 변경',
-      '정말 닉네임을 변경하시겠습니까?',
+      '아이디 변경',
+      '정말 아이디를 변경하시겠습니까?',
       [
         {text: '취소', onPress: () => {}, style: 'cancel'},
         {
@@ -164,10 +166,10 @@ export default function Mypage() {
         console.log('id: ', userId);
         handleInputChange('userNickname', response.data.userNickname);
         handleInputChange('userPassword', response.data.userPassword);
-        handleInputChange('userPhonenum', response.data.userPhonenum);
         handleInputChange('userPicture', response.data.userPicture);
         handleInputChange('userTitle', response.data.userTitle);
         handleInputChange('userEmail', response.data.userEmail);
+        console.log(user);
       })
       .catch(function (error) {
         console.log(error);
@@ -247,7 +249,7 @@ export default function Mypage() {
               <TouchableOpacity
                 style={styles.btnView2}
                 onPress={() => ChangeNickname()}>
-                <Text style={{fontSize: 20, color: '#000'}}>닉네임 변경</Text>
+                <Text style={{fontSize: 20, color: '#000'}}>아이디 변경</Text>
               </TouchableOpacity>
               <TouchableOpacity
                 style={styles.btnView2}

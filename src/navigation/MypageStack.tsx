@@ -16,6 +16,7 @@ import DrawerNavigator from './DrawerNavigator';
 import ChallengeAchieve from '../pages/Challenge/ChallengeComplete';
 import DailyChallenge from '../pages/Challenge/DailyChallenge';
 import NicknameChangePage from '../pages/Settings/NicknameChangePage';
+import PassChangePage from '../pages/Settings/PassChangePage';
 
 const Stack = createNativeStackNavigator();
 
@@ -38,6 +39,7 @@ export default function MypageStack() {
       <Stack.Screen name="ChallengeAchieve" component={ChallengeAchieve} />
       <Stack.Screen name="DailyChallenge" component={DailyChallenge} />
       <Stack.Screen name="NicknameChangePage" component={NicknameChangePage} />
+      <Stack.Screen name="PassChangePage" component={PassChangePage} />
     </Stack.Navigator>
   );
 }
