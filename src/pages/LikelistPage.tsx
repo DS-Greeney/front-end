@@ -7,7 +7,7 @@ import {useNavigation} from '@react-navigation/native';
 import axios from 'axios';
 import {AppContext} from '../components/Common/Context';
 
-const typeList = ['전체', '관광', '식당', '숙소', '여행코스'];
+const typeList = ['전체', '관광', '식당', '숙소'];
 
 const dummySpotData = [
   {
@@ -78,7 +78,7 @@ export default function LikeListPage() {
   let navigation = useNavigation();
   const {userId} = useContext(AppContext);
 
-  interface SpotLike {
+  interface SpotLikeTour {
     addr: string;
     areaCode: number;
     latitude: number;
@@ -91,6 +91,21 @@ export default function LikeListPage() {
     tourspotId: number;
     tourspotStar: number;
   }
+
+  interface SpotLikeRstrnt {
+    areaCode: number;
+    rstrntAddr: string;
+    rstrntCtgry: string;
+    rstrntId: number;
+    rstrntLa: string;
+    rstrntLo: string;
+    rstrntMenuinfo: string;
+    rstrntName: string;
+    rstrntStar: number;
+    rstrntTel: string;
+  }
+
+  type SpotLike = SpotLikeTour | SpotLikeRstrnt;
 
   interface LikeItem {
     categoryNumber: number;
@@ -105,10 +120,8 @@ export default function LikeListPage() {
       const response = await axios.get(
         `http://10.0.2.2:8082/greeney/mypage/like/${userId}`,
       );
-      console.log(response.data.spotLikeList || []);
-      setLikeList([]);
+      // console.log(response.data.spotLikeList || []);
       setLikeList([...likeList, response.data.spotLikeList]);
-      console.log(likeList);
     } catch (error) {
       console.error('Error fetching data:', error);
     }
@@ -118,6 +131,8 @@ export default function LikeListPage() {
     getData();
   }, []);
 
+  // console.log(likeList);
+
   return (
     <View style={styles.likelist}>
       <Header navigation={navigation} type={'BACK'} title={'내가 찜한 목록'} />
@@ -126,7 +141,7 @@ export default function LikeListPage() {
         <FlatList
           data={likeList}
           renderItem={({item}) => (
-            <Likelist data={item} navigation={navigation} />
+            <Likelist data={item} navigation={navigation} userId={userId} />
           )}
         />
       </View>

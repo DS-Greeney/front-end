@@ -3,6 +3,7 @@ import {StyleSheet, View, Text, TouchableOpacity, Image} from 'react-native';
 import {NavigationProp} from '@react-navigation/native';
 import IconC from 'react-native-vector-icons/MaterialCommunityIcons';
 import axios from 'axios';
+import Config from 'react-native-config';
 
 interface SpotLikeTour {
   addr: string;
@@ -45,8 +46,9 @@ interface propType {
   userId: number;
 }
 
-const LikelistTour = ({data, navigation, userId}: propType) => {
+const LikelistRstrnt = ({data, navigation, userId}: propType) => {
   // console.log(data);
+  const Key = Config.google_map_api_key;
   const [heart, setHeart] = useState(true);
 
   const toggleHeart = () => {
@@ -61,7 +63,7 @@ const LikelistTour = ({data, navigation, userId}: propType) => {
   const clickLike = async () => {
     try {
       const response = await axios.post(
-        `http://10.0.2.2:8082/greeney/mypage/like?userId=${userId}&itemId=${data.spotLike.tourspotId}`,
+        `http://10.0.2.2:8082/greeney/mypage/like?userId=${userId}&itemId=${data.spotLike.rstrntId}`,
       );
       console.log(response.data);
     } catch (error) {
@@ -72,7 +74,7 @@ const LikelistTour = ({data, navigation, userId}: propType) => {
   const cancleLike = async () => {
     try {
       const response = await axios.delete(
-        `http://10.0.2.2:8082/greeney/mypage/dislike?categoryNumber=${data.categoryNumber}&spotId=${data.spotLike.tourspotId}&userId=${userId}`,
+        `http://10.0.2.2:8082/greeney/mypage/dislike?categoryNumber=${data.categoryNumber}&spotId=${data.spotLike.rstrntId}&userId=${userId}`,
       );
       console.log(response.data);
     } catch (error) {
@@ -88,7 +90,9 @@ const LikelistTour = ({data, navigation, userId}: propType) => {
       <View style={styles.content}>
         <View style={styles.wrapper}>
           <Image
-            source={{uri: data.spotLike.mainimage}}
+            source={{
+              uri: `https://maps.googleapis.com/maps/api/streetview?size=400x400&location=${data.spotLike.rstrntLa}, ${data.spotLike.rstrntLo}&fov=80&heading=70&pitch=0&key=${Key}`,
+            }}
             style={{
               width: 100,
               height: 100,
@@ -98,8 +102,8 @@ const LikelistTour = ({data, navigation, userId}: propType) => {
           />
           <View style={styles.title}>
             <View style={styles.textwrap}>
-              <Text style={styles.name}>{data.spotLike.title}</Text>
-              <Text style={styles.location}>{data.spotLike.addr}</Text>
+              <Text style={styles.name}>{data.spotLike.rstrntName}</Text>
+              <Text style={styles.location}>{data.spotLike.rstrntAddr}</Text>
             </View>
             <View style={styles.heratColumn}>
               <TouchableOpacity onPress={toggleHeart}>
@@ -110,7 +114,7 @@ const LikelistTour = ({data, navigation, userId}: propType) => {
                 )}
               </TouchableOpacity>
               <TouchableOpacity>
-                <Text style={styles.type}>관광</Text>
+                <Text style={styles.type}>식당</Text>
               </TouchableOpacity>
             </View>
           </View>
@@ -198,4 +202,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default LikelistTour;
+export default LikelistRstrnt;
