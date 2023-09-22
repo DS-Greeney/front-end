@@ -17,7 +17,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import IconC from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import Header from '../components/Common/Header';
-import TitleChange from '../components/Common/TitleChange';
+import TitleChangeModal from '../components/Common/TitleChangeModal';
 // import {useNavigation} from '@react-navigation/native';
 
 const withdrawal = () => {
@@ -83,10 +83,6 @@ export default function Mypage() {
 
   const toggleModal = () => {
     setModalVisible(!isModalVisible);
-  };
-
-  const closeModal = () => {
-    setModalVisible(false);
   };
 
   interface UserModel {
@@ -246,6 +242,10 @@ export default function Mypage() {
                 onPress={() => toggleModal()}>
                 <Text style={{fontSize: 20, color: '#000'}}>칭호 변경</Text>
               </TouchableOpacity>
+              <TitleChangeModal
+                isVisible={isModalVisible}
+                toggleModal={toggleModal}
+              />
               <TouchableOpacity
                 style={styles.btnView2}
                 onPress={() => ChangeNickname()}>

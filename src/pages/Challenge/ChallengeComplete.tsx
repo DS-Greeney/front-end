@@ -27,7 +27,7 @@ export default function ChallengeComplete() {
 
   const [challengeInfo, setChallengeInfo] = useState<ChallengeInfoModel>({
     goal: 0,
-    userTitleList: [''],
+    userTitleList: [],
     userRemainChallengeNum: 0,
     userChallengeNum: 0,
     userNowTitle: '',
