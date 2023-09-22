@@ -7,6 +7,7 @@ import {AppContext} from './src/components/Common/Context';
 import MainNavigator from './src/navigation/MainNavigator';
 import Homepage from './src/pages/Home/Homepage';
 import SignUp from './src/pages/SignUp';
+import PrivacyPolicy from './src/pages/Settings/PrivacyPolicy';
 import Search from './src/pages/Home/Search';
 import Map from './src/pages/Map';
 import Login from './src/pages/Login';
@@ -116,6 +117,13 @@ export default function App() {
             component={SignUp}
             options={{
               title: '회원가입',
+            }}
+          />
+          <Stack.Screen
+            name="PrivacyPolicy"
+            component={PrivacyPolicy}
+            options={{
+              title: '개인정보 이용약관',
             }}
           />
           <Stack.Screen name="MainNavigator" component={MainNavigator} />
