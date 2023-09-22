@@ -17,7 +17,7 @@ import {useNavigation} from '@react-navigation/native';
 import axios from 'axios';
 import {AppContext} from '../../components/Common/Context';
 import Config from 'react-native-config';
-// import MapView, {PROVIDER_GOOGLE} from 'react-native-maps';
+import MapView, {PROVIDER_GOOGLE} from 'react-native-maps';
 
 // import ReviewItem from '../../components/Recommend/ReviewItem';
 
@@ -37,6 +37,7 @@ interface dataType {
 export default function RestaurantDetail(route: any) {
   const {userId} = useContext(AppContext);
   const Key = Config.google_map_api_key;
+  const [loading, setLoading] = useState(true);
 
   const [restaurant, setRestaurant] = useState<dataType>({
     rstrntId: 0,
@@ -66,6 +67,7 @@ export default function RestaurantDetail(route: any) {
       );
       //console.log(response.data || []);
       setRestaurant(response.data.restaurant || []);
+      setLoading(false);
     } catch (error) {
       console.error('Error fetching data:', error);
     }
@@ -207,10 +209,27 @@ export default function RestaurantDetail(route: any) {
               // backgroundColor: '#ccc',
               overflow: 'hidden',
             }}></TouchableOpacity>
-          <Image
+          {/* <Image
             style={styles.loadview}
             source={require('../../assets/images/restaurant/dummy_view.jpg')}
-          />
+          /> */}
+          {loading ? (
+            <TouchableOpacity
+              disabled={true}
+              style={{height: 130, backgroundColor: '#ccc'}}
+            />
+          ) : (
+            <MapView
+              style={styles.loadview}
+              provider={PROVIDER_GOOGLE}
+              initialRegion={{
+                latitude: Number(restaurant.rstrntLa),
+                longitude: Number(restaurant.rstrntLo),
+                latitudeDelta: 0.001,
+                longitudeDelta: 0.001,
+              }}
+            />
+          )}
         </View>
         <View style={styles.view2}>
           <Text style={styles.extext}>주소</Text>
