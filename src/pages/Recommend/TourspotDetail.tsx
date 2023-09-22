@@ -27,6 +27,7 @@ interface dataType {
   latitude: number;
   longitude: number;
   sigunguCode: number;
+  tourspotStar: number;
   addr: string;
   mainimage: string;
   summary: string;
@@ -51,6 +52,7 @@ export default function TourspotDetail(route: any) {
     latitude: 0,
     longitude: 0,
     sigunguCode: 0,
+    tourspotStar: 0,
     addr: '',
     mainimage: '',
     summary: '',
@@ -223,7 +225,9 @@ export default function TourspotDetail(route: any) {
             color="#FCE25F"
             style={{marginRight: 5}}
           />
-          <Text style={{fontSize: 20, color: '#000'}}> 4.7 / 5</Text>
+          <Text style={{fontSize: 20, color: '#000'}}>
+            {tourSpot.tourspotStar} / 5
+          </Text>
         </View>
         <View style={styles.view2}>
           <Text

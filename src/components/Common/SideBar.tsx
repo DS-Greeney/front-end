@@ -10,6 +10,7 @@ import {
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import Modal from 'react-native-modal';
 import {NavigationProp} from '@react-navigation/native';
+import axios from 'axios';
 
 interface propType {
   navigation: NavigationProp<any>;
@@ -39,6 +40,7 @@ const SideBar = ({navigation}: propType) => {
         {
           text: '로그아웃',
           onPress: () => {
+            goLogout();
             //onDelete(id);
           },
         },
@@ -48,6 +50,20 @@ const SideBar = ({navigation}: propType) => {
         onDismiss: () => {},
       },
     );
+  };
+
+  const goLogout = async () => {
+    try {
+      const response = await axios.get('http://10.0.2.2:8082/api/users/logout');
+      if (response.data.success === true) {
+        Alert.alert('로그아웃 되었습니다.');
+        navigation.navigate('Login');
+      } else {
+        Alert.alert('로그아웃 실패');
+      }
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
   };
 
   return (

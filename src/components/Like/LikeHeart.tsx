@@ -21,6 +21,7 @@ const LikeHeart = ({
   userId,
 }: dataType) => {
   const [heart, setHeart] = useState(false);
+  console.log(likeState);
 
   const clickLike = async () => {
     // setHeart(previousState => !previousState);
