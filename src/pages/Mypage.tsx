@@ -268,12 +268,16 @@ export default function Mypage() {
                 <Text style={{fontSize: 20, color: '#000'}}>앱 버전</Text>
                 <Text style={{fontSize: 20, color: '#000'}}>1.0.0</Text>
               </View>
-              <TouchableOpacity style={styles.btnView2}>
+              <TouchableOpacity
+                style={styles.btnView2}
+                onPress={() => navigation.navigate('TOS')}>
                 <Text style={{fontSize: 20, color: '#000'}}>
                   서비스 이용약관
                 </Text>
               </TouchableOpacity>
-              <TouchableOpacity style={styles.btnView2}>
+              <TouchableOpacity
+                style={styles.btnView2}
+                onPress={() => navigation.navigate('PrivacyPolicy')}>
                 <Text style={{fontSize: 20, color: '#000'}}>
                   개인정보 처리방침
                 </Text>

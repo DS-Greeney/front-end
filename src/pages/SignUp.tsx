@@ -38,9 +38,13 @@ export default function SignUp({navigation}: any) {
   const [nameChk, setNameChk] = useState(false);
   const [emailChk, setEmailChk] = useState(false);
   const [emailNumChk, setEmailNumChk] = useState(false);
+  const [TOSIsChecked, setTOSisChecked] = useState(false);
   const [privacyPolicyIsChecked, setPrivacyPolicyisChecked] = useState(false);
   const [fourteenIsChecked, setFourteenisChecked] = useState(false);
 
+  const toggleTOSCheckbox = () => {
+    setTOSisChecked(!TOSIsChecked);
+  };
   const togglePrivacyPolicyCheckbox = () => {
     setPrivacyPolicyisChecked(!privacyPolicyIsChecked);
   };
@@ -165,6 +169,7 @@ export default function SignUp({navigation}: any) {
       nameChk &&
       emailChk &&
       emailNumChk &&
+      TOSIsChecked &&
       privacyPolicyIsChecked &&
       fourteenIsChecked
     ) {
@@ -192,8 +197,10 @@ export default function SignUp({navigation}: any) {
       Alert.alert('회원가입 실패', '이메일을 확인해주세요.');
     } else if (!emailNumChk) {
       Alert.alert('회원가입 실패', '이메일 인증번호를 확인해주세요.');
+    } else if (!TOSIsChecked) {
+      Alert.alert('회원가입 실패', '서비스 이용약관에 동의해주세요.');
     } else if (!privacyPolicyIsChecked) {
-      Alert.alert('회원가입 실패', '개인정보 이용약관에 동의해주세요.');
+      Alert.alert('회원가입 실패', '개인정보 처리방침에 동의해주세요.');
     } else if (!fourteenIsChecked) {
       Alert.alert('회원가입 실패', '만 14세 이상만 가입할 수 있습니다.');
     } else {
@@ -289,6 +296,25 @@ export default function SignUp({navigation}: any) {
             {passChk}
           </Text>
 
+          <TouchableOpacity onPress={toggleTOSCheckbox}>
+            <View style={styles.Checkbox}>
+              <View
+                style={[
+                  styles.CheckboxBtn,
+                  {borderColor: TOSIsChecked ? '#26e' : 'gray'},
+                ]}>
+                {TOSIsChecked && <View style={styles.CheckboxBtnSelect} />}
+              </View>
+              <Text>(필수) </Text>
+              <TouchableOpacity onPress={() => navigation.navigate('TOS')}>
+                <Text style={{textDecorationLine: 'underline'}}>
+                  서비스 이용약관
+                </Text>
+              </TouchableOpacity>
+              <Text>에 동의합니다.</Text>
+            </View>
+          </TouchableOpacity>
+
           <TouchableOpacity onPress={togglePrivacyPolicyCheckbox}>
             <View style={styles.Checkbox}>
               <View
@@ -304,7 +330,7 @@ export default function SignUp({navigation}: any) {
               <TouchableOpacity
                 onPress={() => navigation.navigate('PrivacyPolicy')}>
                 <Text style={{textDecorationLine: 'underline'}}>
-                  개인정보 이용약관
+                  개인정보 처리방침
                 </Text>
               </TouchableOpacity>
               <Text>에 동의합니다.</Text>

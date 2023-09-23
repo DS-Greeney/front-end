@@ -17,6 +17,7 @@ import Restaurant from './src/pages/Recommend/RestaurantPage';
 import Likelist from './src/pages/LikelistPage';
 import DrawerNavigator from './src/navigation/DrawerNavigator';
 import 'react-native-gesture-handler';
+import TOS from './src/pages/Settings/TOS';
 
 interface ILocation {
   latitude: number;
@@ -120,10 +121,17 @@ export default function App() {
             }}
           />
           <Stack.Screen
+            name="TOS"
+            component={TOS}
+            options={{
+              title: '서비스 이용약관',
+            }}
+          />
+          <Stack.Screen
             name="PrivacyPolicy"
             component={PrivacyPolicy}
             options={{
-              title: '개인정보 이용약관',
+              title: '개인정보 처리방침',
             }}
           />
           <Stack.Screen name="MainNavigator" component={MainNavigator} />
