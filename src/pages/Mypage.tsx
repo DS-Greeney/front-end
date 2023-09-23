@@ -17,7 +17,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import IconC from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import Header from '../components/Common/Header';
-import TitleChangeModal from '../components/Common/TitleChangeModal';
+import TitleChangeModal from './Settings/TitleChangeModal';
 // import {useNavigation} from '@react-navigation/native';
 
 const withdrawal = () => {
@@ -53,7 +53,7 @@ const logout = ({navigation}: any) => {
           axios
             .get('http://10.0.2.2:8082/api/users/logout')
             .then(function (response) {
-              console.log(response.data);
+              // console.log(response.data);
               if (response.data.success === true) {
                 console.log('로그아웃 성공');
                 navigation.navigate('Login');
