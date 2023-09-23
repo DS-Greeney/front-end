@@ -1,9 +1,10 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {StyleSheet, View, TouchableOpacity, Image, Text} from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialIcons';
-import MapView, {PROVIDER_GOOGLE, Marker} from 'react-native-maps';
+import MapView, {PROVIDER_GOOGLE, Marker, LatLng} from 'react-native-maps';
 import axios from 'axios';
 import Modal from 'react-native-modal';
+import MapModal from '../components/Common/MapModal';
+import {AppContext} from '../components/Common/Context';
 
 const dummymarkersData = [
   {
@@ -28,41 +29,53 @@ const dummymarkersData = [
 
 export default function Map() {
   const markers = dummymarkersData;
-  const [isModalVisible, setModalVisible] = useState(false);
+  const {location} = useContext(AppContext);
+  const [selectedAreaCode, setSelectedAreaCode] = useState(0);
 
-  const toggleModal = () => {
-    setModalVisible(!isModalVisible);
+  const [modalVisible, setModalVisible] = useState(false);
+  const [selectedMarker, setSelectedMarker] = useState(null);
+  const [title, setTitle] = useState('');
+  const [add, setAdd] = useState('');
+
+  const handleMarkerPress = (marker, title, add) => {
+    setModalVisible(true);
+    setSelectedMarker(marker);
+    setTitle(title);
+    setAdd(add);
   };
 
-  const closeSidebar = () => {
-    setModalVisible(false);
+  const [tourList, setTourlist] = useState([]);
+
+  useEffect(() => {
+    getData(selectedAreaCode);
+  }, [selectedAreaCode]);
+
+  const getData = async (areaCode: any) => {
+    try {
+      const response = await axios.get(
+        'http://10.0.2.2:8082/greeney/main/tourlist',
+        {
+          params: {
+            latitude: location.latitude,
+            longitude: location.longitude,
+            areaCode: areaCode,
+          },
+        },
+      );
+      // console.log(response.data || []);
+      setTourlist(response.data.tourlists || []);
+      // console.log(tourList);
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
   };
-  // const [tourList, setTourlist] = useState([]);
-  // const [lat, setLat] = useState(37.6242392);
-  // const [log, setLog] = useState(126.9901206);
 
-  // useEffect(() => {
-  //   getData();
-  // }, []);
+  const coordinatesTour: LatLng[] = tourList.map(item => ({
+    latitude: item.latitude,
+    longitude: item.longitude,
+  }));
 
-  // const getData = async () => {
-  //   try {
-  //     const response = await axios.get(
-  //       'http://10.0.2.2:8082/greeney/main/tourlist',
-  //       {
-  //         params: {
-  //           latitude: lat,
-  //           longitude: log,
-  //         },
-  //       },
-  //     );
-  //     // console.log(response.data || []);
-  //     setTourlist(response.data.tourlists || []);
-  //     console.log(response);
-  //   } catch (error) {
-  //     console.error('Error fetching data:', error);
-  //   }
-  // };
+  const tourmarkerImage = require('../assets/images/map/tourmapicon.png');
 
   return (
     <View style={{flex: 1}}>
@@ -80,27 +93,36 @@ export default function Map() {
             <Marker
               style={styles.marker}
               key={index}
-              coordinate={marker.latlng}
-              title={marker.title}
-              description={marker.description}
-              pinColor="green"
-              // image={require('../assets/images/map/tourmapicon.png')}
-              // onPress={toggleModal}
-            />
+              onPress={() =>
+                handleMarkerPress(marker, marker.title, marker.description)
+              }
+              coordinate={marker.latlng}>
+              <Image source={tourmarkerImage} style={styles.markerImg} />
+            </Marker>
           );
         })}
-        {/* {tourList.map((marker, index) => {
+        {tourList.map((marker, index) => {
           return (
             <Marker
+              style={styles.marker}
               key={index}
-              coordinate={marker.latlng}
-              title={marker.title}
-              description={marker.description}
-              pinColor="green"
-            />
+              onPress={() =>
+                handleMarkerPress(marker, marker.title, marker.addr)
+              }
+              coordinate={coordinatesTour}>
+              <Image source={tourmarkerImage} style={styles.markerImg} />
+            </Marker>
           );
-        })} */}
+        })}
       </MapView>
+      {selectedMarker && (
+        <MapModal
+          modalVisible={modalVisible}
+          setModalVisible={setModalVisible}
+          title={title}
+          add={add}
+        />
+      )}
     </View>
   );
 }
@@ -109,6 +131,11 @@ const styles = StyleSheet.create({
   marker: {
     width: 60,
     height: 75,
+  },
+  markerImg: {
+    width: 40,
+    height: 50,
+    resizeMode: 'contain',
   },
   headtitle: {
     flexDirection: 'row',
