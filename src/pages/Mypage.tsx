@@ -62,6 +62,7 @@ export default function Mypage() {
 
   let navigation = useNavigation();
   const [isModalVisible, setModalVisible] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const toggleModal = () => {
     setModalVisible(!isModalVisible);
@@ -271,6 +272,7 @@ export default function Mypage() {
       if (response.status === 200) {
         // 성공적으로 작성된 경우
         console.log('이미지가 성공적으로 변경되었습니다.', response.data);
+        setLoading(!loading);
         // 추가적인 작업을 수행하거나 화면을 업데이트할 수 있습니다.
       } else {
         console.error('이미지 변경에 실패했습니다.');
@@ -299,7 +301,7 @@ export default function Mypage() {
       .catch(function (error) {
         console.log(error);
       });
-  }, [userId, selectedImage]);
+  }, [userId, loading]);
 
   // useEffect(() => {
   //   // selectedImage가 변경될 때마다 changeProfile 함수를 호출

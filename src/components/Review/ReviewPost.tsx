@@ -20,6 +20,7 @@ import {useNavigation} from '@react-navigation/native';
 import axios from 'axios';
 import {AppContext} from '../../components/Common/Context';
 import Swiper from 'react-native-swiper';
+import RatingModal from '../Common/RatingModal';
 
 interface dataType {
   userNickname: string;
@@ -46,8 +47,26 @@ const ReviewPost = ({itemId, reviewData, category}: propType) => {
   const [selectedImages, setSelectedImages] = useState<string[]>([]);
   const [reviews, setReviews] = useState<dataType[]>(reviewData || []);
 
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [selectedRating, setSelectedRating] = useState(0);
+
+  const openModal = () => {
+    setIsModalVisible(true);
+  };
+
+  const closeModal = () => {
+    setIsModalVisible(false);
+  };
+
+  const handleRatingSubmit = (rating: number) => {
+    setSelectedRating(rating);
+    closeModal();
+  };
+
   useEffect(() => {
-    setReviews(reviewData);
+    if (reviewData) {
+      setReviews(reviewData);
+    }
   }, [reviewData]);
 
   //console.log(reviews);
@@ -66,7 +85,11 @@ const ReviewPost = ({itemId, reviewData, category}: propType) => {
         const response = await axios.get(
           `http://10.0.2.2:8082/greeney/main/tourlist/detail/${itemId}?userId=${userId}`,
         );
-        setReviews(response.data.reviewList || []);
+        if (response.data && response.data.reviewList) {
+          setReviews(response.data.reviewList || []);
+        } else {
+          console.error('No review data found in the response.');
+        }
       } catch (error) {
         console.error('Error fetching data1:', error);
       }
@@ -75,19 +98,26 @@ const ReviewPost = ({itemId, reviewData, category}: propType) => {
         const response = await axios.get(
           `http://10.0.2.2:8082/greeney/main/restaurantlist/detail/${itemId}?userId=${userId}`,
         );
-        setReviews(response.data.reviewList || []);
+        if (response.data && response.data.reviewList) {
+          setReviews(response.data.reviewList || []);
+        } else {
+          console.error('No review data found in the response.');
+        }
       } catch (error) {
-        console.error('Error fetching data2:', category, error);
+        console.error('Error fetching data1:', error);
       }
     } else if (category === 3) {
       try {
         const response = await axios.get(
           `http://10.0.2.2:8082/greeney/main/hotellist/detail/${itemId}?userId=${userId}`,
         );
-        setReviews(response.data.reviewList || []);
-        console.log(response.data.reviewList);
+        if (response.data && response.data.reviewList) {
+          setReviews(response.data.reviewList || []);
+        } else {
+          console.error('No review data found in the response.');
+        }
       } catch (error) {
-        console.error('Error fetching data3:', category, error);
+        console.error('Error fetching data1:', error);
       }
     } else {
       console.log('오류 발생');
@@ -153,7 +183,7 @@ const ReviewPost = ({itemId, reviewData, category}: propType) => {
       formData.append('spotId', itemId);
       formData.append('userId', userId);
       formData.append('cmntContent', content);
-      formData.append('cmntStar', Number(star));
+      formData.append('cmntStar', selectedRating);
       formData.append('categoryNumber', category);
 
       selectedImages.forEach((imagePath, index) => {
@@ -195,6 +225,7 @@ const ReviewPost = ({itemId, reviewData, category}: propType) => {
         setContent('');
         setInputCount(0);
         setSelectedImages([]);
+        setSelectedRating(0);
         // fetchReviewData();
         Alert.alert(
           '성공',
@@ -282,7 +313,7 @@ const ReviewPost = ({itemId, reviewData, category}: propType) => {
           <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
             <Text style={styles.text}>{inputCount}/200자</Text>
             <View style={{flexDirection: 'row'}}>
-              <View style={styles.star}>
+              <TouchableOpacity style={styles.star} onPress={openModal}>
                 <Icon
                   name="star-rate"
                   size={18}
@@ -290,9 +321,14 @@ const ReviewPost = ({itemId, reviewData, category}: propType) => {
                   style={{marginRight: 5}}
                 />
                 <Text style={{marginRight: 5, color: '#D4D4D4', fontSize: 14}}>
-                  0 / 5
+                  {selectedRating} / 5
                 </Text>
-              </View>
+              </TouchableOpacity>
+              <RatingModal
+                isVisible={isModalVisible}
+                onClose={closeModal}
+                onSubmit={handleRatingSubmit}
+              />
               <TouchableOpacity>
                 <Icon
                   name="camera-alt"
@@ -317,7 +353,7 @@ const ReviewPost = ({itemId, reviewData, category}: propType) => {
         </View>
       </View>
       {/* //리뷰 목록 */}
-      {reviews?.map((review, index) => (
+      {reviews.map((review, index) => (
         <View key={index}>
           <View style={{flexDirection: 'row', marginBottom: 20}}>
             <TouchableOpacity
