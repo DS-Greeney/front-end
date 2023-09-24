@@ -18,7 +18,9 @@ import axios from 'axios';
 
 export default function ChatbotPage() {
   let navigation = useNavigation();
-  const [messages, setMessages] = useState([] as {id: number; text: string}[]);
+  const [messages, setMessages] = useState(
+    [] as {id: number; text: string; sender: string}[],
+  );
   const [inputText, setInputText] = useState('');
 
   const sendQuestion = async () => {
@@ -30,15 +32,20 @@ export default function ChatbotPage() {
             question: inputText,
           },
         );
-        console.log(response.data || []);
-        if (response.data.success === true) {
-          const newMessages = [
-            ...messages,
-            {id: messages.length, text: inputText, sender: 'chatbot'},
-          ];
-          setMessages(newMessages);
-        } else {
+        // console.log(response.data || []);
+        if (response.data.success === false) {
           Alert.alert('일시적 오류', '메시지 전송에 실패하였습니다.');
+        } else {
+          const newMessagesUser = [
+            ...messages,
+            {id: messages.length, text: inputText, sender: 'user'},
+            {
+              id: messages.length + 1,
+              text: response.data.trim(),
+              sender: 'Chatbot',
+            },
+          ];
+          setMessages(newMessagesUser);
         }
         setInputText('');
       } catch (error) {
@@ -53,13 +60,15 @@ export default function ChatbotPage() {
   return (
     <View style={styles.view}>
       <Header navigation={navigation} type={'BACK'} title={'그리니 챗봇'} />
-      <FlatList
-        data={messages}
-        keyExtractor={item => item.id.toString()}
-        renderItem={({ item }) => (
-          <MessageComponent message={item.text} sender={item.sender} />
-        )}
-      />
+      <View style={styles.flatList}>
+        <FlatList
+          data={messages}
+          keyExtractor={item => item.id.toString()}
+          renderItem={({item}) => (
+            <MessageComponent message={item.text} sender={item.sender} />
+          )}
+        />
+      </View>
       <KeyboardAvoidingView style={styles.keyboard}>
         <View style={styles.sendBox}>
           <TextInput
@@ -85,6 +94,10 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     flex: 1,
   },
+  flatList: {
+    marginHorizontal: 20,
+    flex: 6.5,
+  },
   keyboard: {
     flex: 1,
     justifyContent: 'flex-end',
@@ -94,6 +107,7 @@ const styles = StyleSheet.create({
     margin: 10,
     justifyContent: 'center',
     alignItems: 'center',
+    height: 70,
   },
   textInput: {
     width: '80%',
