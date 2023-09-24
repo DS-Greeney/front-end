@@ -62,14 +62,8 @@ export default function TourspotDetail(route: any) {
   let tourspotId = route.route.params.tourspotId;
   const [likeState, setLikeState] = useState(0);
   const [reviewList, setReviewList] = useState([]);
-  // const [reviewList, setReviewList] = useState<propType>({
-  //   user_nickname: '',
-  //   tourspot_cmnt_content: '',
-  //   tourspot_cmnt_time: '',
-  //   tourspot_cmnt_img: [],
-  //   tourspot_cmnt_star: 0,
-  //   user_picture: '',
-  // });
+
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     getData();
@@ -84,6 +78,7 @@ export default function TourspotDetail(route: any) {
       setTourSpot(response.data.tourspot || []);
       setReviewList(response.data.reviewList || []);
       setLikeState(response.data.like || 0);
+      setLoading(false);
       //console.log(response.data.reviewList);
     } catch (error) {
       console.error('Error fetching data:', error);
@@ -157,12 +152,6 @@ export default function TourspotDetail(route: any) {
     case 39:
       area = '제주특별자치도';
       break;
-  }
-
-  function roadmap() {
-    setTimeout(() => {
-      // return ();
-    }, 1000);
   }
 
   return (
@@ -243,18 +232,23 @@ export default function TourspotDetail(route: any) {
               // backgroundColor: '#ccc',
               overflow: 'hidden',
             }}></TouchableOpacity>
-          <MapView
-            style={styles.loadview}
-            provider={PROVIDER_GOOGLE}
-            initialRegion={{
-              // latitude: tourSpot.latitude,
-              // longitude: tourSpot.longitude,
-              latitude: 37.6874303,
-              longitude: 127.0344916,
-              latitudeDelta: 0.001,
-              longitudeDelta: 0.001,
-            }}
-          />
+          {loading ? (
+            <TouchableOpacity
+              disabled={true}
+              style={{height: 130, backgroundColor: '#ccc'}}
+            />
+          ) : (
+            <MapView
+              style={styles.loadview}
+              provider={PROVIDER_GOOGLE}
+              initialRegion={{
+                latitude: tourSpot.latitude,
+                longitude: tourSpot.longitude,
+                latitudeDelta: 0.001,
+                longitudeDelta: 0.001,
+              }}
+            />
+          )}
         </View>
         <View style={styles.view2}>
           <Text style={styles.extext}>주소</Text>

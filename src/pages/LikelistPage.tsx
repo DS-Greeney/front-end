@@ -1,12 +1,13 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useContext} from 'react';
 import Header from '../components/Common/Header';
 import FilterList from '../components/filter/FilterList';
 import Likelist from '../components/Like/Likelist';
 import {StyleSheet, View, FlatList} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import axios from 'axios';
+import {AppContext} from '../components/Common/Context';
 
-const typeList = ['전체', '관광', '식당', '숙소', '여행코스'];
+const typeList = ['전체', '관광', '식당', '숙소'];
 
 const dummySpotData = [
   {
@@ -75,15 +76,52 @@ const dummySpotData = [
 
 export default function LikeListPage() {
   let navigation = useNavigation();
-  const [likeList, setLikeList] = useState();
+  const {userId} = useContext(AppContext);
+
+  interface SpotLikeTour {
+    addr: string;
+    areaCode: number;
+    latitude: number;
+    longitude: number;
+    mainimage: string;
+    sigunguCode: number;
+    summary: string;
+    tel: string;
+    title: string;
+    tourspotId: number;
+    tourspotStar: number;
+  }
+
+  interface SpotLikeRstrnt {
+    areaCode: number;
+    rstrntAddr: string;
+    rstrntCtgry: string;
+    rstrntId: number;
+    rstrntLa: string;
+    rstrntLo: string;
+    rstrntMenuinfo: string;
+    rstrntName: string;
+    rstrntStar: number;
+    rstrntTel: string;
+  }
+
+  type SpotLike = SpotLikeTour | SpotLikeRstrnt;
+
+  interface LikeItem {
+    categoryNumber: number;
+    spotLike: SpotLike;
+    spotLikeId: number;
+  }
+
+  const [likeList, setLikeList] = useState<LikeItem[]>([]);
 
   const getData = async () => {
     try {
       const response = await axios.get(
-        'http://10.0.2.2:8082/greeney/mypage/like/1',
+        `http://10.0.2.2:8082/greeney/mypage/like/${userId}`,
       );
-      console.log(response.data || []);
-      // setLikeList(response.data.spotLikeList || []);
+      // console.log(response.data.spotLikeList || []);
+      setLikeList([...likeList, response.data.spotLikeList]);
     } catch (error) {
       console.error('Error fetching data:', error);
     }
@@ -93,15 +131,17 @@ export default function LikeListPage() {
     getData();
   }, []);
 
+  // console.log(likeList);
+
   return (
     <View style={styles.likelist}>
       <Header navigation={navigation} type={'BACK'} title={'내가 찜한 목록'} />
       <FilterList areaList={typeList} />
       <View style={styles.listwrap}>
         <FlatList
-          data={dummySpotData}
+          data={likeList}
           renderItem={({item}) => (
-            <Likelist data={item} navigation={navigation} />
+            <Likelist data={item} navigation={navigation} userId={userId} />
           )}
         />
       </View>

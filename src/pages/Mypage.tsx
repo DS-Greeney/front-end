@@ -17,7 +17,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import IconC from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import Header from '../components/Common/Header';
-import TitleChange from '../components/Common/TitleChange';
+import TitleChangeModal from './Settings/TitleChangeModal';
 // import {useNavigation} from '@react-navigation/native';
 
 const withdrawal = () => {
@@ -53,7 +53,7 @@ const logout = ({navigation}: any) => {
           axios
             .get('http://10.0.2.2:8082/api/users/logout')
             .then(function (response) {
-              console.log(response.data);
+              // console.log(response.data);
               if (response.data.success === true) {
                 console.log('로그아웃 성공');
                 navigation.navigate('Login');
@@ -85,15 +85,10 @@ export default function Mypage() {
     setModalVisible(!isModalVisible);
   };
 
-  const closeModal = () => {
-    setModalVisible(false);
-  };
-
   interface UserModel {
     userNickname: string;
     userEmail: string;
     userPassword: string;
-    userPhonenum: string;
     userPicture: string;
     userTitle: string;
   }
@@ -102,7 +97,6 @@ export default function Mypage() {
     userNickname: '',
     userEmail: '',
     userPassword: '',
-    userPhonenum: '',
     userPicture: '',
     userTitle: '',
   });
@@ -121,10 +115,14 @@ export default function Mypage() {
       '비밀번호 변경',
       '정말 비밀번호를 변경하시겠습니까?',
       [
-        {text: '취소', onPress: () => {}, style: 'cancel'},
+        {
+          text: '취소',
+          onPress: () => {},
+          style: 'cancel',
+        },
         {
           text: '변경',
-          onPress: () => {},
+          onPress: () => navigation.navigate('PassChangePage', {userId}),
           style: 'destructive',
         },
       ],
@@ -137,8 +135,8 @@ export default function Mypage() {
 
   const ChangeNickname = () => {
     Alert.alert(
-      '닉네임 변경',
-      '정말 닉네임을 변경하시겠습니까?',
+      '아이디 변경',
+      '정말 아이디를 변경하시겠습니까?',
       [
         {text: '취소', onPress: () => {}, style: 'cancel'},
         {
@@ -164,10 +162,10 @@ export default function Mypage() {
         console.log('id: ', userId);
         handleInputChange('userNickname', response.data.userNickname);
         handleInputChange('userPassword', response.data.userPassword);
-        handleInputChange('userPhonenum', response.data.userPhonenum);
         handleInputChange('userPicture', response.data.userPicture);
         handleInputChange('userTitle', response.data.userTitle);
         handleInputChange('userEmail', response.data.userEmail);
+        console.log(user);
       })
       .catch(function (error) {
         console.log(error);
@@ -244,10 +242,14 @@ export default function Mypage() {
                 onPress={() => toggleModal()}>
                 <Text style={{fontSize: 20, color: '#000'}}>칭호 변경</Text>
               </TouchableOpacity>
+              <TitleChangeModal
+                isVisible={isModalVisible}
+                toggleModal={toggleModal}
+              />
               <TouchableOpacity
                 style={styles.btnView2}
                 onPress={() => ChangeNickname()}>
-                <Text style={{fontSize: 20, color: '#000'}}>닉네임 변경</Text>
+                <Text style={{fontSize: 20, color: '#000'}}>아이디 변경</Text>
               </TouchableOpacity>
               <TouchableOpacity
                 style={styles.btnView2}
@@ -266,12 +268,16 @@ export default function Mypage() {
                 <Text style={{fontSize: 20, color: '#000'}}>앱 버전</Text>
                 <Text style={{fontSize: 20, color: '#000'}}>1.0.0</Text>
               </View>
-              <TouchableOpacity style={styles.btnView2}>
+              <TouchableOpacity
+                style={styles.btnView2}
+                onPress={() => navigation.navigate('TOS')}>
                 <Text style={{fontSize: 20, color: '#000'}}>
                   서비스 이용약관
                 </Text>
               </TouchableOpacity>
-              <TouchableOpacity style={styles.btnView2}>
+              <TouchableOpacity
+                style={styles.btnView2}
+                onPress={() => navigation.navigate('PrivacyPolicy')}>
                 <Text style={{fontSize: 20, color: '#000'}}>
                   개인정보 처리방침
                 </Text>

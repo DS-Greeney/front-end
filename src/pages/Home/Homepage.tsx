@@ -111,7 +111,7 @@ export default function Homepage({navigation}: any) {
     'GreenHotelPage',
     'Restaurant',
     'TourProductPage',
-    'Homepage',
+    'ChatbotPage',
     'Homepage',
   ];
 
