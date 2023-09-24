@@ -21,7 +21,44 @@ import SideBar from '../../components/Common/SideBar';
 import axios from 'axios';
 
 export default function Homepage({navigation}: any) {
-  const {userAuth} = useContext(AppContext);
+  interface UserModel {
+    userNickname: string;
+    userPicture: string;
+    userTitle: string;
+  }
+
+  const {userId} = useContext(AppContext);
+
+  const [user, setUser] = useState<UserModel>({
+    userNickname: '',
+    userPicture: '',
+    userTitle: '',
+  });
+
+  const handleInputChange = (key: string, value: string) => {
+    setUser(prevState => ({
+      ...prevState,
+      [key]: value,
+    }));
+  };
+
+  useEffect(() => {
+    axios
+      .post('http://10.0.2.2:8082/api/users/info', {
+        userId: userId,
+      })
+      .then(function (response) {
+        // console.log(response);
+        console.log('id: ', userId);
+        handleInputChange('userTitle', response.data.userTitle);
+        handleInputChange('userNickname', response.data.userNickname);
+        handleInputChange('userPicture', response.data.userPicture);
+        console.log(response.data.userPicture);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }, []);
   // const [isModalVisible, setModalVisible] = useState(false);
 
   // const toggleModal = () => {
@@ -96,7 +133,7 @@ export default function Homepage({navigation}: any) {
     <View style={styles.home}>
       {/* 헤더 */}
       <View style={styles.header}>
-        <SideBar navigation={navigation} />
+        <SideBar navigation={navigation} data={user} />
         {/* <View style={styles.headtitle}>
           <View style={styles.logoImg}>
             <Image

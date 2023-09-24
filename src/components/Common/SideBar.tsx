@@ -12,11 +12,18 @@ import Modal from 'react-native-modal';
 import {NavigationProp} from '@react-navigation/native';
 import axios from 'axios';
 
-interface propType {
-  navigation: NavigationProp<any>;
+interface dataType {
+  userNickname: string;
+  userPicture: string;
+  userTitle: string;
 }
 
-const SideBar = ({navigation}: propType) => {
+interface propType {
+  navigation: NavigationProp<any>;
+  data: dataType;
+}
+
+const SideBar = ({navigation, data}: propType) => {
   const [isModalVisible, setModalVisible] = useState(false);
 
   const toggleModal = () => {
@@ -94,14 +101,11 @@ const SideBar = ({navigation}: propType) => {
 
             <View style={styles.userInfo}>
               <View style={styles.userImg}>
-                <Image
-                  style={styles.img}
-                  source={require('../../assets/images/home/dummy_user.png')}
-                />
+                <Image style={styles.img} source={{uri: data.userPicture}} />
               </View>
-              <Text style={styles.username}>그린</Text>
+              <Text style={styles.username}>{data.userNickname}</Text>
               <View style={styles.userStack}>
-                <Text style={styles.stackname}>에코그린세포</Text>
+                <Text style={styles.stackname}>{data.userTitle}</Text>
               </View>
             </View>
 
