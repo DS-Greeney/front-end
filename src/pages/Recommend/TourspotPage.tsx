@@ -30,8 +30,6 @@ const areaList = [
 
 export default function TourspotPage() {
   const [tourList, setTourlist] = useState([]);
-  // const [lat, setLat] = useState(37.6512);
-  // const [log, setLog] = useState(127.0162);
   const {location} = useContext(AppContext);
   const [selectedAreaCode, setSelectedAreaCode] = useState(0);
 
@@ -82,8 +80,8 @@ export default function TourspotPage() {
 
   const handleAreaChange = (areaCode: string) => {
     setSelectedAreaCode(areaCodeMap[areaCode] || 0);
-    console.log('areacode: ', areaCode);
-    console.log('areaCodeMap[areaCode]: ', areaCodeMap[areaCode]);
+    // console.log('areacode: ', areaCode);
+    //console.log('areaCodeMap[areaCode]: ', areaCodeMap[areaCode]);
   };
 
   return (
@@ -94,6 +92,9 @@ export default function TourspotPage() {
 
       <View style={styles.spotlist}>
         <FlatList
+          keyExtractor={(item, index) => index.toString()}
+          disableVirtualization={false}
+          initialNumToRender={4}
           data={tourList}
           renderItem={({item}) => (
             <Tourspot data={item} navigation={navigation} />

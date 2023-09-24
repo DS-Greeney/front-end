@@ -15,7 +15,7 @@ import LikeHeart from '../../components/Like/LikeHeart';
 import Header from '../../components/Common/Header';
 import {useNavigation} from '@react-navigation/native';
 import axios from 'axios';
-import MapView, {PROVIDER_GOOGLE} from 'react-native-maps';
+import MapView, {PROVIDER_GOOGLE, Marker} from 'react-native-maps';
 import {AppContext} from '../../components/Common/Context';
 import ReviewPost from '../../components/Review/ReviewPost';
 
@@ -27,6 +27,7 @@ interface dataType {
   latitude: number;
   longitude: number;
   sigunguCode: number;
+  tourspotStar: number;
   addr: string;
   mainimage: string;
   summary: string;
@@ -51,6 +52,7 @@ export default function TourspotDetail(route: any) {
     latitude: 0,
     longitude: 0,
     sigunguCode: 0,
+    tourspotStar: 0,
     addr: '',
     mainimage: '',
     summary: '',
@@ -60,10 +62,20 @@ export default function TourspotDetail(route: any) {
   let [inputCount, setInputCount] = useState(0);
   let navigation = useNavigation();
   let tourspotId = route.route.params.tourspotId;
+  // let lat = route.route.params.latitude;
+  // let log = route.route.params.longitude;
   const [likeState, setLikeState] = useState(0);
   const [reviewList, setReviewList] = useState([]);
 
   const [loading, setLoading] = useState(true);
+  // const [reviewList, setReviewList] = useState<propType>({
+  //   user_nickname: '',
+  //   tourspot_cmnt_content: '',
+  //   tourspot_cmnt_time: '',
+  //   tourspot_cmnt_img: [],
+  //   tourspot_cmnt_star: 0,
+  //   user_picture: '',
+  // });
 
   useEffect(() => {
     getData();
@@ -158,7 +170,17 @@ export default function TourspotDetail(route: any) {
     <View style={styles.view}>
       <Header navigation={navigation} type={'BACK'} title={tourSpot.title} />
       <ScrollView style={styles.scrollView}>
-        <Swiper
+        {tourSpot.mainimage === '' ? (
+          <View style={styles.emptyImage} />
+        ) : (
+          <Image
+            style={styles.image}
+            source={{
+              uri: tourSpot.mainimage,
+            }}
+          />
+        )}
+        {/* <Swiper
           autoplay
           showsPagination={true}
           height={300}
@@ -181,7 +203,7 @@ export default function TourspotDetail(route: any) {
               uri: 'https://www.knps.or.kr/upload/contest/21/20221108082756351.jpg',
             }}
           />
-        </Swiper>
+        </Swiper> */}
         <View style={styles.title}>
           <Text style={{fontSize: 30, color: '#000', flex: 1}}>
             {tourSpot.title}
@@ -212,7 +234,9 @@ export default function TourspotDetail(route: any) {
             color="#FCE25F"
             style={{marginRight: 5}}
           />
-          <Text style={{fontSize: 20, color: '#000'}}> 4.7 / 5</Text>
+          <Text style={{fontSize: 20, color: '#000'}}>
+            {tourSpot.tourspotStar} / 5
+          </Text>
         </View>
         <View style={styles.view2}>
           <Text
@@ -224,14 +248,32 @@ export default function TourspotDetail(route: any) {
           </Text>
         </View>
         <View style={styles.view2}>
-          <TouchableOpacity
+          {/* <TouchableOpacity
             disabled={true}
             style={{
               height: 130,
               // width: '100%',
               // backgroundColor: '#ccc',
               overflow: 'hidden',
-            }}></TouchableOpacity>
+            }}></TouchableOpacity> */}
+          {/* <MapView
+            style={styles.loadview}
+            provider={PROVIDER_GOOGLE}
+            initialRegion={{
+              // latitude: 37.6874303,
+              // longitude: 127.0344916,
+              latitude: lat,
+              longitude: log,
+              latitudeDelta: 0.001,
+              longitudeDelta: 0.001,
+            }}>
+            <Marker
+              coordinate={{
+                latitude: lat,
+                longitude: log,
+              }}
+            />
+          </MapView> */}
           {loading ? (
             <TouchableOpacity
               disabled={true}
@@ -246,8 +288,14 @@ export default function TourspotDetail(route: any) {
                 longitude: tourSpot.longitude,
                 latitudeDelta: 0.001,
                 longitudeDelta: 0.001,
-              }}
-            />
+              }}>
+              <Marker
+                coordinate={{
+                  latitude: tourSpot.latitude,
+                  longitude: tourSpot.longitude,
+                }}
+              />
+            </MapView>
           )}
         </View>
         <View style={styles.view2}>
@@ -291,7 +339,7 @@ export default function TourspotDetail(route: any) {
           {/* <Image source={require('')} /> */}
         </View>
 
-        <ReviewPost itemId={tourspotId} reviewData={reviewList} />
+        <ReviewPost itemId={tourspotId} reviewData={reviewList} category={1} />
 
         {/* <View style={styles.view2}>
           <Text style={styles.text}>리뷰(14)</Text>
@@ -397,7 +445,7 @@ const styles = StyleSheet.create({
   },
   image: {
     width: '100%',
-    height: '100%',
+    height: 300,
     resizeMode: 'cover',
   },
   image2: {
@@ -414,6 +462,12 @@ const styles = StyleSheet.create({
     marginTop: 20,
     marginBottom: 20,
     marginHorizontal: 40,
+  },
+  emptyImage: {
+    width: '100%',
+    height: 300,
+    resizeMode: 'cover',
+    backgroundColor: '#666',
   },
   title: {
     flexDirection: 'row',
@@ -451,7 +505,8 @@ const styles = StyleSheet.create({
   },
   loadview: {
     width: '100%',
-    height: '100%',
+    height: 130,
+    overflow: 'hidden',
     resizeMode: 'cover',
   },
   userImg: {

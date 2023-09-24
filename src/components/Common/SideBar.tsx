@@ -10,12 +10,20 @@ import {
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import Modal from 'react-native-modal';
 import {NavigationProp} from '@react-navigation/native';
+import axios from 'axios';
+
+interface dataType {
+  userNickname: string;
+  userPicture: string;
+  userTitle: string;
+}
 
 interface propType {
   navigation: NavigationProp<any>;
+  data: dataType;
 }
 
-const SideBar = ({navigation}: propType) => {
+const SideBar = ({navigation, data}: propType) => {
   const [isModalVisible, setModalVisible] = useState(false);
 
   const toggleModal = () => {
@@ -39,6 +47,7 @@ const SideBar = ({navigation}: propType) => {
         {
           text: '로그아웃',
           onPress: () => {
+            goLogout();
             //onDelete(id);
           },
         },
@@ -48,6 +57,20 @@ const SideBar = ({navigation}: propType) => {
         onDismiss: () => {},
       },
     );
+  };
+
+  const goLogout = async () => {
+    try {
+      const response = await axios.get('http://10.0.2.2:8082/api/users/logout');
+      if (response.data.success === true) {
+        Alert.alert('로그아웃 되었습니다.');
+        navigation.navigate('Login');
+      } else {
+        Alert.alert('오류', '다시 시도해주세요');
+      }
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
   };
 
   return (
@@ -78,14 +101,11 @@ const SideBar = ({navigation}: propType) => {
 
             <View style={styles.userInfo}>
               <View style={styles.userImg}>
-                <Image
-                  style={styles.img}
-                  source={require('../../assets/images/home/dummy_user.png')}
-                />
+                <Image style={styles.img} source={{uri: data.userPicture}} />
               </View>
-              <Text style={styles.username}>그린</Text>
+              <Text style={styles.username}>{data.userNickname}</Text>
               <View style={styles.userStack}>
-                <Text style={styles.stackname}>에코그린세포</Text>
+                <Text style={styles.stackname}>{data.userTitle}</Text>
               </View>
             </View>
 

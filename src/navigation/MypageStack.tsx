@@ -28,6 +28,7 @@ export default function MypageStack() {
       initialRouteName="MyPage"
       screenOptions={{headerShown: false}}>
       <Stack.Screen name="MyPage" component={Mypage} />
+      <Stack.Screen name="Login" component={Login} />
       {/* <Stack.Screen name="Homepage" component={Homepage} />
         <Stack.Screen name="SignUp" component={SignUp} />
 
