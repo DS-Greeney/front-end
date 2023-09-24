@@ -1,15 +1,20 @@
-import React from 'react';
+import React, {memo} from 'react';
 import {StyleSheet, View, Text, TouchableOpacity, Image} from 'react-native';
 import {NavigationProp} from '@react-navigation/native';
+import Config from 'react-native-config';
 
 interface dataType {
-  image: string;
-  title: string;
-  addr: string;
-  summary: string;
-//   tourspot_id: number;
-//   mainimage: string;
-//   areacode: string;
+  hotelId: string;
+  hotelName: string;
+  hotelAddr: string;
+  hotelTel: string;
+  hotelService: string;
+  hotelInfo: string;
+  hotelLa: number;
+  hotelLo: number;
+  areaCode: string;
+  hotelUrl: string;
+  hotelStar: number;
 }
 interface propType {
   data: dataType;
@@ -17,27 +22,35 @@ interface propType {
 }
 
 const GreenHotel = ({data, navigation}: propType) => {
+  const Key = Config.google_map_api_key;
   return (
-    <TouchableOpacity style={styles.container}>
+    <TouchableOpacity
+      style={styles.container}
+      key={data.hotelId}
+      onPress={() => navigation.navigate('GreenHotelDetail', data)}>
       <View style={styles.line} />
       <View style={styles.content}>
         <View style={styles.wrapper}>
-            <Image
-              source={{uri: data.image}}
-              style={{
-                width: '50%',
-                height: 136,
-                resizeMode: 'cover',
-                borderRadius: 10,
-              }}
-            />
+          <Image
+            source={{
+              uri: `https://maps.googleapis.com/maps/api/streetview?size=400x400&location=${data.hotelLa}, ${data.hotelLo}&fov=80&heading=70&pitch=0&key=${Key}`,
+            }}
+            style={{
+              width: '50%',
+              height: 136,
+              resizeMode: 'cover',
+              borderRadius: 10,
+            }}
+          />
 
           <View style={styles.textwrap}>
-            <Text style={styles.name}>{data.title}</Text>
-            <Text style={styles.location}>{data.addr}</Text>
+            <Text style={styles.name}>{data.hotelName}</Text>
+            <Text style={styles.location} numberOfLines={1}>
+              {data.hotelAddr}
+            </Text>
             <View style={styles.descript}>
               <Text numberOfLines={3} style={styles.innertext}>
-                {data.summary}
+                {data.hotelInfo}
               </Text>
             </View>
           </View>
@@ -87,4 +100,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default GreenHotel;
+export default memo(GreenHotel);

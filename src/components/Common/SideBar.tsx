@@ -59,7 +59,7 @@ const SideBar = ({navigation}: propType) => {
         Alert.alert('로그아웃 되었습니다.');
         navigation.navigate('Login');
       } else {
-        Alert.alert('로그아웃 실패');
+        Alert.alert('오류', '다시 시도해주세요');
       }
     } catch (error) {
       console.error('Error fetching data:', error);

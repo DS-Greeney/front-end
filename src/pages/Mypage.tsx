@@ -18,34 +18,10 @@ import ImagePicker, {
 import {useNavigation} from '@react-navigation/native';
 import {AppContext} from '../components/Common/Context';
 import axios from 'axios';
-import {NavigationProp} from '@react-navigation/native';
-
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import IconC from 'react-native-vector-icons/MaterialCommunityIcons';
-
 import Header from '../components/Common/Header';
 import TitleChange from '../components/Common/TitleChange';
-// import {useNavigation} from '@react-navigation/native';
-
-const withdrawal = () => {
-  Alert.alert(
-    '탈퇴',
-    '정말로 탈퇴하시겠습니까?',
-    [
-      {text: '취소', onPress: () => {}},
-      {
-        text: '탈퇴',
-        onPress: () => {
-          //onDelete(id);
-        },
-      },
-    ],
-    {
-      cancelable: true,
-      onDismiss: () => {},
-    },
-  );
-};
 
 const logout = ({navigation}: any) => {
   Alert.alert(
@@ -65,7 +41,7 @@ const logout = ({navigation}: any) => {
                 console.log('로그아웃 성공');
                 navigation.navigate('Login');
               } else {
-                Alert.alert('로그아웃 실패', '관리자에게 문의하세요.');
+                Alert.alert('오류', '다시 시도해주세요');
               }
             })
             .catch(function (error) {
@@ -93,6 +69,46 @@ export default function Mypage() {
 
   const closeModal = () => {
     setModalVisible(false);
+  };
+
+  const withdrawal = () => {
+    Alert.alert(
+      '탈퇴',
+      '정말로 탈퇴하시겠습니까?',
+      [
+        {text: '취소', onPress: () => {}},
+        {
+          text: '탈퇴',
+          onPress: () => {
+            //onDelete(id);
+            goWithdraw();
+          },
+        },
+      ],
+      {
+        cancelable: true,
+        onDismiss: () => {},
+      },
+    );
+  };
+
+  const goWithdraw = async () => {
+    try {
+      const response = await axios.post(
+        'http://10.0.2.2:8082/api/users/delete',
+        {
+          userId: userId,
+        },
+      );
+      if (response.data.success === true) {
+        Alert.alert('탈퇴 되었습니다.');
+        navigation.navigate('Login');
+      } else {
+        Alert.alert('오류', '다시 시도해주세요');
+      }
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
   };
 
   interface UserModel {
@@ -283,7 +299,7 @@ export default function Mypage() {
       .catch(function (error) {
         console.log(error);
       });
-  }, [userId]);
+  }, [userId, selectedImage]);
 
   // useEffect(() => {
   //   // selectedImage가 변경될 때마다 changeProfile 함수를 호출

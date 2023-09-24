@@ -18,44 +18,45 @@ import axios from 'axios';
 import {AppContext} from '../../components/Common/Context';
 import Config from 'react-native-config';
 import ReviewPost from '../../components/Review/ReviewPost';
-// import MapView, {PROVIDER_GOOGLE} from 'react-native-maps';
-
-// import ReviewItem from '../../components/Recommend/ReviewItem';
 
 interface dataType {
-  rstrntId: number;
-  rstrntCtgry: string;
-  rstrntName: string;
-  rstrntAddr: string;
-  rstrntStar: number;
+  hotelId: number;
+  hotelName: string;
+  hotelAddr: string;
+  hotelTel: string;
+  hotelService: string;
+  hotelInfo: string;
+  hotelLa: number;
+  hotelLo: number;
   areaCode: number;
-  rstrntTel: string;
-  rstrntMenuinfo: string;
-  rstrntLa: string;
-  rstrntLo: string;
+  hotelUrl: string;
+  hotelStar: number;
 }
 
-export default function RestaurantDetail(route: any) {
+const GreenHotelDetail = (route: any) => {
   const {userId} = useContext(AppContext);
   const Key = Config.google_map_api_key;
 
-  const [restaurant, setRestaurant] = useState<dataType>({
-    rstrntId: 0,
-    rstrntCtgry: '',
-    rstrntName: '',
-    rstrntAddr: '',
-    rstrntStar: 0,
+  const [greenHotel, setGreenHotel] = useState<dataType>({
+    hotelId: 0,
+    hotelName: '',
+    hotelAddr: '',
+    hotelTel: '',
+    hotelService: '',
+    hotelInfo: '',
+    hotelLa: 0,
+    hotelLo: 0,
     areaCode: 0,
-    rstrntTel: '',
-    rstrntMenuinfo: '',
-    rstrntLa: '',
-    rstrntLo: '',
+    hotelUrl: '',
+    hotelStar: 0,
   });
   let [inputCount, setInputCount] = useState(0);
   let navigation = useNavigation();
-  let rstrntId = route.route.params.rstrntId;
-  // let lat = Number(route.route.params.rstrntLa);
-  // let log = Number(route.route.params.rstrntLo);
+  let hotelId = route.route.params.hotelId;
+  // let lat = route.route.params.hotelLa;
+  // let log = route.route.params.hotelLo;
+  // const [lat, setLat] = useState(0);
+  // const [log, setLog] = useState(0);
   const [likeState, setLikeState] = useState(0);
   const [reviewList, setReviewList] = useState([]);
 
@@ -68,34 +69,21 @@ export default function RestaurantDetail(route: any) {
   const getData = async () => {
     try {
       const response = await axios.get(
-        `http://10.0.2.2:8082/greeney/main/restaurantlist/detail/${rstrntId}?userId=${userId}`,
+        `http://10.0.2.2:8082/greeney/main/hotellist/detail/${hotelId}?userId=${userId}`,
       );
-      //console.log(response.data || []);
-      setRestaurant(response.data.restaurant || []);
-      setLikeState(response.data.like || 0);
+      setGreenHotel(response.data.hotel || []);
       setReviewList(response.data.reviewList || []);
+      setLikeState(response.data.like || 0);
       setLoading(false);
+      // setLat(route.route.params.hotelLa || 0);
+      // setLog(route.route.params.hotelLo || 0);
     } catch (error) {
       console.error('Error fetching data:', error);
     }
   };
 
-  const memu = restaurant.rstrntMenuinfo.split(',');
-
-  const MemuComponent = ({data}) => {
-    return (
-      <View style={{marginHorizontal: 20, marginBottom: 5}}>
-        {data.map((item, index) => (
-          <View key={index} style={styles.menu}>
-            <Text style={styles.text}>{item}</Text>
-          </View>
-        ))}
-      </View>
-    );
-  };
-
   var area = '';
-  switch (restaurant.areaCode) {
+  switch (greenHotel.areaCode) {
     case 1:
       area = '서울특별시';
       break;
@@ -154,47 +142,38 @@ export default function RestaurantDetail(route: any) {
       <Header
         navigation={navigation}
         type={'BACK'}
-        title={restaurant.rstrntName}
+        title={greenHotel.hotelName}
       />
       <ScrollView style={styles.scrollView}>
         <Image
           source={{
-            uri: `https://maps.googleapis.com/maps/api/streetview?size=400x400&location=${restaurant.rstrntLa}, ${restaurant.rstrntLo}&fov=80&heading=70&pitch=0&key=${Key}`, //api 키 불러오기
+            uri: `https://maps.googleapis.com/maps/api/streetview?size=400x400&location=${greenHotel.hotelLa}, ${greenHotel.hotelLo}&fov=80&heading=70&pitch=0&key=${Key}`,
           }}
           style={styles.image}
         />
-        <View style={styles.title1}>
-          <Text
-            style={{
-              fontSize: 20,
-              color: '#666',
-              marginRight: 5,
-            }}>
-            {area}
+        <View style={styles.title}>
+          <Text style={{fontSize: 30, color: '#000', flex: 1}}>
+            {greenHotel.hotelName}
           </Text>
-          <Text
-            style={{
-              fontSize: 20,
-              color: '#666',
-            }}>
-            {restaurant.rstrntCtgry}
-          </Text>
-        </View>
-        <View style={styles.title2}>
-          <View style={{flexDirection: 'row', flex: 1}}>
-            <Text style={{fontSize: 30, color: '#000'}}>
-              {restaurant.rstrntName}
-            </Text>
-          </View>
           <LikeHeart
-            category={2}
+            category={3}
             size={40}
             likeState={likeState}
             setLikeState={setLikeState}
-            itemId={rstrntId}
+            itemId={hotelId}
             userId={userId}
           />
         </View>
+        <Text
+          style={{
+            fontSize: 20,
+            color: '#666',
+            marginLeft: 20,
+            marginTop: 5,
+            marginBottom: 5,
+          }}>
+          {area}
+        </Text>
         <View style={styles.view2}>
           <Icon
             name="star-rate"
@@ -203,10 +182,19 @@ export default function RestaurantDetail(route: any) {
             style={{marginRight: 5}}
           />
           <Text style={{fontSize: 20, color: '#000'}}>
-            {' '}
-            {restaurant.rstrntStar} / 5
+            {greenHotel.hotelStar} / 5
           </Text>
         </View>
+        {/* <View style={styles.view2}>
+          <Text
+            style={[
+              styles.text,
+              {fontSize: 16, marginBottom: 10, marginTop: 10},
+            ]}>
+            {firstStr[0] + '.'}
+          </Text>
+        </View> */}
+        {/* {renderMapView()} */}
         <View style={styles.view2}>
           {loading ? (
             <TouchableOpacity
@@ -220,15 +208,15 @@ export default function RestaurantDetail(route: any) {
               initialRegion={{
                 // latitude: 37.6874303,
                 // longitude: 127.0344916,
-                latitude: Number(restaurant.rstrntLa),
-                longitude: Number(restaurant.rstrntLo),
+                latitude: greenHotel.hotelLa,
+                longitude: greenHotel.hotelLo,
                 latitudeDelta: 0.001,
                 longitudeDelta: 0.001,
               }}>
               <Marker
                 coordinate={{
-                  latitude: Number(restaurant.rstrntLa),
-                  longitude: Number(restaurant.rstrntLo),
+                  latitude: greenHotel.hotelLa,
+                  longitude: greenHotel.hotelLo,
                 }}
               />
             </MapView>
@@ -236,19 +224,42 @@ export default function RestaurantDetail(route: any) {
         </View>
         <View style={styles.view2}>
           <Text style={styles.extext}>주소</Text>
-          <Text ellipsizeMode="tail" style={[styles.text, {flex: 1}]}>
-            {restaurant.rstrntAddr}
-          </Text>
+          <Text style={styles.text}>{greenHotel.hotelAddr}</Text>
         </View>
         <View style={styles.view2}>
           <Text style={styles.extext}>전화번호</Text>
-          <Text style={styles.text}>{restaurant.rstrntTel}</Text>
-          {/* 전화번호 앞 0, - 처리 */}
+          <Text style={styles.text}>{greenHotel.hotelTel}</Text>
         </View>
+        {greenHotel.hotelUrl !== '' && (
+          <View style={styles.view2}>
+            <Text style={styles.extext}>홈페이지</Text>
+            <Text style={styles.text}>{greenHotel.hotelUrl}</Text>
+          </View>
+        )}
         <View style={styles.view2}>
-          <Text style={styles.extext}>메뉴</Text>
+          <Text style={styles.extext}>편의시설</Text>
+          <Text style={styles.text}>{greenHotel.hotelService}</Text>
         </View>
-        <MemuComponent data={memu} />
+        {/* {linkFirstIndex === -1 ? (
+          <View />
+        ) : (
+          <View style={styles.view2}>
+            <Text style={styles.extext}>홈페이지</Text>
+            <Text style={styles.text}>{linkTemp + '/'}</Text>
+          </View>
+        )} */}
+        {/* <Text style={[styles.text, {margin: 20}]}>{summaryStr[0]}</Text> */}
+        <Text style={[styles.text, {margin: 20}]}>{greenHotel.hotelInfo}</Text>
+        {/* {tourSpot.mainimage === '' ? (
+          <Image
+            style={styles.image2}
+            source={{
+              uri: 'https://www.knps.or.kr/upload/contest/21/20221108082032573.jpg',
+            }}
+          />
+        ) : (
+          <Image style={styles.image2} source={{uri: tourSpot.mainimage}} />
+        )} */}
         <View style={styles.view2}>
           <TouchableOpacity
             disabled={true}
@@ -262,11 +273,13 @@ export default function RestaurantDetail(route: any) {
           {/* <Image source={require('')} /> */}
         </View>
 
-        <ReviewPost itemId={rstrntId} reviewData={reviewList} category={2} />
+        <ReviewPost itemId={hotelId} reviewData={reviewList} category={3} />
       </ScrollView>
     </View>
   );
-}
+};
+
+export default GreenHotelDetail;
 
 const styles = StyleSheet.create({
   view: {
@@ -296,17 +309,17 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     marginHorizontal: 40,
   },
-  title1: {
-    flexDirection: 'row',
-    marginHorizontal: 20,
-    marginTop: 20,
-    marginBottom: 5,
+  emptyImage: {
+    width: '100%',
+    height: 300,
+    resizeMode: 'cover',
+    backgroundColor: '#666',
   },
-  title2: {
+  title: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginHorizontal: 20,
-    marginBottom: 5,
+    marginTop: 20,
   },
   view2: {
     flexDirection: 'row',
@@ -314,14 +327,10 @@ const styles = StyleSheet.create({
     marginTop: 5,
     marginBottom: 5,
   },
-  menu: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginTop: 5,
-  },
   text: {
     color: '#000',
     fontSize: 14,
+    flex: 1,
   },
   extext: {
     color: '#666',

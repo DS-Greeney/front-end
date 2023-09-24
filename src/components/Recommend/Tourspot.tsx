@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {memo} from 'react';
 import {StyleSheet, View, Text, TouchableOpacity, Image} from 'react-native';
 import {NavigationProp} from '@react-navigation/native';
 
@@ -9,6 +9,8 @@ interface dataType {
   addr: string;
   summary: string;
   areacode: string;
+  latitude: string;
+  logitude: string;
 }
 interface propType {
   data: dataType;
@@ -50,7 +52,9 @@ const Tourspot = ({data, navigation}: propType) => {
 
           <View style={styles.textwrap}>
             <Text style={styles.name}>{data.title}</Text>
-            <Text style={styles.location}>{data.addr}</Text>
+            <Text style={styles.location} numberOfLines={1}>
+              {data.addr}
+            </Text>
             <View style={styles.descript}>
               <Text numberOfLines={3} style={styles.innertext}>
                 {data.summary}
@@ -128,4 +132,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Tourspot;
+export default memo(Tourspot);

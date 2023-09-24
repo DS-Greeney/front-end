@@ -1,4 +1,4 @@
-import React, {useState, useContext} from 'react';
+import React, {useState, useContext, useEffect} from 'react';
 import {
   View,
   Text,
@@ -8,6 +8,7 @@ import {
   PermissionsAndroid,
   Platform,
   Image,
+  Alert,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import ImagePicker, {
@@ -15,8 +16,10 @@ import ImagePicker, {
   launchCamera,
   ImagePickerResponse,
 } from 'react-native-image-picker';
+import {useNavigation} from '@react-navigation/native';
 import axios from 'axios';
 import {AppContext} from '../../components/Common/Context';
+import Swiper from 'react-native-swiper';
 
 interface dataType {
   userNickname: string;
@@ -30,15 +33,24 @@ interface dataType {
 interface propType {
   itemId: number;
   reviewData: dataType[];
+  category: number;
 }
 
-const ReviewPost = ({itemId, reviewData}: propType) => {
-  console.log(reviewData);
+const ReviewPost = ({itemId, reviewData, category}: propType) => {
+  //console.log(reviewData);
+  let navigation = useNavigation();
   const {userId} = useContext(AppContext);
   let [inputCount, setInputCount] = useState(0);
   const [content, setContent] = useState('');
   const [star, setStar] = useState(0);
   const [selectedImages, setSelectedImages] = useState<string[]>([]);
+  const [reviews, setReviews] = useState<dataType[]>(reviewData || []);
+
+  useEffect(() => {
+    setReviews(reviewData);
+  }, [reviewData]);
+
+  //console.log(reviews);
 
   const commentDTO = {
     spotId: itemId,
@@ -46,6 +58,40 @@ const ReviewPost = ({itemId, reviewData}: propType) => {
     cmntContent: content,
     cmntStar: star,
     categoryNumber: 1,
+  };
+
+  const getData = async () => {
+    if (category === 1) {
+      try {
+        const response = await axios.get(
+          `http://10.0.2.2:8082/greeney/main/tourlist/detail/${itemId}?userId=${userId}`,
+        );
+        setReviews(response.data.reviewList || []);
+      } catch (error) {
+        console.error('Error fetching data1:', error);
+      }
+    } else if (category === 2) {
+      try {
+        const response = await axios.get(
+          `http://10.0.2.2:8082/greeney/main/restaurantlist/detail/${itemId}?userId=${userId}`,
+        );
+        setReviews(response.data.reviewList || []);
+      } catch (error) {
+        console.error('Error fetching data2:', category, error);
+      }
+    } else if (category === 3) {
+      try {
+        const response = await axios.get(
+          `http://10.0.2.2:8082/greeney/main/hotellist/detail/${itemId}?userId=${userId}`,
+        );
+        setReviews(response.data.reviewList || []);
+        console.log(response.data.reviewList);
+      } catch (error) {
+        console.error('Error fetching data3:', category, error);
+      }
+    } else {
+      console.log('오류 발생');
+    }
   };
 
   const requestCameraPermission = async () => {
@@ -108,7 +154,7 @@ const ReviewPost = ({itemId, reviewData}: propType) => {
       formData.append('userId', userId);
       formData.append('cmntContent', content);
       formData.append('cmntStar', Number(star));
-      formData.append('categoryNumber', 1);
+      formData.append('categoryNumber', category);
 
       selectedImages.forEach((imagePath, index) => {
         const fileName = `image_${index}.jpg`;
@@ -119,8 +165,19 @@ const ReviewPost = ({itemId, reviewData}: propType) => {
         });
       });
 
+      console.log(category);
+      let apiUrl = '';
+
       // 서버 엔드포인트 URL을 여기에 적어주세요
-      const apiUrl = `http://10.0.2.2:8082/greeney/main/tourlist/detail/${itemId}`;
+      if (category === 1) {
+        apiUrl = `http://10.0.2.2:8082/greeney/main/tourlist/detail/${itemId}`;
+      } else if (category === 2) {
+        apiUrl = `http://10.0.2.2:8082/greeney/main/restaurantlist/detail/${itemId}`;
+      } else if (category === 3) {
+        apiUrl = `http://10.0.2.2:8082/greeney/main/hotellist/detail/${itemId}`;
+      } else {
+        console.log('오류가 발생했습니다');
+      }
 
       // Axios를 사용하여 POST 요청을 보냅니다.
       const response = await axios.post(apiUrl, formData, {
@@ -133,7 +190,28 @@ const ReviewPost = ({itemId, reviewData}: propType) => {
       if (response.status === 200) {
         // 성공적으로 작성된 경우
         console.log('리뷰가 성공적으로 작성되었습니다.');
-        // 추가적인 작업을 수행하거나 화면을 업데이트할 수 있습니다.
+        // const newReviewData = await fetchReviewData();
+        // setReviews(newReviewData);
+        setContent('');
+        setInputCount(0);
+        setSelectedImages([]);
+        // fetchReviewData();
+        Alert.alert(
+          '성공',
+          '리뷰가 작성되었습니다.',
+          [
+            {
+              text: '확인',
+              onPress: () => {
+                getData();
+              },
+              style: 'destructive',
+            },
+          ],
+          {
+            cancelable: false,
+          },
+        );
       } else {
         console.error('리뷰 작성에 실패했습니다.');
       }
@@ -141,7 +219,6 @@ const ReviewPost = ({itemId, reviewData}: propType) => {
       console.error('오류 발생:', error);
     }
   };
-
   // 이미지 가져오기
   // const onSelectImage = () => {
   //   launchImageLibrary(
@@ -171,7 +248,7 @@ const ReviewPost = ({itemId, reviewData}: propType) => {
       {/* 리뷰작성 */}
       <View>
         <View style={styles.view2}>
-          <Text style={styles.text}>리뷰(14)</Text>
+          <Text style={styles.text}>리뷰({reviews.length})</Text>
         </View>
         <View style={styles.textInput}>
           <TextInput
@@ -240,9 +317,9 @@ const ReviewPost = ({itemId, reviewData}: propType) => {
         </View>
       </View>
       {/* //리뷰 목록 */}
-      {reviewData.map((review, index) => (
+      {reviews?.map((review, index) => (
         <View key={index}>
-          <View style={{flexDirection: 'row'}}>
+          <View style={{flexDirection: 'row', marginBottom: 20}}>
             <TouchableOpacity
               disabled={true}
               style={{
@@ -256,10 +333,14 @@ const ReviewPost = ({itemId, reviewData}: propType) => {
                 borderRadius: 50,
                 overflow: 'hidden',
               }}>
-              <Image
-                style={styles.userImg}
-                source={require('../../assets/images/home/dummy_user.png')}
-              />
+              {review.userPicture === null ? (
+                <View style={styles.emptyImg}></View>
+              ) : (
+                <Image
+                  style={styles.userImg}
+                  source={{uri: review.userPicture}}
+                />
+              )}
             </TouchableOpacity>
             <View>
               <Text style={{fontSize: 15, color: '#000'}}>
@@ -276,18 +357,49 @@ const ReviewPost = ({itemId, reviewData}: propType) => {
               </View>
             </View>
           </View>
-          <Image
+
+          <Swiper
+            showsPagination={false}
+            height={200}
+            autoplayTimeout={4}
+            style={styles.imgswap}>
+            {review.tourCmntImg?.map((imageUrl, idx) => (
+              //  <View key={index}>
+              <Image key={idx} source={{uri: imageUrl}} style={styles.image} />
+              //  </View>
+            ))}
+          </Swiper>
+          {/* // <Image
+            //   style={styles.image}
+            //   source={{
+            //     uri: 'http://tong.visitkorea.or.kr/cms/resource/72/2526672_image2_1.jpg',
+            //   }}
+            // />
+            // <Image
+            //   style={styles.image}
+            //   source={{
+            //     uri: 'https://tong.visitkorea.or.kr/cms/resource/46/2526646_image2_1.jpg',
+            //   }}
+            // />
+            // <Image
+            //   style={styles.image}
+            //   source={{
+            //     uri: 'https://www.knps.or.kr/upload/contest/21/20221108082756351.jpg',
+            //   }}
+            // /> */}
+
+          {/* <Image
             source={{
               uri: 'https://pacer-note-images.pacer.cc/234360796_C22E336D-7AD9-4D0F-A742-B6D5F65B5172_1572620274.jpg',
             }}
             style={styles.image3}
-          />
+          /> */}
           <Text
             style={{
               color: '#000',
               fontSize: 14,
               marginHorizontal: 40,
-              marginBottom: 40,
+              marginVertical: 15,
             }}>
             {review.tourspotCmntContent}
           </Text>
@@ -331,6 +443,11 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     marginRight: 10,
   },
+  image: {
+    width: '100%',
+    height: 200,
+    resizeMode: 'contain',
+  },
   image3: {
     width: 310,
     height: 150,
@@ -343,5 +460,9 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '100%',
     resizeMode: 'cover',
+  },
+  emptyImg: {
+    width: '100%',
+    height: '100%',
   },
 });
