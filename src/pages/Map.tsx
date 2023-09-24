@@ -48,9 +48,9 @@ export default function Map() {
   const [veganList, setVeganlist] = useState([]);
   // const [tourList, setTourlist] = useState([]);
 
-  useEffect(() => {
-    getData(selectedAreaCode);
-  }, [selectedAreaCode]);
+  // useEffect(() => {
+  //   getData(selectedAreaCode);
+  // }, [selectedAreaCode]);
 
   const getData = async (areaCode: any) => {
     try {
@@ -120,7 +120,7 @@ export default function Map() {
             </Marker>
           );
         })} */}
-        {tourList.map((marker, index) => {
+        {/* {tourList.map((marker, index) => {
           const coordinateTour: LatLng = {
             latitude: marker.latitude,
             longitude: marker.longitude,
@@ -137,7 +137,7 @@ export default function Map() {
               <Image source={tourmarkerImage} style={styles.markerImg} />
             </Marker>
           );
-        })}
+        })} */}
         {/* {veganList.map((marker, index) => {
           if (!marker || !marker.rstrntLa || !marker.rstrntLo) {
             return null;
