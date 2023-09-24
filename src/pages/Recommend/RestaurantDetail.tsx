@@ -207,7 +207,7 @@ export default function RestaurantDetail(route: any) {
             {restaurant.rstrntStar} / 5
           </Text>
         </View>
-        <View style={styles.view2}>
+        {/* <View style={styles.view2}>
           {loading ? (
             <TouchableOpacity
               disabled={true}
@@ -233,7 +233,7 @@ export default function RestaurantDetail(route: any) {
               />
             </MapView>
           )}
-        </View>
+        </View> */}
         <View style={styles.view2}>
           <Text style={styles.extext}>주소</Text>
           <Text ellipsizeMode="tail" style={[styles.text, {flex: 1}]}>

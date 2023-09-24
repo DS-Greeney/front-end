@@ -38,6 +38,7 @@ interface propType {
 }
 
 const ReviewPost = ({itemId, reviewData, category}: propType) => {
+  console.log(category);
   //console.log(reviewData);
   let navigation = useNavigation();
   const {userId} = useContext(AppContext);

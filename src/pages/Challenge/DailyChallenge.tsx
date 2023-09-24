@@ -1,15 +1,33 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {View, StyleSheet, Image, Text, TouchableOpacity} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import Header from '../../components/Common/Header';
+import axios from 'axios';
+
+interface dataType {
+  challengeId: number;
+  complete: number;
+  content: string;
+}
 
 export default function DailyChallenge() {
   let navigation = useNavigation();
-  const [challenges, setChallenges] = useState([
-    {id: 1, title: '사용하지 않는 멀티탭 전원끄기', completed: false},
-    {id: 2, title: '택배 박스 테이프 제거해서 분리수거하기', completed: false},
-    {id: 2, title: '로컬푸드 매장 방문해서 식재료 구입하기', completed: false},
-  ]);
+  const [challenges, setChallenges] = useState<dataType[]>([]);
+  const [completeState, setCompleteState] = useState(false);
+
+  const handleComplete = () => {};
+
+  useEffect(() => {
+    axios
+      .get('http://10.0.2.2:8082/greeney/mypage/challenge/today')
+      .then(function (response) {
+        // console.log(response);
+        setChallenges(response.data.todayChallengeList);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }, []);
 
   return (
     <View style={styles.dailyChallenge}>
@@ -44,12 +62,25 @@ export default function DailyChallenge() {
           />
         </View>
         {challenges.map(challenge => (
-          <View style={styles.challengeWrap}>
-            <TouchableOpacity style={styles.challengeBox}>
-              {/* <View style={styles.contentView}> */}
-              <Text style={styles.challengeText}>{challenge.title}</Text>
-              {/* </View> */}
-            </TouchableOpacity>
+          <View style={styles.challengeWrap} key={challenge.challengeId}>
+            {/* <TouchableOpacity style={styles.challengeBox} onPress={() => {}}> */}
+            {/* <View style={styles.contentView}> */}
+            {challenge.complete === 0 ? (
+              <TouchableOpacity
+                style={styles.incompleteBox}
+                onPress={() => {
+                  handleComplete();
+                }}>
+                <Text style={styles.challengeText}>{challenge.content}</Text>
+              </TouchableOpacity>
+            ) : (
+              <View style={styles.completeBox}>
+                <Text style={styles.challengeText}>{challenge.content}</Text>
+              </View>
+            )}
+
+            {/* </View> */}
+            {/* </TouchableOpacity> */}
           </View>
         ))}
       </View>
@@ -105,7 +136,7 @@ const styles = StyleSheet.create({
   challengeWrap: {
     width: 313,
   },
-  challengeBox: {
+  incompleteBox: {
     backgroundColor: 'rgba(0, 95, 41, 0.13)',
     borderRadius: 30,
     marginVertical: 20,
@@ -118,5 +149,12 @@ const styles = StyleSheet.create({
     color: '#000',
     fontSize: 16,
     textAlign: 'center',
+  },
+  completeBox: {
+    backgroundColor: '#DADADA',
+    borderRadius: 30,
+    marginVertical: 20,
+    paddingVertical: 35,
+    alignItems: 'center',
   },
 });
