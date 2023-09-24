@@ -45,6 +45,8 @@ export default function Map() {
   };
 
   const [tourList, setTourlist] = useState([]);
+  const [veganList, setVeganlist] = useState([]);
+  // const [tourList, setTourlist] = useState([]);
 
   useEffect(() => {
     getData(selectedAreaCode);
@@ -68,14 +70,27 @@ export default function Map() {
     } catch (error) {
       console.error('Error fetching data:', error);
     }
+    try {
+      const response = await axios.get(
+        'http://10.0.2.2:8082/greeney/main/restaurantlist',
+        {
+          params: {
+            latitude: location.latitude,
+            longitude: location.longitude,
+            areaCode: areaCode,
+          },
+        },
+      );
+      // console.log(response.data.restaurants || []);
+      setVeganlist(response.data.restaurants || []);
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
   };
 
-  const coordinatesTour: LatLng[] = tourList.map(item => ({
-    latitude: item.latitude,
-    longitude: item.longitude,
-  }));
-
   const tourmarkerImage = require('../assets/images/map/tourmapicon.png');
+  const resmarkerImage = require('../assets/images/map/resmapicon.png');
+  const hotelmarkerImage = require('../assets/images/map/hotelmapicon.png');
 
   return (
     <View style={{flex: 1}}>
@@ -85,10 +100,14 @@ export default function Map() {
         initialRegion={{
           latitude: 37.6242392,
           longitude: 126.9901206,
+          // latitude: 33.2747785,
+          // longitude: 126.235335,
+          // latitude: location.latitude,
+          // longitude: location.longitude,
           latitudeDelta: 0.0922,
           longitudeDelta: 0.0421,
         }}>
-        {markers.map((marker, index) => {
+        {/* {markers.map((marker, index) => {
           return (
             <Marker
               style={styles.marker}
@@ -100,8 +119,13 @@ export default function Map() {
               <Image source={tourmarkerImage} style={styles.markerImg} />
             </Marker>
           );
-        })}
+        })} */}
         {tourList.map((marker, index) => {
+          const coordinateTour: LatLng = {
+            latitude: marker.latitude,
+            longitude: marker.longitude,
+          };
+          // console.log(coordinateTour);
           return (
             <Marker
               style={styles.marker}
@@ -109,12 +133,34 @@ export default function Map() {
               onPress={() =>
                 handleMarkerPress(marker, marker.title, marker.addr)
               }
-              coordinate={coordinatesTour}>
+              coordinate={coordinateTour}>
               <Image source={tourmarkerImage} style={styles.markerImg} />
             </Marker>
           );
         })}
+        {/* {veganList.map((marker, index) => {
+          if (!marker || !marker.rstrntLa || !marker.rstrntLo) {
+            return null;
+          }
+          const coordinateVegan: LatLng = {
+            latitude: marker.rstrntLa,
+            longitude: marker.rstrntLo,
+          };
+          // console.log(coordinateVegan);
+          return (
+            <Marker
+              style={styles.marker}
+              key={index}
+              onPress={() =>
+                handleMarkerPress(marker, marker.rstrntName, marker.rstrntAddr)
+              }
+              coordinate={coordinateVegan}>
+              <Image source={resmarkerImage} style={styles.markerImg} />
+            </Marker>
+          );
+        })} */}
       </MapView>
+
       {selectedMarker && (
         <MapModal
           modalVisible={modalVisible}
