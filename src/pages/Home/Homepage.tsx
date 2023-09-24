@@ -63,46 +63,19 @@ export default function Homepage({navigation}: any) {
       image: require('../../assets/images/home/restaurant.png'),
       text: '비건 식당',
     },
+    // {
+    //   image: require('../../assets/images/home/market.png'),
+    //   text: '여행 상품',
+    // },
+    // {
+    //   image: require('../../assets/images/home/course.png'),
+    //   text: 'AI 추천코스',
+    // },
     {
-      image: require('../../assets/images/home/market.png'),
-      text: '여행 상품',
-    },
-    {
-      image: require('../../assets/images/home/course.png'),
-      text: 'AI 추천코스',
-    },
-    {
-      image: require('../../assets/images/home/community.png'),
-      text: '커뮤니티',
+      image: require('../../assets/images/home/chatbot.png'),
+      text: '챗봇',
     },
     // require 사용하여 정적 이미지 불러오기.
-  ];
-
-  const swiperData = [
-    {
-      title: '요즘 떠오르는 친환경 관광',
-      image: [
-        require('../../assets/images/home/swiper1_main.png'),
-        require('../../assets/images/home/swiper5_main.jpg'),
-        require('../../assets/images/home/swiper4_main.png'),
-      ],
-    },
-    {
-      title: '누구나 참여 가능! 친환경 축제',
-      image: [
-        require('../../assets/images/home/swiper2_main.png'),
-        require('../../assets/images/home/swiper3_main.png'),
-        require('../../assets/images/home/swiper6_main.png'),
-      ],
-    },
-    {
-      title: '여행을 더욱 특별하게 만들어주는 여행 상품',
-      image: [
-        require('../../assets/images/home/swiper8_main.png'),
-        require('../../assets/images/home/swiper9_main.png'),
-        require('../../assets/images/home/swiper7_main.png'),
-      ],
-    },
   ];
 
   // 페이지 추가 시 수정하기
@@ -110,9 +83,9 @@ export default function Homepage({navigation}: any) {
     'TourSpot',
     'GreenHotelPage',
     'Restaurant',
-    'TourProductPage',
-    'Homepage',
-    'Homepage',
+    'TourProductPage', //챗봇으로 바꾸기
+    // 'Homepage',
+    // 'Homepage',
   ];
 
   // const openDrawer = () => {
@@ -179,47 +152,12 @@ export default function Homepage({navigation}: any) {
           })}
         </View>
 
-        <View style={styles.slide}>
-          {swiperData.map((item, index) => (
-            <View style={styles.slideItem} key={index}>
-              <Text style={styles.slidetitle}>{item.title}</Text>
-              <Swiper
-                style={styles.wrapper}
-                loop={true}
-                showsPagination={false}
-                autoplay
-                autoplayTimeout={4}
-                showsButtons={true}
-                //버튼 이미지
-                prevButton={
-                  <Image
-                    style={styles.prevBtnImage}
-                    source={require('../../assets/images/home/prev_btn.png')}
-                  />
-                }
-                nextButton={
-                  <Image
-                    style={styles.nextBtnImage}
-                    source={require('../../assets/images/home/next_btn.png')}
-                  />
-                }>
-                {/* <View style={styles.slide} key={index}> */}
-                {/* <View style={styles.imageContainer} key={index}> */}
-                {item.image.map((image, idx) => (
-                  <Image
-                    key={idx}
-                    source={image}
-                    style={styles.slideimage}
-                    resizeMode="cover"
-                  />
-                ))}
-                {/* </View> */}
-                {/* </View> */}
-              </Swiper>
-            </View>
-          ))}
+        <View style={styles.wrapper}>
+          <Image
+            resizeMode="contain"
+            source={require('../../assets/images/home/bottom_image.png')}
+          />
         </View>
-
         {/* // 메뉴 6가지 부분 */}
         {/* <View style={styles.mainMenu}> */}
         {/* {ImageArray.map((item, index) => (
@@ -280,14 +218,20 @@ const styles = StyleSheet.create({
   //   padding: 20,
   // },
   images: {
-    width: 54,
-    height: 54,
+    width: 77,
+    height: 75,
   },
   container: {
-    flex: 1,
+    // flex: 1,
     width: '100%',
     backgroundColor: '#fff',
     marginTop: 5,
+  },
+  wrapper: {
+    height: 200,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 30,
   },
   menuContainer: {
     flexDirection: 'row',
@@ -295,6 +239,7 @@ const styles = StyleSheet.create({
     // marginHorizontal: 40,
     justifyContent: 'center',
     alignItems: 'center',
+    marginTop: 20,
   },
   mainMenu: {
     // paddingLeft: 48,
@@ -308,6 +253,7 @@ const styles = StyleSheet.create({
     paddingBottom: 10,
     paddingLeft: 30,
     paddingRight: 30,
+    marginVertical: 5,
   },
   menuItem: {
     // alignItems: 'center',
@@ -321,7 +267,7 @@ const styles = StyleSheet.create({
     marginTop: 5,
     marginBottom: 5,
     color: '#000',
-    fontSize: 13,
+    fontSize: 16,
   },
   slide: {
     flex: 1,
@@ -334,9 +280,6 @@ const styles = StyleSheet.create({
     color: '#000',
     fontSize: 16,
     marginBottom: 10,
-  },
-  wrapper: {
-    height: 200,
   },
   prevBtnImage: {
     width: 40,
