@@ -32,7 +32,7 @@ export default function ChatbotPage() {
             question: inputText,
           },
         );
-        // console.log(response.data || []);
+        console.log(response.data || []);
         if (response.data.success === false) {
           Alert.alert('일시적 오류', '메시지 전송에 실패하였습니다.');
         } else {
