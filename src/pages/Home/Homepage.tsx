@@ -120,9 +120,7 @@ export default function Homepage({navigation}: any) {
     'TourSpot',
     'GreenHotelPage',
     'Restaurant',
-    'TourProductPage', //챗봇으로 바꾸기
-    // 'Homepage',
-    // 'Homepage',
+    'ChatbotPage',
   ];
 
   // const openDrawer = () => {

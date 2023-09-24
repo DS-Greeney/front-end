@@ -38,6 +38,19 @@ export default function SignUp({navigation}: any) {
   const [nameChk, setNameChk] = useState(false);
   const [emailChk, setEmailChk] = useState(false);
   const [emailNumChk, setEmailNumChk] = useState(false);
+  const [TOSIsChecked, setTOSisChecked] = useState(false);
+  const [privacyPolicyIsChecked, setPrivacyPolicyisChecked] = useState(false);
+  const [fourteenIsChecked, setFourteenisChecked] = useState(false);
+
+  const toggleTOSCheckbox = () => {
+    setTOSisChecked(!TOSIsChecked);
+  };
+  const togglePrivacyPolicyCheckbox = () => {
+    setPrivacyPolicyisChecked(!privacyPolicyIsChecked);
+  };
+  const toggleFourteenCheckbox = () => {
+    setFourteenisChecked(!fourteenIsChecked);
+  };
 
   const handleTextInputChange = (inputText: string) => {
     // 영어 소문자, 대문자, 숫자만 허용
@@ -61,7 +74,7 @@ export default function SignUp({navigation}: any) {
       } else {
         Alert.alert(
           '같은 아이디가 사용 중입니다.',
-          '다른 닉네임을 입력해주세요.',
+          '다른 아이디를 입력해주세요.',
         );
         setNameText('영어 대소문자, 숫자만 입력 가능합니다.');
         setNameChk(false);
@@ -155,7 +168,10 @@ export default function SignUp({navigation}: any) {
       user.userPassword !== '' &&
       nameChk &&
       emailChk &&
-      emailNumChk
+      emailNumChk &&
+      TOSIsChecked &&
+      privacyPolicyIsChecked &&
+      fourteenIsChecked
     ) {
       axios
         .post('http://10.0.2.2:8082/api/users/register', {
@@ -175,6 +191,18 @@ export default function SignUp({navigation}: any) {
         .catch(function (error) {
           console.log(error);
         });
+    } else if (!nameChk) {
+      Alert.alert('회원가입 실패', '아이디를 확인해주세요.');
+    } else if (!emailChk) {
+      Alert.alert('회원가입 실패', '이메일을 확인해주세요.');
+    } else if (!emailNumChk) {
+      Alert.alert('회원가입 실패', '이메일 인증번호를 확인해주세요.');
+    } else if (!TOSIsChecked) {
+      Alert.alert('회원가입 실패', '서비스 이용약관에 동의해주세요.');
+    } else if (!privacyPolicyIsChecked) {
+      Alert.alert('회원가입 실패', '개인정보 처리방침에 동의해주세요.');
+    } else if (!fourteenIsChecked) {
+      Alert.alert('회원가입 실패', '만 14세 이상만 가입할 수 있습니다.');
     } else {
       Alert.alert('회원가입 실패', '입력한 값을 다시 확인해주세요.');
     }
@@ -184,88 +212,144 @@ export default function SignUp({navigation}: any) {
     <View style={styles.view}>
       <Header navigation={navigation} type={'BACK'} title={'회원가입'} />
       <KeyboardAwareScrollView style={{flex: 1}}>
-        <View style={styles.textView}>
-          <TouchableOpacity disabled={true} style={styles.textBox}>
-            <Text style={styles.text}>아이디</Text>
+        <View>
+          <View style={styles.textView}>
+            <TouchableOpacity disabled={true} style={styles.textBox}>
+              <Text style={styles.text}>아이디</Text>
+            </TouchableOpacity>
+            <TextInput
+              style={styles.textInput}
+              onChangeText={text => {
+                handleTextInputChange(text);
+              }}
+              value={user.userNickname}
+              autoCapitalize="none"
+            />
+            <TouchableOpacity style={styles.chkbutton} onPress={checkUsername}>
+              <Text style={styles.smallText}>중복확인</Text>
+            </TouchableOpacity>
+          </View>
+          <Text style={[styles.smallText, {marginLeft: 120, marginTop: 5}]}>
+            {nameText}
+          </Text>
+          <View style={styles.textView}>
+            <TouchableOpacity disabled={true} style={styles.textBox}>
+              <Text style={styles.text}>이메일</Text>
+            </TouchableOpacity>
+            <TextInput
+              keyboardType="email-address"
+              style={styles.textInput}
+              onChangeText={text => {
+                handleInputChange('userEmail', text);
+              }}
+            />
+            <TouchableOpacity style={styles.chkbutton} onPress={checkEmail}>
+              <Text style={styles.smallText}>인증하기</Text>
+            </TouchableOpacity>
+          </View>
+          <Text style={[styles.smallText, {marginLeft: 120, marginTop: 5}]}>
+            {emailText}
+          </Text>
+          <View style={styles.textView}>
+            <TouchableOpacity disabled={true} style={styles.textBox}>
+              <Text style={styles.text}>인증 번호</Text>
+            </TouchableOpacity>
+            <TextInput
+              keyboardType="numeric"
+              style={styles.textInput}
+              onChangeText={text => {
+                setEmailNum(text);
+              }}
+            />
+            <TouchableOpacity style={styles.chkbutton} onPress={mailCheck}>
+              <Text style={styles.smallText}>확인하기</Text>
+            </TouchableOpacity>
+          </View>
+          <Text style={[styles.smallText, {marginLeft: 120, marginTop: 5}]}>
+            {emailNumText}
+          </Text>
+          <View style={styles.textView}>
+            <TouchableOpacity disabled={true} style={styles.textBox}>
+              <Text style={styles.text}>비밀번호</Text>
+            </TouchableOpacity>
+            <TextInput
+              style={styles.textInput}
+              secureTextEntry={true}
+              onChangeText={text => {
+                handleCheck('userPassword', text);
+              }}
+            />
+          </View>
+          <View style={[styles.textView, {marginTop: 10}]}>
+            <TouchableOpacity disabled={true} style={styles.textBox}>
+              <Text style={styles.text}>비밀번호 확인</Text>
+            </TouchableOpacity>
+            <TextInput
+              style={styles.textInput}
+              secureTextEntry={true}
+              onChangeText={text => {
+                handleCheck('userPasswordchk', text);
+              }}
+            />
+          </View>
+          <Text style={[styles.smallText, {marginLeft: 120, marginTop: 5}]}>
+            {passChk}
+          </Text>
+
+          <TouchableOpacity onPress={toggleTOSCheckbox}>
+            <View style={styles.Checkbox}>
+              <View
+                style={[
+                  styles.CheckboxBtn,
+                  {borderColor: TOSIsChecked ? '#26e' : 'gray'},
+                ]}>
+                {TOSIsChecked && <View style={styles.CheckboxBtnSelect} />}
+              </View>
+              <Text>(필수) </Text>
+              <TouchableOpacity onPress={() => navigation.navigate('TOS')}>
+                <Text style={{textDecorationLine: 'underline'}}>
+                  서비스 이용약관
+                </Text>
+              </TouchableOpacity>
+              <Text>에 동의합니다.</Text>
+            </View>
           </TouchableOpacity>
-          <TextInput
-            style={styles.textInput}
-            onChangeText={text => {
-              handleTextInputChange(text);
-            }}
-            value={user.userNickname}
-            autoCapitalize="none"
-          />
-          <TouchableOpacity style={styles.chkbutton} onPress={checkUsername}>
-            <Text style={styles.smallText}>중복확인</Text>
+
+          <TouchableOpacity onPress={togglePrivacyPolicyCheckbox}>
+            <View style={styles.Checkbox}>
+              <View
+                style={[
+                  styles.CheckboxBtn,
+                  {borderColor: privacyPolicyIsChecked ? '#26e' : 'gray'},
+                ]}>
+                {privacyPolicyIsChecked && (
+                  <View style={styles.CheckboxBtnSelect} />
+                )}
+              </View>
+              <Text>(필수) </Text>
+              <TouchableOpacity
+                onPress={() => navigation.navigate('PrivacyPolicy')}>
+                <Text style={{textDecorationLine: 'underline'}}>
+                  개인정보 처리방침
+                </Text>
+              </TouchableOpacity>
+              <Text>에 동의합니다.</Text>
+            </View>
+          </TouchableOpacity>
+
+          <TouchableOpacity onPress={toggleFourteenCheckbox}>
+            <View style={styles.Checkbox}>
+              <View
+                style={[
+                  styles.CheckboxBtn,
+                  {borderColor: fourteenIsChecked ? '#26e' : 'gray'},
+                ]}>
+                {fourteenIsChecked && <View style={styles.CheckboxBtnSelect} />}
+              </View>
+              <Text>(필수) 만 14세 이상입니다.</Text>
+            </View>
           </TouchableOpacity>
         </View>
-        <Text style={[styles.smallText, {marginLeft: 120, marginTop: 5}]}>
-          {nameText}
-        </Text>
-        <View style={styles.textView}>
-          <TouchableOpacity disabled={true} style={styles.textBox}>
-            <Text style={styles.text}>이메일</Text>
-          </TouchableOpacity>
-          <TextInput
-            keyboardType="email-address"
-            style={styles.textInput}
-            onChangeText={text => {
-              handleInputChange('userEmail', text);
-            }}
-          />
-          <TouchableOpacity style={styles.chkbutton} onPress={checkEmail}>
-            <Text style={styles.smallText}>인증하기</Text>
-          </TouchableOpacity>
-        </View>
-        <Text style={[styles.smallText, {marginLeft: 120, marginTop: 5}]}>
-          {emailText}
-        </Text>
-        <View style={styles.textView}>
-          <TouchableOpacity disabled={true} style={styles.textBox}>
-            <Text style={styles.text}>인증 번호</Text>
-          </TouchableOpacity>
-          <TextInput
-            keyboardType="numeric"
-            style={styles.textInput}
-            onChangeText={text => {
-              setEmailNum(text);
-            }}
-          />
-          <TouchableOpacity style={styles.chkbutton} onPress={mailCheck}>
-            <Text style={styles.smallText}>확인하기</Text>
-          </TouchableOpacity>
-        </View>
-        <Text style={[styles.smallText, {marginLeft: 120, marginTop: 5}]}>
-          {emailNumText}
-        </Text>
-        <View style={styles.textView}>
-          <TouchableOpacity disabled={true} style={styles.textBox}>
-            <Text style={styles.text}>비밀번호</Text>
-          </TouchableOpacity>
-          <TextInput
-            style={styles.textInput}
-            secureTextEntry={true}
-            onChangeText={text => {
-              handleCheck('userPassword', text);
-            }}
-          />
-        </View>
-        <View style={[styles.textView, {marginTop: 10}]}>
-          <TouchableOpacity disabled={true} style={styles.textBox}>
-            <Text style={styles.text}>비밀번호 확인</Text>
-          </TouchableOpacity>
-          <TextInput
-            style={styles.textInput}
-            secureTextEntry={true}
-            onChangeText={text => {
-              handleCheck('userPasswordchk', text);
-            }}
-          />
-        </View>
-        <Text style={[styles.smallText, {marginLeft: 120, marginTop: 5}]}>
-          {passChk}
-        </Text>
         <TouchableOpacity onPress={handleClick} style={styles.registerBtn}>
           <Text style={{fontSize: 25, color: '#000'}}>가입하기</Text>
         </TouchableOpacity>
@@ -347,5 +431,27 @@ const styles = StyleSheet.create({
     width: 90,
     alignItems: 'flex-end',
     paddingRight: 13,
+  },
+
+  Checkbox: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginHorizontal: 40,
+    marginVertical: 5,
+  },
+  CheckboxBtn: {
+    width: 20,
+    height: 20,
+    borderRadius: 5,
+    borderWidth: 2,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginRight: 8,
+  },
+  CheckboxBtnSelect: {
+    width: 10,
+    height: 10,
+    borderRadius: 3,
+    backgroundColor: '#26e',
   },
 });

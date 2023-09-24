@@ -166,12 +166,6 @@ export default function TourspotDetail(route: any) {
       break;
   }
 
-  function roadmap() {
-    setTimeout(() => {
-      // return ();
-    }, 1000);
-  }
-
   return (
     <View style={styles.view}>
       <Header navigation={navigation} type={'BACK'} title={tourSpot.title} />
@@ -290,8 +284,6 @@ export default function TourspotDetail(route: any) {
               style={styles.loadview}
               provider={PROVIDER_GOOGLE}
               initialRegion={{
-                // latitude: 37.6874303,
-                // longitude: 127.0344916,
                 latitude: tourSpot.latitude,
                 longitude: tourSpot.longitude,
                 latitudeDelta: 0.001,

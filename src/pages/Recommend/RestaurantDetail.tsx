@@ -38,6 +38,7 @@ interface dataType {
 export default function RestaurantDetail(route: any) {
   const {userId} = useContext(AppContext);
   const Key = Config.google_map_api_key;
+  const [loading, setLoading] = useState(true);
 
   const [restaurant, setRestaurant] = useState<dataType>({
     rstrntId: 0,
@@ -58,8 +59,6 @@ export default function RestaurantDetail(route: any) {
   // let log = Number(route.route.params.rstrntLo);
   const [likeState, setLikeState] = useState(0);
   const [reviewList, setReviewList] = useState([]);
-
-  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     getData();
@@ -218,8 +217,6 @@ export default function RestaurantDetail(route: any) {
               style={styles.loadview}
               provider={PROVIDER_GOOGLE}
               initialRegion={{
-                // latitude: 37.6874303,
-                // longitude: 127.0344916,
                 latitude: Number(restaurant.rstrntLa),
                 longitude: Number(restaurant.rstrntLo),
                 latitudeDelta: 0.001,
