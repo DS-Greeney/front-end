@@ -38,7 +38,6 @@ interface propType {
 }
 
 const ReviewPost = ({itemId, reviewData, category}: propType) => {
-  console.log(category);
   //console.log(reviewData);
   let navigation = useNavigation();
   const {userId} = useContext(AppContext);
@@ -47,6 +46,7 @@ const ReviewPost = ({itemId, reviewData, category}: propType) => {
   const [star, setStar] = useState(0);
   const [selectedImages, setSelectedImages] = useState<string[]>([]);
   const [reviews, setReviews] = useState<dataType[]>(reviewData || []);
+  // const [reviews, setReviews] = useState<dataType[]>(reviewData || []);
 
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [selectedRating, setSelectedRating] = useState(0);
@@ -70,7 +70,7 @@ const ReviewPost = ({itemId, reviewData, category}: propType) => {
     }
   }, [reviewData]);
 
-  //console.log(reviews);
+  console.log(reviews);
 
   const commentDTO = {
     spotId: itemId,
@@ -81,6 +81,19 @@ const ReviewPost = ({itemId, reviewData, category}: propType) => {
   };
 
   const getData = async () => {
+    // try {
+    //   const response = await axios.get(
+    //     `http://10.0.2.2:8082/greeney/main/restaurantlist/detail/${itemId}?userId=${userId}`,
+    //   );
+    //   if (response.data.success === true) {
+    //     console.log(response.data.reviewList);
+    //     setReviews(response.data.reviewList);
+    //   } else {
+    //     console.error('No review data found in the response.');
+    //   }
+    // } catch (error) {
+    //   console.error('Error fetching data1:', error);
+    // }
     if (category === 1) {
       try {
         const response = await axios.get(
@@ -187,14 +200,16 @@ const ReviewPost = ({itemId, reviewData, category}: propType) => {
       formData.append('cmntStar', selectedRating);
       formData.append('categoryNumber', category);
 
-      selectedImages.forEach((imagePath, index) => {
-        const fileName = `image_${index}.jpg`;
-        formData.append('images', {
-          uri: imagePath,
-          type: 'image/jpeg',
-          name: fileName,
+      if (selectedImages.length > 0) {
+        selectedImages.forEach((imagePath, index) => {
+          const fileName = `image_${index}.jpg`;
+          formData.append('images', {
+            uri: imagePath,
+            type: 'image/jpeg',
+            name: fileName,
+          });
         });
-      });
+      }
 
       console.log(category);
       let apiUrl = '';
@@ -370,14 +385,18 @@ const ReviewPost = ({itemId, reviewData, category}: propType) => {
                 borderRadius: 50,
                 overflow: 'hidden',
               }}>
-              {review.userPicture === null ? (
+              {/* {review.userPicture === '' ? (
                 <View style={styles.emptyImg}></View>
               ) : (
                 <Image
                   style={styles.userImg}
                   source={{uri: review.userPicture}}
                 />
-              )}
+              )} */}
+              <Image
+                style={styles.userImg}
+                source={{uri: review.userPicture}}
+              />
             </TouchableOpacity>
             <View>
               <Text style={{fontSize: 15, color: '#000'}}>
@@ -395,17 +414,24 @@ const ReviewPost = ({itemId, reviewData, category}: propType) => {
             </View>
           </View>
 
-          <Swiper
-            showsPagination={false}
-            height={200}
-            autoplayTimeout={4}
-            style={styles.imgswap}>
-            {review.tourCmntImg?.map((imageUrl, idx) => (
-              //  <View key={index}>
-              <Image key={idx} source={{uri: imageUrl}} style={styles.image} />
-              //  </View>
-            ))}
-          </Swiper>
+          {review.tourCmntImg.length > 0 && (
+            <Swiper
+              showsPagination={false}
+              height={200}
+              autoplayTimeout={4}
+              style={styles.imgswap}>
+              {review.tourCmntImg.map((imageUrl, idx) => (
+                //  <View key={index}>
+                <Image
+                  key={idx}
+                  source={{uri: imageUrl}}
+                  style={styles.image}
+                />
+                //  </View>
+              ))}
+            </Swiper>
+          )}
+
           {/* // <Image
             //   style={styles.image}
             //   source={{
@@ -431,15 +457,27 @@ const ReviewPost = ({itemId, reviewData, category}: propType) => {
             }}
             style={styles.image3}
           /> */}
-          <Text
-            style={{
-              color: '#000',
-              fontSize: 14,
-              marginHorizontal: 40,
-              marginVertical: 15,
-            }}>
-            {review.tourspotCmntContent}
-          </Text>
+          {review.tourCmntImg.length > 0 ? (
+            <Text
+              style={{
+                color: '#000',
+                fontSize: 14,
+                marginHorizontal: 30,
+                marginVertical: 15,
+              }}>
+              {review.tourspotCmntContent}
+            </Text>
+          ) : (
+            <Text
+              style={{
+                color: '#000',
+                fontSize: 14,
+                marginHorizontal: 30,
+                marginBottom: 15,
+              }}>
+              {review.tourspotCmntContent}
+            </Text>
+          )}
         </View>
       ))}
     </View>

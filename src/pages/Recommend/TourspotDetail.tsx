@@ -247,33 +247,7 @@ export default function TourspotDetail(route: any) {
             {firstStr[0] + '.'}
           </Text>
         </View>
-        <View style={styles.view2}>
-          {/* <TouchableOpacity
-            disabled={true}
-            style={{
-              height: 130,
-              // width: '100%',
-              // backgroundColor: '#ccc',
-              overflow: 'hidden',
-            }}></TouchableOpacity> */}
-          {/* <MapView
-            style={styles.loadview}
-            provider={PROVIDER_GOOGLE}
-            initialRegion={{
-              // latitude: 37.6874303,
-              // longitude: 127.0344916,
-              latitude: lat,
-              longitude: log,
-              latitudeDelta: 0.001,
-              longitudeDelta: 0.001,
-            }}>
-            <Marker
-              coordinate={{
-                latitude: lat,
-                longitude: log,
-              }}
-            />
-          </MapView> */}
+        {/* <View style={styles.view2}>
           {loading ? (
             <TouchableOpacity
               disabled={true}
@@ -297,7 +271,7 @@ export default function TourspotDetail(route: any) {
               />
             </MapView>
           )}
-        </View>
+        </View> */}
         <View style={styles.view2}>
           <Text style={styles.extext}>주소</Text>
           <Text style={styles.text}>{tourSpot.addr}</Text>

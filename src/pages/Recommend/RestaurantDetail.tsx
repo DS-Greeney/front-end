@@ -72,10 +72,11 @@ export default function RestaurantDetail(route: any) {
       //console.log(response.data || []);
       setRestaurant(response.data.restaurant || []);
       setLikeState(response.data.like || 0);
+      console.log(response.data.reviewList);
       setReviewList(response.data.reviewList || []);
       setLoading(false);
     } catch (error) {
-      console.error('Error fetching data:', error);
+      console.error('Error fetching data 이건가?:', error);
     }
   };
 
@@ -202,7 +203,6 @@ export default function RestaurantDetail(route: any) {
             style={{marginRight: 5}}
           />
           <Text style={{fontSize: 20, color: '#000'}}>
-            {' '}
             {restaurant.rstrntStar} / 5
           </Text>
         </View>
