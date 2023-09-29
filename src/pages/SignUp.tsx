@@ -87,7 +87,7 @@ export default function SignUp({navigation}: any) {
   const mailCheck = async () => {
     try {
       const response = await axios.get(
-        `http://10.0.2.2:8082/api/users/mailCheck?userNumber=${emailNum}`,
+        `http://10.0.2.2:8082/api/users/mailCheck?mail=${user.userEmail}&userNumber=${emailNum}`,
       );
       console.log(response.data);
       if (response.data === true) {

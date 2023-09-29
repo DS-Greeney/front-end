@@ -1,6 +1,16 @@
-import React, {useState, useEffect} from 'react';
-import {View, StyleSheet, Image, Text, TouchableOpacity} from 'react-native';
+import React, {useState, useEffect, useContext} from 'react';
+import {
+  View,
+  StyleSheet,
+  Image,
+  Text,
+  TouchableOpacity,
+  Alert,
+} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
+import {AppContext} from '../../components/Common/Context';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import ImageState from '../../components/challenge/ImageState';
 import Header from '../../components/Common/Header';
 import axios from 'axios';
 
@@ -11,23 +21,55 @@ interface dataType {
 }
 
 export default function DailyChallenge() {
+  const {userId} = useContext(AppContext);
   let navigation = useNavigation();
   const [challenges, setChallenges] = useState<dataType[]>([]);
-  const [completeState, setCompleteState] = useState(false);
+  const [completeState, setCompleteState] = useState(0);
 
-  const handleComplete = () => {};
+  const [count, setCount] = useState(0);
 
-  useEffect(() => {
+  const [loading, setLoading] = useState(true);
+
+  const handleComplete = (id: number) => {
+    console.log(id);
     axios
-      .get('http://10.0.2.2:8082/greeney/mypage/challenge/today')
+      .post(
+        `http://10.0.2.2:8082/greeney/mypage/challengeComplete?userId=${userId}&challengeId=${id}`,
+      )
       .then(function (response) {
         // console.log(response);
-        setChallenges(response.data.todayChallengeList);
+        console.log(completeState);
+        setCompleteState(
+          completeState === 3 ? 1 : prevCompleteState => prevCompleteState + 1,
+        );
+        Alert.alert('축하합니다', '해당 도전 과제 수행 완료!');
       })
       .catch(function (error) {
         console.log(error);
       });
-  }, []);
+  };
+
+  useEffect(() => {
+    axios
+      .get(
+        `http://10.0.2.2:8082/greeney/mypage/challenge/today?userId=${userId}`,
+      )
+      .then(function (response) {
+        console.log(response.data.todayChallengeList);
+        setChallenges(response.data.todayChallengeList);
+
+        const completedCount = response.data.todayChallengeList.filter(
+          challenge => challenge.complete === 1,
+        ).length;
+        setCount(completedCount);
+        console.log('completedCount', completedCount);
+
+        setLoading(false);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }, [completeState]);
 
   return (
     <View style={styles.dailyChallenge}>
@@ -47,20 +89,32 @@ export default function DailyChallenge() {
       </View>
       <View style={styles.line} />
       <View style={styles.bottomBox}>
-        <View style={styles.ringWrap}>
-          <Image
-            style={styles.laurelImg}
-            source={require('../../assets/images/challenge/do_laurel.png')}
-          />
-          <Image
-            style={styles.laurelImg}
-            source={require('../../assets/images/challenge/do_laurel.png')}
-          />
-          <Image
-            style={styles.laurelImg}
-            source={require('../../assets/images/challenge/do_laurel.png')}
-          />
-        </View>
+        {loading === false && (
+          <ImageState challenges={challenges} stateData={count} />
+          // <View style={styles.ringWrap}>
+          //   {challenges.map((challenge, index) => {
+          //     //  (challenge.complete === 1) {
+          //     //   count += 1;
+          //     // }
+          //     return (
+          //       <Image
+          //         key={index}
+          //         style={styles.laurelImg}
+          //         source={
+          //           // challenge.complete === 1
+          //           completeState > index
+          //             ? // count > index
+          //               require('../../assets/images/challenge/do_laurel.png')
+          //             : require('../../assets/images/challenge/undo_laurel.png')
+          //         }
+          //         onError={error => {
+          //           console.error('Error loading image:', error);
+          //         }}
+          //       />
+          //     );
+          //   })}
+          // </View>
+        )}
         {challenges.map(challenge => (
           <View style={styles.challengeWrap} key={challenge.challengeId}>
             {/* <TouchableOpacity style={styles.challengeBox} onPress={() => {}}> */}
@@ -69,7 +123,7 @@ export default function DailyChallenge() {
               <TouchableOpacity
                 style={styles.incompleteBox}
                 onPress={() => {
-                  handleComplete();
+                  handleComplete(challenge.challengeId);
                 }}>
                 <Text style={styles.challengeText}>{challenge.content}</Text>
               </TouchableOpacity>
@@ -125,14 +179,14 @@ const styles = StyleSheet.create({
     // flex: 1,
     alignItems: 'center',
   },
-  ringWrap: {
-    flexDirection: 'row',
-  },
-  laurelImg: {
-    width: 60,
-    height: 60,
-    marginHorizontal: 15,
-  },
+  // ringWrap: {
+  //   flexDirection: 'row',
+  // },
+  // laurelImg: {
+  //   width: 60,
+  //   height: 60,
+  //   marginHorizontal: 15,
+  // },
   challengeWrap: {
     width: 313,
   },
