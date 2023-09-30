@@ -11,6 +11,7 @@ interface dataType {
   rstrntStar: number;
   rstrntLa: string;
   rstrntLo: string;
+  rstrntMenuinfo: string;
 }
 
 interface propType {
@@ -31,7 +32,7 @@ const VeganspotRank = ({data, navigation, index}: propType) => {
       <View style={styles.content}>
         <View style={styles.titlewrapper}>
           <Text style={styles.rank}>{index + 1}</Text>
-          <Text style={styles.name}>{data.title}</Text>
+          <Text style={styles.name}>{data.rstrntName}</Text>
         </View>
         <View style={styles.wrapper}>
           <Image
@@ -39,20 +40,30 @@ const VeganspotRank = ({data, navigation, index}: propType) => {
               uri: `https://maps.googleapis.com/maps/api/streetview?size=400x400&location=${data.rstrntLa}, ${data.rstrntLo}&fov=80&heading=70&pitch=0&key=${Key}`, //api 키 불러오기
             }}
             style={{
-              width: 151,
-              height: 113,
+              width: '50%',
+              height: 136,
               resizeMode: 'cover',
               borderRadius: 10,
             }}
           />
 
           <View style={styles.textwrap}>
-            <Text style={styles.location} numberOfLines={1}>
-              {data.addr}
-            </Text>
+            <Text style={styles.location}>{data.rstrntCtgry}</Text>
+            <View style={styles.scopewrap}>
+              <Image
+                style={styles.star}
+                source={require('../../assets/images/star.png')}
+              />
+              <Text style={styles.scope}>{data.rstrntStar} / 5</Text>
+            </View>
             <View style={styles.descript}>
-              <Text numberOfLines={5} style={styles.innertext}>
-                {data.summary}
+              <Text numberOfLines={2} style={styles.innertext}>
+                {data.rstrntAddr}
+              </Text>
+            </View>
+            <View style={styles.descript}>
+              <Text numberOfLines={1} style={styles.menutext}>
+                {data.rstrntMenuinfo}
               </Text>
             </View>
           </View>
@@ -86,10 +97,9 @@ const styles = StyleSheet.create({
   },
   wrapper: {
     flexDirection: 'row',
-    marginTop: 10,
+    marginVertical: 10,
   },
   textwrap: {
-    // flexDirection: 'column',
     width: '50%',
     marginLeft: 15,
     flex: 1,
@@ -107,6 +117,25 @@ const styles = StyleSheet.create({
   innertext: {
     flexWrap: 'wrap',
     marginVertical: 15,
+    fontSize: 13,
+    color: '#7A7A7A',
+  },
+  scopewrap: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: 2,
+  },
+  scope: {
+    color: '#454545',
+    fontSize: 11,
+  },
+  star: {
+    width: 15,
+    height: 15,
+    marginRight: 7,
+  },
+  menutext: {
+    flexWrap: 'wrap',
     fontSize: 13,
     color: '#7A7A7A',
   },
