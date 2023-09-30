@@ -22,7 +22,7 @@ import ReviewPost from '../../components/Review/ReviewPost';
 // import ReviewItem from '../../components/Recommend/ReviewItem';
 
 interface dataType {
-  tourspot_id: number;
+  tourspotId: number;
   areaCode: number;
   latitude: number;
   longitude: number;
@@ -47,7 +47,7 @@ interface dataType {
 export default function TourspotDetail(route: any) {
   const {userId} = useContext(AppContext);
   const [tourSpot, setTourSpot] = useState<dataType>({
-    tourspot_id: 0,
+    tourspotId: 0,
     areaCode: 0,
     latitude: 0,
     longitude: 0,

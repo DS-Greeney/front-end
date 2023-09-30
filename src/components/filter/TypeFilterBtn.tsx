@@ -8,7 +8,7 @@ interface propType {
   onPress: (name: string) => any;
 }
 
-const FilterBtn = ({name, selected, onPress}: propType) => {
+const TypeFilterBtn = ({name, selected, onPress}: propType) => {
   return (
     <TouchableOpacity style={styles.btnwrap} onPress={() => onPress(name)}>
       {selected ? (
@@ -25,10 +25,9 @@ const FilterBtn = ({name, selected, onPress}: propType) => {
 };
 
 const styles = StyleSheet.create({
-  btnwrap: {},
   selectedwrap: {
-    width: 65,
-    height: 31,
+    width: 98,
+    height: 37,
     borderRadius: 30,
     borderColor: 'rgba(0, 0, 0, 0.15)',
     borderWidth: 1,
@@ -39,13 +38,13 @@ const styles = StyleSheet.create({
     marginHorizontal: 5,
   },
   nonewrap: {
-    width: 65,
-    height: 31,
+    width: 98,
+    height: 35,
     borderRadius: 30,
     borderColor: 'rgba(0, 0, 0, 0.15)',
     borderWidth: 1,
     borderStyle: 'solid',
-    backgroundColor: '#fff',
+    backgroundColor: '#F3F3F3',
     justifyContent: 'center',
     alignItems: 'center',
     marginHorizontal: 5,
@@ -58,4 +57,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default FilterBtn;
+export default TypeFilterBtn;

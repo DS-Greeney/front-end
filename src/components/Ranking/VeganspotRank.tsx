@@ -4,60 +4,55 @@ import {NavigationProp} from '@react-navigation/native';
 import Config from 'react-native-config';
 
 interface dataType {
-  hotelId: string;
-  hotelName: string;
-  hotelAddr: string;
-  hotelTel: string;
-  hotelService: string;
-  hotelInfo: string;
-  hotelLa: number;
-  hotelLo: number;
-  areaCode: string;
-  hotelUrl: string;
-  hotelStar: number;
+  rstrntId: number;
+  rstrntCtgry: string;
+  rstrntName: string;
+  rstrntAddr: string;
+  rstrntStar: number;
+  rstrntLa: string;
+  rstrntLo: string;
 }
+
 interface propType {
   data: dataType;
   navigation: NavigationProp<any>;
+  index: number;
 }
 
-const GreenHotel = ({data, navigation}: propType) => {
+const VeganspotRank = ({data, navigation, index}: propType) => {
   const Key = Config.google_map_api_key;
+
   return (
     <TouchableOpacity
       style={styles.container}
-      key={data.hotelId}
-      onPress={() => navigation.navigate('GreenHotelDetail', data)}>
+      key={data.rstrntId}
+      onPress={() => navigation.navigate('RestaurantDetail', data)}>
       <View style={styles.line} />
       <View style={styles.content}>
-        <Text style={styles.name}>{data.hotelName}</Text>
+        <View style={styles.titlewrapper}>
+          <Text style={styles.rank}>{index + 1}</Text>
+          <Text style={styles.name}>{data.title}</Text>
+        </View>
         <View style={styles.wrapper}>
           <Image
             source={{
-              uri: `https://maps.googleapis.com/maps/api/streetview?size=400x400&location=${data.hotelLa}, ${data.hotelLo}&fov=80&heading=70&pitch=0&key=${Key}`,
+              uri: `https://maps.googleapis.com/maps/api/streetview?size=400x400&location=${data.rstrntLa}, ${data.rstrntLo}&fov=80&heading=70&pitch=0&key=${Key}`, //api 키 불러오기
             }}
             style={{
-              width: '50%',
-              height: 136,
+              width: 151,
+              height: 113,
               resizeMode: 'cover',
               borderRadius: 10,
             }}
           />
 
           <View style={styles.textwrap}>
-            <Text style={styles.location} numberOfLines={2}>
-              {data.hotelAddr}
+            <Text style={styles.location} numberOfLines={1}>
+              {data.addr}
             </Text>
-            <View style={styles.scopewrap}>
-              <Image
-                style={styles.star}
-                source={require('../../assets/images/star.png')}
-              />
-              <Text style={styles.scope}>{data.hotelStar} / 5</Text>
-            </View>
             <View style={styles.descript}>
-              <Text numberOfLines={3} style={styles.innertext}>
-                {data.hotelInfo}
+              <Text numberOfLines={5} style={styles.innertext}>
+                {data.summary}
               </Text>
             </View>
           </View>
@@ -76,8 +71,17 @@ const styles = StyleSheet.create({
   container: {
     marginHorizontal: 30,
   },
+  titlewrapper: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  rank: {
+    color: '#000',
+    fontSize: 30,
+    marginRight: 10,
+  },
   content: {
-    marginVertical: 16,
+    marginVertical: 12,
     flex: 1,
   },
   wrapper: {
@@ -85,6 +89,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   textwrap: {
+    // flexDirection: 'column',
     width: '50%',
     marginLeft: 15,
     flex: 1,
@@ -97,7 +102,7 @@ const styles = StyleSheet.create({
   location: {
     flexWrap: 'wrap',
     color: '#7A7A7A',
-    fontSize: 14,
+    fontSize: 15,
   },
   innertext: {
     flexWrap: 'wrap',
@@ -105,20 +110,6 @@ const styles = StyleSheet.create({
     fontSize: 13,
     color: '#7A7A7A',
   },
-  scopewrap: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginTop: 2,
-  },
-  scope: {
-    color: '#454545',
-    fontSize: 11,
-  },
-  star: {
-    width: 15,
-    height: 15,
-    marginRight: 7,
-  },
 });
 
-export default memo(GreenHotel);
+export default memo(VeganspotRank);

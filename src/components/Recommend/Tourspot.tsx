@@ -11,6 +11,7 @@ interface dataType {
   areacode: string;
   latitude: string;
   logitude: string;
+  tourspotStar: number;
 }
 interface propType {
   data: dataType;
@@ -25,6 +26,7 @@ const Tourspot = ({data, navigation}: propType) => {
       onPress={() => navigation.navigate('TourspotDetail', data)}>
       <View style={styles.line} />
       <View style={styles.content}>
+        <Text style={styles.name}>{data.title}</Text>
         <View style={styles.wrapper}>
           {data.mainimage === '' ? (
             <Image
@@ -51,10 +53,17 @@ const Tourspot = ({data, navigation}: propType) => {
           )}
 
           <View style={styles.textwrap}>
-            <Text style={styles.name}>{data.title}</Text>
-            <Text style={styles.location} numberOfLines={1}>
+            {/* <Text style={styles.name}>{data.title}</Text> */}
+            <Text style={styles.location} numberOfLines={2}>
               {data.addr}
             </Text>
+            <View style={styles.scopewrap}>
+              <Image
+                style={styles.star}
+                source={require('../../assets/images/star.png')}
+              />
+              <Text style={styles.scope}>{data.tourspotStar} / 5</Text>
+            </View>
             <View style={styles.descript}>
               <Text numberOfLines={3} style={styles.innertext}>
                 {data.summary}
@@ -113,22 +122,19 @@ const styles = StyleSheet.create({
     fontSize: 13,
     color: '#7A7A7A',
   },
-  tagwrap: {
+  scopewrap: {
     flexDirection: 'row',
-    flexWrap: 'wrap',
+    alignItems: 'center',
+    marginTop: 2,
   },
-  tag: {
-    color: '#005F29',
-    width: 'auto',
-    fontSize: 12,
-    borderStyle: 'solid',
-    borderWidth: 1,
-    borderColor: '#005F29',
-    borderRadius: 30,
-    paddingVertical: 4,
-    paddingHorizontal: 6,
-    marginRight: 5,
-    marginVertical: 5,
+  scope: {
+    color: '#454545',
+    fontSize: 11,
+  },
+  star: {
+    width: 15,
+    height: 15,
+    marginRight: 7,
   },
 });
 
