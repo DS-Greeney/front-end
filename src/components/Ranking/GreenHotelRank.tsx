@@ -95,7 +95,7 @@ const styles = StyleSheet.create({
   },
   wrapper: {
     flexDirection: 'row',
-    marginTop: 10,
+    marginVertical: 10,
   },
   textwrap: {
     width: '50%',

@@ -69,7 +69,7 @@ const GreenHotelDetail = (route: any) => {
   const getData = async () => {
     try {
       const response = await axios.get(
-        `http://10.0.2.2:8082/greeney/main/hotellist/detail/${hotelId}?userId=${userId}`,
+        `${Config.API_URL}/greeney/main/hotellist/detail/${hotelId}?userId=${userId}`,
       );
       setGreenHotel(response.data.hotel || []);
       setReviewList(response.data.reviewList || []);

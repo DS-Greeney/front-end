@@ -7,6 +7,7 @@ import SearchBar from '../../components/SearchBar';
 import FilterList from '../../components/filter/FilterList';
 import GreenHotel from '../../components/Recommend/GreenHotel';
 import axios from 'axios';
+import Config from 'react-native-config';
 
 const areaList = [
   '전체',
@@ -64,7 +65,7 @@ export default function GreenHotelPage() {
     // console.log(location.latitude, location.longitude);
     try {
       const response = await axios.get(
-        'http://10.0.2.2:8082/greeney/main/hotellist',
+        `${Config.API_URL}/greeney/main/hotellist`,
         {
           params: {
             latitude: location.latitude,

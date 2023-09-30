@@ -13,6 +13,7 @@ import Header from '../../components/Common/Header';
 import TypeFilterList from '../../components/filter/TypeFilterList';
 import TourspotRank from '../../components/Ranking/TourspotRank';
 import GreenHotelRank from '../../components/Ranking/GreenHotelRank';
+import Config from 'react-native-config';
 
 export default function RankingPage() {
   let navigation = useNavigation();
@@ -38,7 +39,7 @@ export default function RankingPage() {
     console.log(typeName);
     try {
       const response = await axios.get(
-        `http://10.0.2.2:8082/greeney/main/${typeName}/star`,
+        `${Config.API_URL}/greeney/main/${typeName}/star`,
       );
       //console.log(response.data || []);
       if (typeName === 'tourlist') {

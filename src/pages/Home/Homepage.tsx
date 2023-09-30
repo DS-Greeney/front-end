@@ -19,6 +19,7 @@ import {DrawerActions, NavigationProp} from '@react-navigation/native';
 import Header from '../../components/Common/Header';
 import SideBar from '../../components/Common/SideBar';
 import axios from 'axios';
+import Config from 'react-native-config';
 
 export default function Homepage({navigation}: any) {
   interface UserModel {
@@ -44,7 +45,7 @@ export default function Homepage({navigation}: any) {
 
   useEffect(() => {
     axios
-      .post('http://10.0.2.2:8082/api/users/info', {
+      .post(`${Config.API_URL}/api/users/info`, {
         userId: userId,
       })
       .then(function (response) {
