@@ -1,76 +1,67 @@
 import React, {memo} from 'react';
 import {StyleSheet, View, Text, TouchableOpacity, Image} from 'react-native';
 import {NavigationProp} from '@react-navigation/native';
+import Config from 'react-native-config';
 
 interface dataType {
-  tourspotId: number;
-  mainimage: string;
-  title: string;
-  addr: string;
-  summary: string;
-  areacode: string;
-  latitude: string;
-  logitude: string;
-  tourspotStar: number;
+  hotelId: string;
+  hotelName: string;
+  hotelAddr: string;
+  hotelTel: string;
+  hotelService: string;
+  hotelInfo: string;
+  hotelLa: number;
+  hotelLo: number;
+  areaCode: string;
+  hotelUrl: string;
+  hotelStar: number;
 }
-
 interface propType {
   data: dataType;
   navigation: NavigationProp<any>;
   index: number;
 }
 
-const TourspotRank = ({data, navigation, index}: propType) => {
+const GreenHotelRank = ({data, navigation, index}: propType) => {
+  const Key = Config.google_map_api_key;
   return (
     <TouchableOpacity
       style={styles.container}
-      key={data.tourspotId}
-      onPress={() => navigation.navigate('TourspotDetail', data)}>
+      key={data.hotelId}
+      onPress={() => navigation.navigate('GreenHotelDetail', data)}>
       <View style={styles.line} />
       <View style={styles.content}>
         <View style={styles.titlewrapper}>
           <Text style={styles.rank}>{index + 1}</Text>
-          <Text style={styles.name}>{data.title}</Text>
+          <Text style={styles.name}>{data.hotelName}</Text>
         </View>
         <View style={styles.wrapper}>
-          {data.mainimage === '' ? (
-            <Image
-              source={{
-                uri: 'https://firebasestorage.googleapis.com/v0/b/greeney-a996b.appspot.com/o/noImage.png?alt=media&token=5e00b909-c884-4711-a8af-b964c096b8d1&_gl=1*1p0d1lk*_ga*Mjg1MTExMTc3LjE2OTA3OTEyMDg.*_ga_CW55HF8NVT*MTY5NjA2NzU1MC4zLjEuMTY5NjA2NzYwMy43LjAuMA',
-              }}
-              style={{
-                width: '50%',
-                height: 136,
-                resizeMode: 'cover',
-                borderRadius: 10,
-              }}
-            />
-          ) : (
-            <Image
-              source={{uri: data.mainimage}}
-              style={{
-                width: '50%',
-                height: 136,
-                resizeMode: 'cover',
-                borderRadius: 10,
-              }}
-            />
-          )}
+          <Image
+            source={{
+              uri: `https://maps.googleapis.com/maps/api/streetview?size=400x400&location=${data.hotelLa}, ${data.hotelLo}&fov=80&heading=70&pitch=0&key=${Key}`,
+            }}
+            style={{
+              width: '50%',
+              height: 136,
+              resizeMode: 'cover',
+              borderRadius: 10,
+            }}
+          />
 
           <View style={styles.textwrap}>
             <Text style={styles.location} numberOfLines={2}>
-              {data.addr}
+              {data.hotelAddr}
             </Text>
             <View style={styles.scopewrap}>
               <Image
                 style={styles.star}
                 source={require('../../assets/images/star.png')}
               />
-              <Text style={styles.scope}>{data.tourspotStar} / 5</Text>
+              <Text style={styles.scope}>{data.hotelStar} / 5</Text>
             </View>
             <View style={styles.descript}>
               <Text numberOfLines={3} style={styles.innertext}>
-                {data.summary}
+                {data.hotelInfo}
               </Text>
             </View>
           </View>
@@ -107,7 +98,6 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   textwrap: {
-    // flexDirection: 'column',
     width: '50%',
     marginLeft: 15,
     flex: 1,
@@ -144,4 +134,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default memo(TourspotRank);
+export default memo(GreenHotelRank);

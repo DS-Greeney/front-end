@@ -171,7 +171,12 @@ export default function TourspotDetail(route: any) {
       <Header navigation={navigation} type={'BACK'} title={tourSpot.title} />
       <ScrollView style={styles.scrollView}>
         {tourSpot.mainimage === '' ? (
-          <View style={styles.emptyImage} />
+          <Image
+            style={styles.image}
+            source={{
+              uri: 'https://firebasestorage.googleapis.com/v0/b/greeney-a996b.appspot.com/o/noImage.png?alt=media&token=5e00b909-c884-4711-a8af-b964c096b8d1&_gl=1*1p0d1lk*_ga*Mjg1MTExMTc3LjE2OTA3OTEyMDg.*_ga_CW55HF8NVT*MTY5NjA2NzU1MC4zLjEuMTY5NjA2NzYwMy43LjAuMA',
+            }}
+          />
         ) : (
           <Image
             style={styles.image}
@@ -294,7 +299,7 @@ export default function TourspotDetail(route: any) {
           <Image
             style={styles.image2}
             source={{
-              uri: 'https://www.knps.or.kr/upload/contest/21/20221108082032573.jpg',
+              uri: 'https://firebasestorage.googleapis.com/v0/b/greeney-a996b.appspot.com/o/noImage.png?alt=media&token=5e00b909-c884-4711-a8af-b964c096b8d1&_gl=1*1p0d1lk*_ga*Mjg1MTExMTc3LjE2OTA3OTEyMDg.*_ga_CW55HF8NVT*MTY5NjA2NzU1MC4zLjEuMTY5NjA2NzYwMy43LjAuMA',
             }}
           />
         ) : (

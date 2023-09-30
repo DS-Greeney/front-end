@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import {AppContext} from '../components/Common/Context';
 import axios from 'axios';
+import Config from 'react-native-config';
 
 export default function Login({navigation}: any) {
   const [email, setEmail] = useState('');

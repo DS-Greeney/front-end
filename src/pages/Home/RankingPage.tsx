@@ -12,6 +12,7 @@ import {useNavigation} from '@react-navigation/native';
 import Header from '../../components/Common/Header';
 import TypeFilterList from '../../components/filter/TypeFilterList';
 import TourspotRank from '../../components/Ranking/TourspotRank';
+import GreenHotelRank from '../../components/Ranking/GreenHotelRank';
 
 export default function RankingPage() {
   let navigation = useNavigation();
@@ -47,7 +48,7 @@ export default function RankingPage() {
       } else if (typeName === 'hotellist') {
         setPlacelist(response.data.hotellist || []);
       }
-      console.log('placeList', response.data.tourlist[0]);
+      //console.log('placeList', response.data.tourlist[0]);
     } catch (error) {
       console.error('Error fetching data:', error);
     }
@@ -66,6 +67,21 @@ export default function RankingPage() {
             data={placeList}
             renderItem={({item, index}) => (
               <TourspotRank data={item} navigation={navigation} index={index} />
+            )}
+          />
+        )}
+        {selectedTypeName === 'hotellist' && (
+          <FlatList
+            keyExtractor={(item, index) => index.toString()}
+            disableVirtualization={false}
+            initialNumToRender={4}
+            data={placeList}
+            renderItem={({item, index}) => (
+              <GreenHotelRank
+                data={item}
+                navigation={navigation}
+                index={index}
+              />
             )}
           />
         )}
