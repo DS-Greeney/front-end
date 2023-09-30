@@ -13,6 +13,7 @@ import {AppContext} from '../../components/Common/Context';
 import ImageState from '../../components/challenge/ImageState';
 import Header from '../../components/Common/Header';
 import axios from 'axios';
+import Config from 'react-native-config';
 
 interface dataType {
   challengeId: number;
@@ -34,7 +35,7 @@ export default function DailyChallenge() {
     console.log(id);
     axios
       .post(
-        `http://10.0.2.2:8082/greeney/mypage/challengeComplete?userId=${userId}&challengeId=${id}`,
+        `${Config.API_URL}/greeney/mypage/challengeComplete?userId=${userId}&challengeId=${id}`,
       )
       .then(function (response) {
         // console.log(response);
@@ -51,9 +52,7 @@ export default function DailyChallenge() {
 
   useEffect(() => {
     axios
-      .get(
-        `http://10.0.2.2:8082/greeney/mypage/challenge/today?userId=${userId}`,
-      )
+      .get(`${Config.API_URL}/greeney/mypage/challenge/today?userId=${userId}`)
       .then(function (response) {
         console.log(response.data.todayChallengeList);
         setChallenges(response.data.todayChallengeList);

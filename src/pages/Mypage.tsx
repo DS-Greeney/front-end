@@ -23,27 +23,6 @@ import IconC from 'react-native-vector-icons/MaterialCommunityIcons';
 import Header from '../components/Common/Header';
 import TitleChangeModal from './Settings/TitleChangeModal';
 import Config from 'react-native-config';
-// import {useNavigation} from '@react-navigation/native';
-
-const withdrawal = () => {
-  Alert.alert(
-    '탈퇴',
-    '정말로 탈퇴하시겠습니까?',
-    [
-      {text: '취소', onPress: () => {}},
-      {
-        text: '탈퇴',
-        onPress: () => {
-          //onDelete(id);
-        },
-      },
-    ],
-    {
-      cancelable: true,
-      onDismiss: () => {},
-    },
-  );
-};
 
 const logout = ({navigation}: any) => {
   Alert.alert(

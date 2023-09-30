@@ -11,6 +11,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import Modal from 'react-native-modal';
 import {NavigationProp} from '@react-navigation/native';
 import axios from 'axios';
+import Config from 'react-native-config';
 
 interface dataType {
   userNickname: string;
@@ -61,7 +62,7 @@ const SideBar = ({navigation, data}: propType) => {
 
   const goLogout = async () => {
     try {
-      const response = await axios.get('http://10.0.2.2:8082/api/users/logout');
+      const response = await axios.get(`${Config.API_URL}/api/users/logout`);
       if (response.data.success === true) {
         Alert.alert('로그아웃 되었습니다.');
         navigation.navigate('Login');

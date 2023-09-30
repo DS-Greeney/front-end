@@ -33,29 +33,15 @@ const TourspotRank = ({data, navigation, index}: propType) => {
           <Text style={styles.name}>{data.title}</Text>
         </View>
         <View style={styles.wrapper}>
-          {data.mainimage === '' ? (
-            <Image
-              source={{
-                uri: 'https://firebasestorage.googleapis.com/v0/b/greeney-a996b.appspot.com/o/noImage.png?alt=media&token=5e00b909-c884-4711-a8af-b964c096b8d1&_gl=1*1p0d1lk*_ga*Mjg1MTExMTc3LjE2OTA3OTEyMDg.*_ga_CW55HF8NVT*MTY5NjA2NzU1MC4zLjEuMTY5NjA2NzYwMy43LjAuMA',
-              }}
-              style={{
-                width: '50%',
-                height: 136,
-                resizeMode: 'cover',
-                borderRadius: 10,
-              }}
-            />
-          ) : (
-            <Image
-              source={{uri: data.mainimage}}
-              style={{
-                width: '50%',
-                height: 136,
-                resizeMode: 'cover',
-                borderRadius: 10,
-              }}
-            />
-          )}
+          <Image
+            source={{uri: data.mainimage}}
+            style={{
+              width: '50%',
+              height: 136,
+              resizeMode: 'cover',
+              borderRadius: 10,
+            }}
+          />
 
           <View style={styles.textwrap}>
             <Text style={styles.location} numberOfLines={2}>
@@ -104,7 +90,7 @@ const styles = StyleSheet.create({
   },
   wrapper: {
     flexDirection: 'row',
-    marginTop: 10,
+    marginVertical: 10,
   },
   textwrap: {
     // flexDirection: 'column',
