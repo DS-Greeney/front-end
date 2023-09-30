@@ -22,6 +22,28 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import IconC from 'react-native-vector-icons/MaterialCommunityIcons';
 import Header from '../components/Common/Header';
 import TitleChangeModal from './Settings/TitleChangeModal';
+import Config from 'react-native-config';
+// import {useNavigation} from '@react-navigation/native';
+
+const withdrawal = () => {
+  Alert.alert(
+    '탈퇴',
+    '정말로 탈퇴하시겠습니까?',
+    [
+      {text: '취소', onPress: () => {}},
+      {
+        text: '탈퇴',
+        onPress: () => {
+          //onDelete(id);
+        },
+      },
+    ],
+    {
+      cancelable: true,
+      onDismiss: () => {},
+    },
+  );
+};
 
 const logout = ({navigation}: any) => {
   Alert.alert(
@@ -34,7 +56,7 @@ const logout = ({navigation}: any) => {
         onPress: () => {
           // onDelete(id);
           axios
-            .get('http://10.0.2.2:8082/api/users/logout')
+            .get(`${Config.API_URL}/api/users/logout`)
             .then(function (response) {
               // console.log(response.data);
               if (response.data.success === true) {
@@ -286,7 +308,7 @@ export default function Mypage() {
 
   useEffect(() => {
     axios
-      .post('http://10.0.2.2:8082/api/users/info', {
+      .post(`${Config.API_URL}/api/users/info`, {
         userId: userId,
       })
       .then(function (response) {

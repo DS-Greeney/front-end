@@ -63,7 +63,7 @@ const LikelistRstrnt = ({data, navigation, userId}: propType) => {
   const clickLike = async () => {
     try {
       const response = await axios.post(
-        `http://10.0.2.2:8082/greeney/mypage/like?userId=${userId}&itemId=${data.spotLike.rstrntId}`,
+        `${Config.API_URL}/greeney/mypage/like?userId=${userId}&itemId=${data.spotLike.rstrntId}`,
       );
       console.log(response.data);
     } catch (error) {
@@ -74,7 +74,7 @@ const LikelistRstrnt = ({data, navigation, userId}: propType) => {
   const cancleLike = async () => {
     try {
       const response = await axios.delete(
-        `http://10.0.2.2:8082/greeney/mypage/dislike?categoryNumber=${data.categoryNumber}&spotId=${data.spotLike.rstrntId}&userId=${userId}`,
+        `${Config.API_URL}/greeney/mypage/dislike?categoryNumber=${data.categoryNumber}&spotId=${data.spotLike.rstrntId}&userId=${userId}`,
       );
       console.log(response.data);
     } catch (error) {

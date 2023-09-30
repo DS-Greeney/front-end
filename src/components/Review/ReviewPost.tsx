@@ -19,6 +19,7 @@ import ImagePicker, {
 import {useNavigation} from '@react-navigation/native';
 import axios from 'axios';
 import {AppContext} from '../../components/Common/Context';
+import Config from 'react-native-config';
 import Swiper from 'react-native-swiper';
 import RatingModal from '../Common/RatingModal';
 
@@ -216,11 +217,11 @@ const ReviewPost = ({itemId, reviewData, category}: propType) => {
 
       // 서버 엔드포인트 URL을 여기에 적어주세요
       if (category === 1) {
-        apiUrl = `http://10.0.2.2:8082/greeney/main/tourlist/detail/${itemId}`;
+        apiUrl = `${Config.API_URL}/greeney/main/tourlist/detail/${itemId}`;
       } else if (category === 2) {
-        apiUrl = `http://10.0.2.2:8082/greeney/main/restaurantlist/detail/${itemId}`;
+        apiUrl = `${Config.API_URL}/greeney/main/restaurantlist/detail/${itemId}`;
       } else if (category === 3) {
-        apiUrl = `http://10.0.2.2:8082/greeney/main/hotellist/detail/${itemId}`;
+        apiUrl = `${Config.API_URL}/greeney/main/hotellist/detail/${itemId}`;
       } else {
         console.log('오류가 발생했습니다');
       }

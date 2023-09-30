@@ -11,6 +11,7 @@ import {
 import {useNavigation} from '@react-navigation/native';
 import axios from 'axios';
 import {NavigationProp} from '@react-navigation/native';
+import Config from 'react-native-config';
 
 type Props = {
   route: any;
@@ -25,7 +26,7 @@ export default function NicknameChangePage(route: Props) {
     if (nickname !== '') {
       try {
         const response = await axios.get(
-          `http://10.0.2.2:8082/api/users/checkUsername?username=${nickname}`,
+          `${Config.API_URL}/api/users/checkUsername?username=${nickname}`,
           {
             params: {
               userNickname: nickname,
@@ -53,7 +54,7 @@ export default function NicknameChangePage(route: Props) {
 
   const ChangeNicknameAxios = () => {
     axios
-      .post('http://10.0.2.2:8082/api/users/update/userNickname', {
+      .post(`${Config.API_URL}/api/users/update/userNickname`, {
         userId: route.route.params.userId,
         userNickname: nickname,
       })
