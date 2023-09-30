@@ -15,6 +15,7 @@ import {useNavigation} from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import MessageComponent from '../../components/Common/MessageComponent';
 import axios from 'axios';
+import Config from 'react-native-config';
 
 export default function ChatbotPage() {
   let navigation = useNavigation();
@@ -27,7 +28,7 @@ export default function ChatbotPage() {
     if (inputText.trim() !== '') {
       try {
         const response = await axios.post(
-          'http://10.0.2.2:8082/greeney/main/chat',
+          `${Config.API_URL}/greeney/main/chat`,
           {
             question: inputText,
           },

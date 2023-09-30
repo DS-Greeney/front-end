@@ -7,6 +7,7 @@ import Veganspot from '../../components/Recommend/Veganspot';
 import {useNavigation} from '@react-navigation/native';
 import axios from 'axios';
 import {AppContext} from '../../components/Common/Context';
+import Config from 'react-native-config';
 
 const areaList = [
   '전체',
@@ -57,7 +58,7 @@ export default function RestaurantPage() {
   const getData = async (areaCode: any) => {
     try {
       const response = await axios.get(
-        'http://10.0.2.2:8082/greeney/main/restaurantlist',
+        `${Config.API_URL}/greeney/main/restaurantlist`,
         {
           params: {
             latitude: location.latitude,

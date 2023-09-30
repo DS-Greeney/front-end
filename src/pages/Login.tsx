@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import {AppContext} from '../components/Common/Context';
 import axios from 'axios';
+import Config from 'react-native-config';
 
 export default function Login({navigation}: any) {
   const [email, setEmail] = useState('');
@@ -45,7 +46,7 @@ export default function Login({navigation}: any) {
       Alert.alert('비밀번호 입력 확인', '비밀번호가 입력되지 않았습니다.');
     } else {
       axios
-        .post('http://10.0.2.2:8082/api/users/login', {
+        .post(`${Config.API_URL}/api/users/login`, {
           userNickname: email,
           userPassword: password,
         })

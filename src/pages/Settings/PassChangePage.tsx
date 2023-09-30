@@ -11,6 +11,7 @@ import {
 import {useNavigation} from '@react-navigation/native';
 import axios from 'axios';
 import {NavigationProp} from '@react-navigation/native';
+import Config from 'react-native-config';
 
 type Props = {
   route: any;
@@ -32,7 +33,7 @@ export default function PassChangePage(route: Props) {
       Alert.alert('비밀번호를 확인해 주세요.', '비밀번호가 서로 다릅니다.');
     } else {
       axios
-        .post('http://10.0.2.2:8082/api/users/update/userPassword', {
+        .post(`${Config.API_URL}/api/users/update/userPassword`, {
           userId: route.route.params.userId,
           userPassword: pass,
         })

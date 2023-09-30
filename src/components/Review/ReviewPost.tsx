@@ -17,6 +17,7 @@ import ImagePicker, {
 } from 'react-native-image-picker';
 import axios from 'axios';
 import {AppContext} from '../../components/Common/Context';
+import Config from 'react-native-config';
 
 interface dataType {
   userNickname: string;
@@ -120,7 +121,7 @@ const ReviewPost = ({itemId, reviewData}: propType) => {
       });
 
       // 서버 엔드포인트 URL을 여기에 적어주세요
-      const apiUrl = `http://10.0.2.2:8082/greeney/main/tourlist/detail/${itemId}`;
+      const apiUrl = `${Config.API_URL}/greeney/main/tourlist/detail/${itemId}`;
 
       // Axios를 사용하여 POST 요청을 보냅니다.
       const response = await axios.post(apiUrl, formData, {

@@ -10,6 +10,7 @@ import {
 import Modal from 'react-native-modal';
 import axios from 'axios';
 import {AppContext} from '../../components/Common/Context';
+import Config from 'react-native-config';
 
 const TitleChangeModal = ({isVisible, toggleModal}) => {
   const {userId} = useContext(AppContext);
@@ -29,10 +30,7 @@ const TitleChangeModal = ({isVisible, toggleModal}) => {
   const getData = async () => {
     try {
       const response = await axios.get(
-        `http://10.0.2.2:8082/greeney/mypage/challengeInfo?userId=${userId}`,
-        {
-          userId: userId,
-        },
+        `${Config.API_URL}/greeney/mypage/challengeInfo?userId=${userId}`,
       );
       // console.log(response.data);
       handleInputChange('userNowTitle', response.data.userNowTitle);
@@ -58,7 +56,7 @@ const TitleChangeModal = ({isVisible, toggleModal}) => {
   const changeTitle = async (title: string) => {
     try {
       const response = await axios.post(
-        `http://10.0.2.2:8082/greeney/mypage/updateTitle?userId=${userId}&title=${title}`,
+        `${Config.API_URL}/greeney/mypage/updateTitle?userId=${userId}&title=${title}`,
       );
       // console.log(response.data);
       Alert.alert('알림', '칭호가 변경되었습니다.');

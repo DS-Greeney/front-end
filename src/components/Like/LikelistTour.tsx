@@ -3,6 +3,7 @@ import {StyleSheet, View, Text, TouchableOpacity, Image} from 'react-native';
 import {NavigationProp} from '@react-navigation/native';
 import IconC from 'react-native-vector-icons/MaterialCommunityIcons';
 import axios from 'axios';
+import Config from 'react-native-config';
 
 interface SpotLikeTour {
   addr: string;
@@ -61,7 +62,7 @@ const LikelistTour = ({data, navigation, userId}: propType) => {
   const clickLike = async () => {
     try {
       const response = await axios.post(
-        `http://10.0.2.2:8082/greeney/mypage/like?userId=${userId}&itemId=${data.spotLike.tourspotId}`,
+        `${Config.API_URL}/greeney/mypage/like?userId=${userId}&itemId=${data.spotLike.tourspotId}`,
       );
       console.log(response.data);
     } catch (error) {
@@ -72,7 +73,7 @@ const LikelistTour = ({data, navigation, userId}: propType) => {
   const cancleLike = async () => {
     try {
       const response = await axios.delete(
-        `http://10.0.2.2:8082/greeney/mypage/dislike?categoryNumber=${data.categoryNumber}&spotId=${data.spotLike.tourspotId}&userId=${userId}`,
+        `${Config.API_URL}/greeney/mypage/dislike?categoryNumber=${data.categoryNumber}&spotId=${data.spotLike.tourspotId}&userId=${userId}`,
       );
       console.log(response.data);
     } catch (error) {

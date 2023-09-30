@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import {StyleSheet, TouchableOpacity} from 'react-native';
 import IconC from 'react-native-vector-icons/MaterialCommunityIcons';
 import axios from 'axios';
+import Config from 'react-native-config';
 
 interface dataType {
   category: number;
@@ -27,7 +28,7 @@ const LikeHeart = ({
     console.log(likeState, itemId, userId);
     try {
       const response = await axios.post(
-        `http://10.0.2.2:8082/greeney/mypage/like?userId=${userId}&itemId=${itemId}`,
+        `${Config.API_URL}/greeney/mypage/like?userId=${userId}&itemId=${itemId}`,
       );
       console.log(response.data);
       setLikeState((prev: number) => prev + 1);
@@ -41,7 +42,7 @@ const LikeHeart = ({
     // setHeart(previousState => !previousState);
     try {
       const response = await axios.delete(
-        `http://10.0.2.2:8082/greeney/mypage/dislike?categoryNumber=${category}&spotId=${itemId}&userId=${userId}`,
+        `${Config.API_URL}/greeney/mypage/dislike?categoryNumber=${category}&spotId=${itemId}&userId=${userId}`,
       );
       console.log(response.data);
       setLikeState(0);

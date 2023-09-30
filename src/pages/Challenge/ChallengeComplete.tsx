@@ -11,6 +11,7 @@ import Header from '../../components/Common/Header';
 import {useNavigation} from '@react-navigation/native';
 import axios from 'axios';
 import {AppContext} from '../../components/Common/Context';
+import Config from 'react-native-config';
 
 export default function ChallengeComplete() {
   let navigation = useNavigation();
@@ -43,11 +44,7 @@ export default function ChallengeComplete() {
 
   useEffect(() => {
     axios
-      .get(`http://10.0.2.2:8082/greeney/mypage/challengeInfo?userId=${userId}`,
-        {
-          userId: userId,
-        },
-      )
+      .get(`${Config.API_URL}/greeney/mypage/challengeInfo?userId=${userId}`)
       .then(function (response) {
         handleInputChange('goal', response.data.goal);
         handleInputChange('userTitleList', response.data.userTitleList);
@@ -59,7 +56,7 @@ export default function ChallengeComplete() {
         console.log(error);
       });
     axios
-      .post(`http://10.0.2.2:8082/api/users/info`, {
+      .post(`${Config.API_URL}/api/users/info`, {
         userId: userId,
       })
       .then(function (response) {

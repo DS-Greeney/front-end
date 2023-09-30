@@ -18,6 +18,7 @@ import axios from 'axios';
 import MapView, {PROVIDER_GOOGLE} from 'react-native-maps';
 import {AppContext} from '../../components/Common/Context';
 import ReviewPost from '../../components/Review/ReviewPost';
+import Config from 'react-native-config';
 
 // import ReviewItem from '../../components/Recommend/ReviewItem';
 
@@ -72,7 +73,7 @@ export default function TourspotDetail(route: any) {
   const getData = async () => {
     try {
       const response = await axios.get(
-        `http://10.0.2.2:8082/greeney/main/tourlist/detail/${tourspotId}?userId=${userId}`,
+        `${Config.API_URL}/greeney/main/tourlist/detail/${tourspotId}?userId=${userId}`,
       );
       // console.log(response.data || []);
       setTourSpot(response.data.tourspot || []);
