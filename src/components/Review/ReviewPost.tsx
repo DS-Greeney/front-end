@@ -19,12 +19,9 @@ import ImagePicker, {
 import {useNavigation} from '@react-navigation/native';
 import axios from 'axios';
 import {AppContext} from '../../components/Common/Context';
-<<<<<<< HEAD
 import Config from 'react-native-config';
-=======
 import Swiper from 'react-native-swiper';
 import RatingModal from '../Common/RatingModal';
->>>>>>> f75690d14e60f8200213112b06a090f1d158d0d8
 
 interface dataType {
   userNickname: string;
@@ -42,7 +39,6 @@ interface propType {
 }
 
 const ReviewPost = ({itemId, reviewData, category}: propType) => {
-  console.log(category);
   //console.log(reviewData);
   let navigation = useNavigation();
   const {userId} = useContext(AppContext);
@@ -51,6 +47,7 @@ const ReviewPost = ({itemId, reviewData, category}: propType) => {
   const [star, setStar] = useState(0);
   const [selectedImages, setSelectedImages] = useState<string[]>([]);
   const [reviews, setReviews] = useState<dataType[]>(reviewData || []);
+  // const [reviews, setReviews] = useState<dataType[]>(reviewData || []);
 
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [selectedRating, setSelectedRating] = useState(0);
@@ -74,7 +71,7 @@ const ReviewPost = ({itemId, reviewData, category}: propType) => {
     }
   }, [reviewData]);
 
-  //console.log(reviews);
+  console.log(reviews);
 
   const commentDTO = {
     spotId: itemId,
@@ -85,6 +82,19 @@ const ReviewPost = ({itemId, reviewData, category}: propType) => {
   };
 
   const getData = async () => {
+    // try {
+    //   const response = await axios.get(
+    //     `http://10.0.2.2:8082/greeney/main/restaurantlist/detail/${itemId}?userId=${userId}`,
+    //   );
+    //   if (response.data.success === true) {
+    //     console.log(response.data.reviewList);
+    //     setReviews(response.data.reviewList);
+    //   } else {
+    //     console.error('No review data found in the response.');
+    //   }
+    // } catch (error) {
+    //   console.error('Error fetching data1:', error);
+    // }
     if (category === 1) {
       try {
         const response = await axios.get(
@@ -191,32 +201,30 @@ const ReviewPost = ({itemId, reviewData, category}: propType) => {
       formData.append('cmntStar', selectedRating);
       formData.append('categoryNumber', category);
 
-      selectedImages.forEach((imagePath, index) => {
-        const fileName = `image_${index}.jpg`;
-        formData.append('images', {
-          uri: imagePath,
-          type: 'image/jpeg',
-          name: fileName,
+      if (selectedImages.length > 0) {
+        selectedImages.forEach((imagePath, index) => {
+          const fileName = `image_${index}.jpg`;
+          formData.append('images', {
+            uri: imagePath,
+            type: 'image/jpeg',
+            name: fileName,
+          });
         });
-      });
+      }
 
       console.log(category);
       let apiUrl = '';
 
       // 서버 엔드포인트 URL을 여기에 적어주세요
-<<<<<<< HEAD
-      const apiUrl = `${Config.API_URL}/greeney/main/tourlist/detail/${itemId}`;
-=======
       if (category === 1) {
-        apiUrl = `http://10.0.2.2:8082/greeney/main/tourlist/detail/${itemId}`;
+        apiUrl = `${Config.API_URL}/greeney/main/tourlist/detail/${itemId}`;
       } else if (category === 2) {
-        apiUrl = `http://10.0.2.2:8082/greeney/main/restaurantlist/detail/${itemId}`;
+        apiUrl = `${Config.API_URL}/greeney/main/restaurantlist/detail/${itemId}`;
       } else if (category === 3) {
-        apiUrl = `http://10.0.2.2:8082/greeney/main/hotellist/detail/${itemId}`;
+        apiUrl = `${Config.API_URL}/greeney/main/hotellist/detail/${itemId}`;
       } else {
         console.log('오류가 발생했습니다');
       }
->>>>>>> f75690d14e60f8200213112b06a090f1d158d0d8
 
       // Axios를 사용하여 POST 요청을 보냅니다.
       const response = await axios.post(apiUrl, formData, {
@@ -378,14 +386,18 @@ const ReviewPost = ({itemId, reviewData, category}: propType) => {
                 borderRadius: 50,
                 overflow: 'hidden',
               }}>
-              {review.userPicture === null ? (
+              {/* {review.userPicture === '' ? (
                 <View style={styles.emptyImg}></View>
               ) : (
                 <Image
                   style={styles.userImg}
                   source={{uri: review.userPicture}}
                 />
-              )}
+              )} */}
+              <Image
+                style={styles.userImg}
+                source={{uri: review.userPicture}}
+              />
             </TouchableOpacity>
             <View>
               <Text style={{fontSize: 15, color: '#000'}}>
@@ -403,17 +415,24 @@ const ReviewPost = ({itemId, reviewData, category}: propType) => {
             </View>
           </View>
 
-          <Swiper
-            showsPagination={false}
-            height={200}
-            autoplayTimeout={4}
-            style={styles.imgswap}>
-            {review.tourCmntImg?.map((imageUrl, idx) => (
-              //  <View key={index}>
-              <Image key={idx} source={{uri: imageUrl}} style={styles.image} />
-              //  </View>
-            ))}
-          </Swiper>
+          {review.tourCmntImg.length > 0 && (
+            <Swiper
+              showsPagination={false}
+              height={200}
+              autoplayTimeout={4}
+              style={styles.imgswap}>
+              {review.tourCmntImg.map((imageUrl, idx) => (
+                //  <View key={index}>
+                <Image
+                  key={idx}
+                  source={{uri: imageUrl}}
+                  style={styles.image}
+                />
+                //  </View>
+              ))}
+            </Swiper>
+          )}
+
           {/* // <Image
             //   style={styles.image}
             //   source={{
@@ -439,15 +458,27 @@ const ReviewPost = ({itemId, reviewData, category}: propType) => {
             }}
             style={styles.image3}
           /> */}
-          <Text
-            style={{
-              color: '#000',
-              fontSize: 14,
-              marginHorizontal: 40,
-              marginVertical: 15,
-            }}>
-            {review.tourspotCmntContent}
-          </Text>
+          {review.tourCmntImg.length > 0 ? (
+            <Text
+              style={{
+                color: '#000',
+                fontSize: 14,
+                marginHorizontal: 30,
+                marginVertical: 15,
+              }}>
+              {review.tourspotCmntContent}
+            </Text>
+          ) : (
+            <Text
+              style={{
+                color: '#000',
+                fontSize: 14,
+                marginHorizontal: 30,
+                marginBottom: 15,
+              }}>
+              {review.tourspotCmntContent}
+            </Text>
+          )}
         </View>
       ))}
     </View>

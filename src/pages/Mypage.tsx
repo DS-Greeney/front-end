@@ -22,7 +22,6 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import IconC from 'react-native-vector-icons/MaterialCommunityIcons';
 import Header from '../components/Common/Header';
 import TitleChangeModal from './Settings/TitleChangeModal';
-<<<<<<< HEAD
 import Config from 'react-native-config';
 // import {useNavigation} from '@react-navigation/native';
 
@@ -45,8 +44,6 @@ const withdrawal = () => {
     },
   );
 };
-=======
->>>>>>> f75690d14e60f8200213112b06a090f1d158d0d8
 
 const logout = ({navigation}: any) => {
   Alert.alert(

@@ -19,9 +19,10 @@ interface dataType {
 interface propType {
   data: dataType;
   navigation: NavigationProp<any>;
+  index: number;
 }
 
-const GreenHotel = ({data, navigation}: propType) => {
+const GreenHotelRank = ({data, navigation, index}: propType) => {
   const Key = Config.google_map_api_key;
   return (
     <TouchableOpacity
@@ -30,7 +31,10 @@ const GreenHotel = ({data, navigation}: propType) => {
       onPress={() => navigation.navigate('GreenHotelDetail', data)}>
       <View style={styles.line} />
       <View style={styles.content}>
-        <Text style={styles.name}>{data.hotelName}</Text>
+        <View style={styles.titlewrapper}>
+          <Text style={styles.rank}>{index + 1}</Text>
+          <Text style={styles.name}>{data.hotelName}</Text>
+        </View>
         <View style={styles.wrapper}>
           <Image
             source={{
@@ -76,8 +80,17 @@ const styles = StyleSheet.create({
   container: {
     marginHorizontal: 30,
   },
+  titlewrapper: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  rank: {
+    color: '#000',
+    fontSize: 30,
+    marginRight: 10,
+  },
   content: {
-    marginVertical: 16,
+    marginVertical: 12,
     flex: 1,
   },
   wrapper: {
@@ -97,7 +110,7 @@ const styles = StyleSheet.create({
   location: {
     flexWrap: 'wrap',
     color: '#7A7A7A',
-    fontSize: 14,
+    fontSize: 15,
   },
   innertext: {
     flexWrap: 'wrap',
@@ -121,4 +134,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default memo(GreenHotel);
+export default memo(GreenHotelRank);

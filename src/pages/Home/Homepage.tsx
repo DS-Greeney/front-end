@@ -187,11 +187,17 @@ export default function Homepage({navigation}: any) {
           })}
         </View>
 
-        <View style={styles.wrapper}>
-          <Image
-            resizeMode="contain"
-            source={require('../../assets/images/home/bottom_image.png')}
-          />
+        <View style={styles.bottomItem}>
+          <Text style={styles.bottomtitle}>요즘 떠오르는 친환경 관광</Text>
+          <TouchableOpacity
+            style={styles.wrapper}
+            onPress={() => navigation.navigate('RankingPage')}>
+            <Image
+              style={{width: 330, height: 200}}
+              resizeMode="contain"
+              source={require('../../assets/images/home/bottom_image.png')}
+            />
+          </TouchableOpacity>
         </View>
         {/* // 메뉴 6가지 부분 */}
         {/* <View style={styles.mainMenu}> */}
@@ -262,11 +268,19 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     marginTop: 5,
   },
+  bottomItem: {
+    marginHorizontal: 30,
+    marginVertical: 20,
+  },
+  bottomtitle: {
+    color: '#000',
+    fontSize: 16,
+    marginBottom: 10,
+  },
   wrapper: {
     height: 200,
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 30,
   },
   menuContainer: {
     flexDirection: 'row',
