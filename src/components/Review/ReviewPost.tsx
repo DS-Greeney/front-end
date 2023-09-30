@@ -98,7 +98,7 @@ const ReviewPost = ({itemId, reviewData, category}: propType) => {
     if (category === 1) {
       try {
         const response = await axios.get(
-          `http://10.0.2.2:8082/greeney/main/tourlist/detail/${itemId}?userId=${userId}`,
+          `${Config.API_URL}/greeney/main/tourlist/detail/${itemId}?userId=${userId}`,
         );
         if (response.data && response.data.reviewList) {
           setReviews(response.data.reviewList || []);
@@ -111,7 +111,7 @@ const ReviewPost = ({itemId, reviewData, category}: propType) => {
     } else if (category === 2) {
       try {
         const response = await axios.get(
-          `http://10.0.2.2:8082/greeney/main/restaurantlist/detail/${itemId}?userId=${userId}`,
+          `${Config.API_URL}/greeney/main/restaurantlist/detail/${itemId}?userId=${userId}`,
         );
         if (response.data && response.data.reviewList) {
           setReviews(response.data.reviewList || []);
@@ -124,7 +124,7 @@ const ReviewPost = ({itemId, reviewData, category}: propType) => {
     } else if (category === 3) {
       try {
         const response = await axios.get(
-          `http://10.0.2.2:8082/greeney/main/hotellist/detail/${itemId}?userId=${userId}`,
+          `${Config.API_URL}/greeney/main/hotellist/detail/${itemId}?userId=${userId}`,
         );
         if (response.data && response.data.reviewList) {
           setReviews(response.data.reviewList || []);

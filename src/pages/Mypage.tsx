@@ -90,10 +90,6 @@ export default function Mypage() {
     setModalVisible(!isModalVisible);
   };
 
-  const closeModal = () => {
-    setModalVisible(false);
-  };
-
   const withdrawal = () => {
     Alert.alert(
       '탈퇴',
@@ -117,12 +113,9 @@ export default function Mypage() {
 
   const goWithdraw = async () => {
     try {
-      const response = await axios.post(
-        'http://10.0.2.2:8082/api/users/delete',
-        {
-          userId: userId,
-        },
-      );
+      const response = await axios.post(`${Config.API_URL}/api/users/delete`, {
+        userId: userId,
+      });
       if (response.data.success === true) {
         Alert.alert('탈퇴 되었습니다.');
         navigation.navigate('Login');
@@ -283,7 +276,7 @@ export default function Mypage() {
       });
 
       // 서버 엔드포인트 URL을 여기에 적어주세요
-      const apiUrl = `http://10.0.2.2:8082/greeney/mypage/settings/profileImage/${userId}`;
+      const apiUrl = `${Config.API_URL}/greeney/mypage/settings/profileImage/${userId}`;
 
       // Axios를 사용하여 POST 요청을 보냅니다.
       const response = await axios.post(apiUrl, formData, {
