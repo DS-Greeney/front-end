@@ -79,9 +79,9 @@ export default function Login({navigation}: any) {
       </View>
 
       <View style={styles.container}>
-        <TouchableOpacity style={styles.langWrapper}>
+        {/* <TouchableOpacity style={styles.langWrapper}>
           <Text style={styles.langText}>Language</Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
 
         <TextInput
           placeholder="아이디를 입력하세요"
@@ -102,7 +102,7 @@ export default function Login({navigation}: any) {
           <Text style={styles.loginText}>로그인</Text>
         </TouchableOpacity>
 
-        <View style={styles.findWrap}>
+        {/* <View style={styles.findWrap}>
           <TouchableOpacity style={styles.search}>
             <Text style={styles.findtext}>아이디 찾기</Text>
           </TouchableOpacity>
@@ -112,7 +112,7 @@ export default function Login({navigation}: any) {
           <TouchableOpacity style={styles.search}>
             <Text style={styles.findtext}>비밀번호 찾기</Text>
           </TouchableOpacity>
-        </View>
+        </View> */}
 
         <TouchableOpacity
           style={styles.signupBtn}

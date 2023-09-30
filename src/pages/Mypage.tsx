@@ -7,17 +7,22 @@ import {
   ScrollView,
   Alert,
   Image,
+  PermissionsAndroid,
+  Platform,
 } from 'react-native';
+import ImagePicker, {
+  launchImageLibrary,
+  launchCamera,
+  ImagePickerResponse,
+} from 'react-native-image-picker';
 import {useNavigation} from '@react-navigation/native';
 import {AppContext} from '../components/Common/Context';
 import axios from 'axios';
-import {NavigationProp} from '@react-navigation/native';
-
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import IconC from 'react-native-vector-icons/MaterialCommunityIcons';
-
 import Header from '../components/Common/Header';
 import TitleChangeModal from './Settings/TitleChangeModal';
+<<<<<<< HEAD
 import Config from 'react-native-config';
 // import {useNavigation} from '@react-navigation/native';
 
@@ -40,6 +45,8 @@ const withdrawal = () => {
     },
   );
 };
+=======
+>>>>>>> f75690d14e60f8200213112b06a090f1d158d0d8
 
 const logout = ({navigation}: any) => {
   Alert.alert(
@@ -59,7 +66,7 @@ const logout = ({navigation}: any) => {
                 console.log('로그아웃 성공');
                 navigation.navigate('Login');
               } else {
-                Alert.alert('로그아웃 실패', '관리자에게 문의하세요.');
+                Alert.alert('오류', '다시 시도해주세요');
               }
             })
             .catch(function (error) {
@@ -79,11 +86,55 @@ export default function Mypage() {
   const {userId} = useContext(AppContext);
 
   let navigation = useNavigation();
-  //const [userId, setUserId] = useState('');
   const [isModalVisible, setModalVisible] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const toggleModal = () => {
     setModalVisible(!isModalVisible);
+  };
+
+  const closeModal = () => {
+    setModalVisible(false);
+  };
+
+  const withdrawal = () => {
+    Alert.alert(
+      '탈퇴',
+      '정말로 탈퇴하시겠습니까?',
+      [
+        {text: '취소', onPress: () => {}},
+        {
+          text: '탈퇴',
+          onPress: () => {
+            //onDelete(id);
+            goWithdraw();
+          },
+        },
+      ],
+      {
+        cancelable: true,
+        onDismiss: () => {},
+      },
+    );
+  };
+
+  const goWithdraw = async () => {
+    try {
+      const response = await axios.post(
+        'http://10.0.2.2:8082/api/users/delete',
+        {
+          userId: userId,
+        },
+      );
+      if (response.data.success === true) {
+        Alert.alert('탈퇴 되었습니다.');
+        navigation.navigate('Login');
+      } else {
+        Alert.alert('오류', '다시 시도해주세요');
+      }
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
   };
 
   interface UserModel {
@@ -102,11 +153,80 @@ export default function Mypage() {
     userTitle: '',
   });
 
+  const [selectedImage, setSelectedImage] = useState<string>();
+
   const handleInputChange = (key: string, value: string) => {
     setUser(prevState => ({
       ...prevState,
       [key]: value,
     }));
+  };
+
+  const requestCameraPermission = async () => {
+    if (Platform.OS === 'android') {
+      try {
+        const granted = await PermissionsAndroid.request(
+          PermissionsAndroid.PERMISSIONS.CAMERA,
+          {
+            title: '카메라 권한 요청',
+            message: '앱이 카메라를 사용하려고 합니다.',
+            buttonNeutral: '나중에 물어보기',
+            buttonNegative: '거부',
+            buttonPositive: '허용',
+          },
+        );
+        if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+          console.log('카메라 권한 허용됨');
+          openImagePicker();
+        } else {
+          console.log('카메라 권한 거부됨');
+        }
+      } catch (err) {
+        console.warn(err);
+      }
+    } else {
+      openImagePicker();
+    }
+  };
+
+  const openImagePicker = () => {
+    console.log('userPicture :', user.userPicture);
+    const options = {
+      mediaType: 'photo' as const,
+      includeBase64: false,
+    };
+
+    launchImageLibrary(options, response => {
+      if (response.didCancel) {
+        console.log('이미지 선택 취소');
+      } else if (response.errorCode) {
+        console.error('이미지 선택 오류:', response.errorMessage);
+      } else if (response.assets && response.assets.length > 0) {
+        // 이미지 선택이 성공하면 selectedImages 배열에 이미지 경로를 추가합니다.
+        const imagePath = response.assets[0].uri;
+        console.log('imagePath', imagePath);
+        console.log('response', response);
+        if (imagePath !== undefined) {
+          setSelectedImage(imagePath);
+          //changeProfile();
+          changeProfile(imagePath);
+        } else {
+          // imagePath가 undefined일 때 수행할 동작 또는 오류 처리
+          console.error('오류가 발생하였습니다');
+        }
+        // setSelectedImage(prevImages => {
+        //   if (selectedImage) {
+        //     // 이미지 경로가 존재할 때만 추가'
+        //     console.log(imagePath);
+        //     return imagePath;
+        //   } else {
+        //     return prevImages; // 이미지 경로가 없으면 이전 상태 그대로 반환
+        //   }
+        // });
+      } else {
+        console.error('이미지 선택 오류');
+      }
+    });
   };
 
   const ChangePassword = () => {
@@ -153,6 +273,42 @@ export default function Mypage() {
     );
   };
 
+  const changeProfile = async (imagePath: string) => {
+    //console.log('changeProfile: ', selectedImage);
+    try {
+      const formData = new FormData();
+      const fileName = 'profile_image1.jpg';
+
+      formData.append('image', {
+        uri: imagePath,
+        type: 'image/jpeg',
+        name: fileName,
+      });
+
+      // 서버 엔드포인트 URL을 여기에 적어주세요
+      const apiUrl = `http://10.0.2.2:8082/greeney/mypage/settings/profileImage/${userId}`;
+
+      // Axios를 사용하여 POST 요청을 보냅니다.
+      const response = await axios.post(apiUrl, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+
+      // 서버 응답 처리
+      if (response.status === 200) {
+        // 성공적으로 작성된 경우
+        console.log('이미지가 성공적으로 변경되었습니다.', response.data);
+        setLoading(!loading);
+        // 추가적인 작업을 수행하거나 화면을 업데이트할 수 있습니다.
+      } else {
+        console.error('이미지 변경에 실패했습니다.');
+      }
+    } catch (error) {
+      console.error('오류 발생:', error);
+    }
+  };
+
   useEffect(() => {
     axios
       .post(`${Config.API_URL}/api/users/info`, {
@@ -166,25 +322,34 @@ export default function Mypage() {
         handleInputChange('userPicture', response.data.userPicture);
         handleInputChange('userTitle', response.data.userTitle);
         handleInputChange('userEmail', response.data.userEmail);
-        console.log(user);
+        console.log(response.data.userPicture);
       })
       .catch(function (error) {
         console.log(error);
       });
-  }, [userId]);
+  }, [userId, loading]);
+
+  // useEffect(() => {
+  //   // selectedImage가 변경될 때마다 changeProfile 함수를 호출
+  //   changeProfile();
+  // }, [selectedImage]);
 
   return (
     <View style={styles.view}>
       <Header navigation={navigation} type={'BACK'} title={'마이페이지'} />
       <View style={{flexDirection: 'row', marginBottom: 20}}>
+        {/* <View style={styles.userImg}> */}
         {user.userPicture === '' ? (
           <Image
-            source={require('../assets/images/home/dummy_user.png')}
-            style={styles.image}
+            source={{
+              uri: 'https://firebasestorage.googleapis.com/v0/b/greeney-a996b.appspot.com/o/profile.png?alt=media&token=943e4fe4-50b1-4c02-883d-8925d136fcbe',
+            }}
+            style={styles.profileImg}
           />
         ) : (
-          <Image source={{uri: user.userPicture}} style={styles.image} />
+          <Image source={{uri: user.userPicture}} style={styles.profileImg} />
         )}
+        {/* </View> */}
         <View>
           <View style={{flexDirection: 'row'}}>
             <Text style={{fontSize: 25}}>{user.userNickname}</Text>
@@ -254,7 +419,7 @@ export default function Mypage() {
               </TouchableOpacity>
               <TouchableOpacity
                 style={styles.btnView2}
-                onPress={() => ChangePassword()}>
+                onPress={() => requestCameraPermission()}>
                 <Text style={{fontSize: 20, color: '#000'}}>이미지 변경</Text>
               </TouchableOpacity>
               <TouchableOpacity
@@ -315,14 +480,27 @@ const styles = StyleSheet.create({
   scrollView: {
     marginHorizontal: 30,
   },
-  image: {
+  userImg: {
+    height: 100,
+    width: 100,
+    borderRadius: 50,
+    overflow: 'hidden',
+    backgroundColor: '#555',
+  },
+  profileImg: {
     alignItems: 'center',
     justifyContent: 'center',
     height: 100,
     width: 100,
     marginHorizontal: 20,
-    backgroundColor: '#ccc',
     borderRadius: 50,
+    // height: 100,
+    // width: 100,
+    // borderRadius: 50,
+    // overflow: 'hidden',
+    // backgroundColor: '#555',
+    // width: '100%',
+    // height: '100%',
   },
   btnSmall: {
     borderWidth: 1,

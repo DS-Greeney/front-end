@@ -25,6 +25,7 @@ import RestaurantDetail from '../pages/Recommend/RestaurantDetail';
 import GreenHotelPage from '../pages/Recommend/GreenHotelPage';
 import TourProductPage from '../pages/Recommend/TourProductPage';
 import DailyChallenge from '../pages/Challenge/DailyChallenge';
+import GreenHotelDetail from '../pages/Recommend/GreenHotelDetail';
 import ChatbotPage from '../pages/Recommend/Chatbot';
 
 const Stack = createNativeStackNavigator();
@@ -90,6 +91,7 @@ export default function HomeStack({navigation, route}: any) {
       <Stack.Screen name="RestaurantDetail" component={RestaurantDetail} />
       <Stack.Screen name="LikelistPage" component={LikelistPage} />
       <Stack.Screen name="DailyChallenge" component={DailyChallenge} />
+      <Stack.Screen name="GreenHotelDetail" component={GreenHotelDetail} />
       <Stack.Screen name="ChatbotPage" component={ChatbotPage} />
     </Stack.Navigator>
   );

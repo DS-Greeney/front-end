@@ -91,6 +91,9 @@ export default function RestaurantPage() {
       <View style={styles.container}>
         <View style={styles.line} />
         <FlatList
+          keyExtractor={(item, index) => index.toString()}
+          disableVirtualization={false}
+          initialNumToRender={6}
           style={styles.veganlist}
           numColumns={2}
           data={veganList}

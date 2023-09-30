@@ -22,6 +22,7 @@ const LikeHeart = ({
   userId,
 }: dataType) => {
   const [heart, setHeart] = useState(false);
+  //console.log(likeState);
 
   const clickLike = async () => {
     // setHeart(previousState => !previousState);
@@ -30,7 +31,7 @@ const LikeHeart = ({
       const response = await axios.post(
         `${Config.API_URL}/greeney/mypage/like?userId=${userId}&itemId=${itemId}`,
       );
-      console.log(response.data);
+      //console.log(response.data);
       setLikeState((prev: number) => prev + 1);
       setHeart(response.data.like);
     } catch (error) {
@@ -44,7 +45,7 @@ const LikeHeart = ({
       const response = await axios.delete(
         `${Config.API_URL}/greeney/mypage/dislike?categoryNumber=${category}&spotId=${itemId}&userId=${userId}`,
       );
-      console.log(response.data);
+      //console.log(response.data);
       setLikeState(0);
     } catch (error) {
       console.error('Error fetching data:', error);

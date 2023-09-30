@@ -7512,7 +7512,15 @@ lodash@^3.9.3:
   resolved "https://registry.npmjs.org/lodash/-/lodash-3.10.1.tgz"
   integrity sha512-9mDDwqVIma6OZX79ZlDACZl8sBm0TEnkf99zV3iMA4GzkIT/9hiqP5mY0HoT1iNLCrKc/R1HByV+yJfRWVJryQ==
 
+<<<<<<< HEAD
 lodash@^4.17.13, lodash@^4.17.14, lodash@^4.17.15, lodash@^4.17.21, lodash@^4.17.4:
+=======
+<<<<<<< HEAD
+lodash@^4.17.14, lodash@^4.17.15, lodash@^4.17.21:
+=======
+lodash@^4.17.13, lodash@^4.17.14, lodash@^4.17.21, lodash@^4.17.4:
+>>>>>>> d6e3d7f87520aa6abf55a7a9e4293edc08889b8e
+>>>>>>> f75690d14e60f8200213112b06a090f1d158d0d8
   version "4.17.21"
   resolved "https://registry.npmjs.org/lodash/-/lodash-4.17.21.tgz"
   integrity sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==
@@ -9395,7 +9403,10 @@ react-native-ratings@^8.1.0:
   integrity sha512-+QOJ4G3NjVkI1D+tk4EGx1dCvVfbD2nQdkrj9cXrcAoEiwmbep4z4bZbCKmWMpQ5h2dqbxABU8/eBnbDmvAc3g==
   dependencies:
     lodash "^4.17.15"
+<<<<<<< HEAD
 
+=======
+>>>>>>> f75690d14e60f8200213112b06a090f1d158d0d8
 react-native-reanimated@^3.3.0, "react-native-reanimated@>= 1.0.0":
   version "3.3.0"
   resolved "https://registry.npmjs.org/react-native-reanimated/-/react-native-reanimated-3.3.0.tgz"
