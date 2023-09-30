@@ -4,6 +4,7 @@ import {NavigationProp} from '@react-navigation/native';
 import LikeHeart from './LikeHeart';
 import LikelistTour from './LikelistTour';
 import LikelistRstrnt from './LikelistRstrnt';
+import LikelistHotel from './LikelistHotel';
 
 // interface dataType {
 //   image: string;
@@ -68,6 +69,14 @@ const Likelist = ({data, navigation, userId}: propType) => {
       } else if (item.categoryNumber === 2) {
         return (
           <LikelistRstrnt
+            data={data[index]}
+            navigation={navigation}
+            userId={userId}
+          />
+        );
+      } else if (item.categoryNumber === 3) {
+        return (
+          <LikelistHotel
             data={data[index]}
             navigation={navigation}
             userId={userId}
