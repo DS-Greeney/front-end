@@ -68,13 +68,13 @@ export default function Search() {
         );
         // console.log(response.data.spots || []);
         if (response.data.success === false) {
-          Alert.alert('일시적 오류', '메시지 전송에 실패하였습니다.');
+          Alert.alert('일시적 오류', '검색에 실패하였습니다.');
         } else {
           setSpotlist(response.data.spots || []);
           setShowSearchResults(true);
         }
       } catch (error) {
-        Alert.alert('일시적 오류', '메시지 전송에 실패하였습니다.');
+        Alert.alert('일시적 오류', '검색에 실패하였습니다.');
         console.error('Error fetching data:', error);
       }
     } else {
