@@ -1,23 +1,41 @@
 import React from 'react';
-import {View, TextInput, StyleSheet, Image} from 'react-native';
+import {
+  View,
+  TextInput,
+  StyleSheet,
+  Image,
+  TouchableOpacity,
+} from 'react-native';
 
 interface propType {
   placeholderText: string;
+  searchText: string;
+  onSearch: (text: string) => void;
+  onSearchButtonPress: () => void;
 }
 
-const SearchBar = ({placeholderText}: propType) => {
+const SearchBar = ({
+  placeholderText,
+  searchText,
+  onSearch,
+  onSearchButtonPress,
+}: propType) => {
   return (
     <View style={styles.container}>
       <View style={styles.searchBar}>
         <TextInput
           style={styles.searchInput}
           placeholder={placeholderText}
+          value={searchText}
+          onChangeText={onSearch}
           // autoFocus
         />
-        <Image
-          style={styles.searchImage}
-          source={require('../assets/images/home/search_glass.png')}
-        />
+        <TouchableOpacity onPress={onSearchButtonPress}>
+          <Image
+            style={styles.searchImage}
+            source={require('../assets/images/home/search_glass.png')}
+          />
+        </TouchableOpacity>
       </View>
     </View>
   );

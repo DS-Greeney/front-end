@@ -54,7 +54,7 @@ export default function Homepage({navigation}: any) {
         handleInputChange('userTitle', response.data.userTitle);
         handleInputChange('userNickname', response.data.userNickname);
         handleInputChange('userPicture', response.data.userPicture);
-        console.log(response.data.userPicture);
+        // console.log(response.data.userPicture);
       })
       .catch(function (error) {
         console.log(error);

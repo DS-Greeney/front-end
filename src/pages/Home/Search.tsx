@@ -1,8 +1,12 @@
-import React from 'react';
-import {View, StyleSheet, Image, TouchableOpacity, Text, FlatList} from 'react-native';
+import React, { useContext, useState } from 'react';
+import {View, StyleSheet, Image, TouchableOpacity, Text, FlatList, Alert} from 'react-native';
 import SearchBar from '../../components/SearchBar';
 import SearchTopKeyword from '../../components/SearchTopKeyword';
 import {useNavigation} from '@react-navigation/native';
+import axios from 'axios';
+import Config from 'react-native-config';
+import { AppContext } from '../../components/Common/Context';
+import Searchspot from '../../components/Recommend/Searchspot';
 
 const dummySpotData = [
   {
@@ -49,6 +53,35 @@ const dummySpotData = [
 
 export default function Search() {
   let navigation = useNavigation();
+  const {location} = useContext(AppContext);
+  const {userId} = useContext(AppContext);
+
+  const [searchText, setSearchText] = useState('');
+  const [showSearchResults, setShowSearchResults] = useState(false);
+  const [spotList, setSpotlist] = useState([]);
+
+  const handleSearch = async () => {
+    if (searchText !== '') {
+      try {
+        const response = await axios.get(
+          `${Config.API_URL}/greeney/main/search?search=${searchText}&categoryNumber=0&latitude=${location.latitude}&longitude=${location.latitude}&userId=${userId}`,
+        );
+        // console.log(response.data.spots || []);
+        if (response.data.success === false) {
+          Alert.alert('일시적 오류', '메시지 전송에 실패하였습니다.');
+        } else {
+          setSpotlist(response.data.spots || []);
+          setShowSearchResults(true);
+        }
+      } catch (error) {
+        Alert.alert('일시적 오류', '메시지 전송에 실패하였습니다.');
+        console.error('Error fetching data:', error);
+      }
+    } else {
+      Alert.alert('공백 감지', '검색어를 입력해주세요!');
+    }
+  };
+
   return (
     <View style={styles.home}>
       <View style={styles.header}>
@@ -58,19 +91,38 @@ export default function Search() {
             source={require('../../assets/images/home/logo.png')}
           />
         </View>
-        <SearchBar placeholderText={'어디로 여행을 떠날 예정이신가요?'} />
-      </View>
-      <View style={styles.box}>
-        <TouchableOpacity disabled={true}>
-          <Text style={styles.titleText}>추천 검색어</Text>
-        </TouchableOpacity>
-        <FlatList
-          data={dummySpotData}
-          renderItem={({item}) => (
-            <SearchTopKeyword data={item} navigation={navigation}/>
-          )}
+        <SearchBar
+          placeholderText={'어디로 여행을 떠날 예정이신가요?'}
+          searchText={searchText}
+          onSearch={setSearchText}
+          onSearchButtonPress={handleSearch}
         />
       </View>
+      {showSearchResults ? (
+        <View style={styles.spotlist}>
+          <FlatList
+            keyExtractor={(item, index) => index.toString()}
+            disableVirtualization={false}
+            initialNumToRender={4}
+            data={spotList}
+            renderItem={({item}) => (
+              <Searchspot data={item} navigation={navigation} />
+            )}
+          />
+        </View>
+      ) : (
+        <View style={styles.box}>
+          <TouchableOpacity disabled={true}>
+            <Text style={styles.titleText}>추천 검색어</Text>
+          </TouchableOpacity>
+          <FlatList
+            data={dummySpotData}
+            renderItem={({item}) => (
+              <SearchTopKeyword data={item} navigation={navigation} />
+            )}
+          />
+        </View>
+      )}
     </View>
   );
 }
@@ -108,5 +160,8 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     padding: 10,
     marginHorizontal: 30,
+  },
+  spotlist: {
+    height: '77%',
   },
 });
