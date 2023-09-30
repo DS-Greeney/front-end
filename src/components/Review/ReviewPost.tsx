@@ -19,8 +19,12 @@ import ImagePicker, {
 import {useNavigation} from '@react-navigation/native';
 import axios from 'axios';
 import {AppContext} from '../../components/Common/Context';
+<<<<<<< HEAD
+import Config from 'react-native-config';
+=======
 import Swiper from 'react-native-swiper';
 import RatingModal from '../Common/RatingModal';
+>>>>>>> f75690d14e60f8200213112b06a090f1d158d0d8
 
 interface dataType {
   userNickname: string;
@@ -200,6 +204,9 @@ const ReviewPost = ({itemId, reviewData, category}: propType) => {
       let apiUrl = '';
 
       // 서버 엔드포인트 URL을 여기에 적어주세요
+<<<<<<< HEAD
+      const apiUrl = `${Config.API_URL}/greeney/main/tourlist/detail/${itemId}`;
+=======
       if (category === 1) {
         apiUrl = `http://10.0.2.2:8082/greeney/main/tourlist/detail/${itemId}`;
       } else if (category === 2) {
@@ -209,6 +216,7 @@ const ReviewPost = ({itemId, reviewData, category}: propType) => {
       } else {
         console.log('오류가 발생했습니다');
       }
+>>>>>>> f75690d14e60f8200213112b06a090f1d158d0d8
 
       // Axios를 사용하여 POST 요청을 보냅니다.
       const response = await axios.post(apiUrl, formData, {

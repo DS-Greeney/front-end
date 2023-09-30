@@ -5524,6 +5524,19 @@ filter-obj@^1.1.0:
   resolved "https://registry.npmjs.org/filter-obj/-/filter-obj-1.1.0.tgz"
   integrity sha512-8rXg1ZnX7xzy2NGDVkBVaAy+lSlPNwad13BtgSlLuxfIslyt5Vg64U7tFcCt4WS1R0hvtnQybT/IyCkGZ3DpXQ==
 
+finalhandler@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.npmjs.org/finalhandler/-/finalhandler-1.2.0.tgz"
+  integrity sha512-5uXcUVftlQMFnWC9qu/svkWv3GTd2PfUhK/3PLkYNAe7FbqJMt3515HaxE6eRL74GdsriiwujiawdaB1BpEISg==
+  dependencies:
+    debug "2.6.9"
+    encodeurl "~1.0.2"
+    escape-html "~1.0.3"
+    on-finished "2.4.1"
+    parseurl "~1.3.3"
+    statuses "2.0.1"
+    unpipe "~1.0.0"
+
 finalhandler@0.4.0:
   version "0.4.0"
   resolved "https://registry.npmjs.org/finalhandler/-/finalhandler-0.4.0.tgz"
@@ -7500,10 +7513,14 @@ lodash@^3.9.3:
   integrity sha512-9mDDwqVIma6OZX79ZlDACZl8sBm0TEnkf99zV3iMA4GzkIT/9hiqP5mY0HoT1iNLCrKc/R1HByV+yJfRWVJryQ==
 
 <<<<<<< HEAD
+lodash@^4.17.13, lodash@^4.17.14, lodash@^4.17.15, lodash@^4.17.21, lodash@^4.17.4:
+=======
+<<<<<<< HEAD
 lodash@^4.17.14, lodash@^4.17.15, lodash@^4.17.21:
 =======
 lodash@^4.17.13, lodash@^4.17.14, lodash@^4.17.21, lodash@^4.17.4:
 >>>>>>> d6e3d7f87520aa6abf55a7a9e4293edc08889b8e
+>>>>>>> f75690d14e60f8200213112b06a090f1d158d0d8
   version "4.17.21"
   resolved "https://registry.npmjs.org/lodash/-/lodash-4.17.21.tgz"
   integrity sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==
@@ -9386,6 +9403,10 @@ react-native-ratings@^8.1.0:
   integrity sha512-+QOJ4G3NjVkI1D+tk4EGx1dCvVfbD2nQdkrj9cXrcAoEiwmbep4z4bZbCKmWMpQ5h2dqbxABU8/eBnbDmvAc3g==
   dependencies:
     lodash "^4.17.15"
+<<<<<<< HEAD
+
+=======
+>>>>>>> f75690d14e60f8200213112b06a090f1d158d0d8
 react-native-reanimated@^3.3.0, "react-native-reanimated@>= 1.0.0":
   version "3.3.0"
   resolved "https://registry.npmjs.org/react-native-reanimated/-/react-native-reanimated-3.3.0.tgz"

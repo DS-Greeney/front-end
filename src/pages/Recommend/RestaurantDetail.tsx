@@ -67,7 +67,7 @@ export default function RestaurantDetail(route: any) {
   const getData = async () => {
     try {
       const response = await axios.get(
-        `http://10.0.2.2:8082/greeney/main/restaurantlist/detail/${rstrntId}?userId=${userId}`,
+        `${Config.API_URL}/greeney/main/restaurantlist/detail/${rstrntId}?userId=${userId}`,
       );
       //console.log(response.data || []);
       setRestaurant(response.data.restaurant || []);

@@ -5,6 +5,7 @@ import axios from 'axios';
 import Modal from 'react-native-modal';
 import MapModal from '../components/Common/MapModal';
 import {AppContext} from '../components/Common/Context';
+import Config from 'react-native-config';
 
 const dummymarkersData = [
   {
@@ -55,7 +56,7 @@ export default function Map() {
   const getData = async (areaCode: any) => {
     try {
       const response = await axios.get(
-        'http://10.0.2.2:8082/greeney/main/tourlist',
+        `${Config.API_URL}/greeney/main/tourlist`,
         {
           params: {
             latitude: location.latitude,
@@ -72,7 +73,7 @@ export default function Map() {
     }
     try {
       const response = await axios.get(
-        'http://10.0.2.2:8082/greeney/main/restaurantlist',
+        `${Config.API_URL}/greeney/main/restaurantlist`,
         {
           params: {
             latitude: location.latitude,

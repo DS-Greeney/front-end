@@ -8,6 +8,7 @@ import FilterList from '../../components/filter/FilterList';
 import {useNavigation} from '@react-navigation/native';
 import axios from 'axios';
 import qs from 'qs';
+import Config from 'react-native-config';
 
 const areaList = [
   '전체',
@@ -60,7 +61,7 @@ export default function TourspotPage() {
     // console.log(location.latitude, location.longitude);
     try {
       const response = await axios.get(
-        'http://10.0.2.2:8082/greeney/main/tourlist',
+        `${Config.API_URL}/greeney/main/tourlist`,
         {
           params: {
             latitude: location.latitude,

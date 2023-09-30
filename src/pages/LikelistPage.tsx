@@ -6,6 +6,7 @@ import {StyleSheet, View, FlatList} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import axios from 'axios';
 import {AppContext} from '../components/Common/Context';
+import Config from 'react-native-config';
 
 const typeList = ['전체', '관광', '식당', '숙소'];
 
@@ -118,7 +119,7 @@ export default function LikeListPage() {
   const getData = async () => {
     try {
       const response = await axios.get(
-        `http://10.0.2.2:8082/greeney/mypage/like/${userId}`,
+        `${Config.API_URL}/greeney/mypage/like/${userId}`,
       );
       // console.log(response.data.spotLikeList || []);
       setLikeList([...likeList, response.data.spotLikeList]);

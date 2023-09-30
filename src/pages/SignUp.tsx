@@ -12,6 +12,7 @@ import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import axios from 'axios';
 
 import Header from '../components/Common/Header';
+import Config from 'react-native-config';
 
 export default function SignUp({navigation}: any) {
   interface UserModel {
@@ -61,7 +62,7 @@ export default function SignUp({navigation}: any) {
   const checkUsername = async () => {
     try {
       const response = await axios.get(
-        `http://10.0.2.2:8082/api/users/checkUsername?username=${user.userNickname}`,
+        `${Config.API_URL}/api/users/checkUsername?username=${user.userNickname}`,
         {
           params: {
             userNickname: user.userNickname,
@@ -87,7 +88,7 @@ export default function SignUp({navigation}: any) {
   const mailCheck = async () => {
     try {
       const response = await axios.get(
-        `http://10.0.2.2:8082/api/users/mailCheck?userNumber=${emailNum}`,
+        `${Config.API_URL}/api/users/mailCheck?userNumber=${emailNum}`,
       );
       console.log(response.data);
       if (response.data === true) {
@@ -105,7 +106,7 @@ export default function SignUp({navigation}: any) {
   const mailSend = async () => {
     try {
       const response = await axios.post(
-        `http://10.0.2.2:8082/api/users/mailSend?mail=${user.userEmail}`,
+        `${Config.API_URL}/api/users/mailSend?mail=${user.userEmail}`,
       );
       if (response.data.success === true) {
         Alert.alert('인증 메일 전송', '메일함을 확인해주세요.');
@@ -121,7 +122,7 @@ export default function SignUp({navigation}: any) {
   const checkEmail = async () => {
     try {
       const response = await axios.get(
-        `http://10.0.2.2:8082/api/users/checkEmail?email=${user.userEmail}`,
+        `${Config.API_URL}/api/users/checkEmail?email=${user.userEmail}`,
         {
           params: {
             userNickname: user.userNickname,
@@ -174,7 +175,7 @@ export default function SignUp({navigation}: any) {
       fourteenIsChecked
     ) {
       axios
-        .post('http://10.0.2.2:8082/api/users/register', {
+        .post(`${Config.API_URL}/api/users/register`, {
           userNickname: user.userNickname,
           userEmail: user.userEmail,
           userPassword: user.userPassword,
