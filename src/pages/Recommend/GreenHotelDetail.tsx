@@ -58,6 +58,8 @@ const GreenHotelDetail = (route: any) => {
     hotelId = route.route.params.hotelId;
   } else if (route.route.params.spotId) {
     hotelId = route.route.params.spotId;
+  } else if (route.route.params) {
+    hotelId = route.route.params;
   }
 
   // let lat = route.route.params.hotelLa;

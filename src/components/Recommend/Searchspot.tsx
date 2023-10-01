@@ -29,11 +29,11 @@ const Searchspot = ({data, navigation}: propType) => {
       key={data.spotId}
       onPress={() => {
         if (data.categoryNumber === 1) {
-          navigation.navigate('TourspotDetail', data);
+          navigation.navigate('TourspotDetail', data.spotId);
         } else if (data.categoryNumber === 2) {
-          navigation.navigate('RestaurantDetail', data);
+          navigation.navigate('RestaurantDetail', data.spotId);
         } else if (data.categoryNumber === 3) {
-          navigation.navigate('GreenHotelDetail', data);
+          navigation.navigate('GreenHotelDetail', data.spotId);
         }
       }}>
       <View style={styles.line} />

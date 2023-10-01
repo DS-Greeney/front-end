@@ -68,6 +68,8 @@ export default function TourspotDetail(route: any) {
     tourspotId = route.route.params.tourspotId;
   } else if (route.route.params.spotId) {
     tourspotId = route.route.params.spotId;
+  } else if (route.route.params) {
+    tourspotId = route.route.params;
   }
 
   // let lat = route.route.params.latitude;

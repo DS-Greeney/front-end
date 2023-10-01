@@ -61,6 +61,8 @@ export default function RestaurantDetail(route: any) {
     rstrntId = route.route.params.rstrntId;
   } else if (route.route.params.spotId) {
     rstrntId = route.route.params.spotId;
+  } else if (route.route.params) {
+    rstrntId = route.route.params;
   }
 
   const [likeState, setLikeState] = useState(0);
