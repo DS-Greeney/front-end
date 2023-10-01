@@ -142,7 +142,7 @@ export default function Map() {
             latitude: marker.latitude,
             longitude: marker.longitude,
           };
-          // console.log(coordinateTour);
+          // console.log(typeof coordinateTour.latitude);
           return (
             <Marker
               style={styles.marker}
@@ -155,15 +155,15 @@ export default function Map() {
             </Marker>
           );
         })}
-        {/* {veganList.map((marker, index) => {
+        {veganList.map((marker, index) => {
           if (!marker || !marker.rstrntLa || !marker.rstrntLo) {
             return null;
           } else {
             const coordinateVegan: LatLng = {
-              latitude: marker.rstrntLa,
-              longitude: marker.rstrntLo,
+              latitude: parseFloat(marker.rstrntLa) as number,
+              longitude: parseFloat(marker.rstrntLo) as number,
             };
-            console.log(coordinateVegan);
+            // console.log(coordinateVegan);
             return (
               <Marker
                 style={styles.marker}
@@ -176,7 +176,7 @@ export default function Map() {
               </Marker>
             );
           }
-        })} */}
+        })}
         {hotelList.map((marker, index) => {
           if (!marker || !marker.hotelLa || !marker.hotelLo) {
             return null;
