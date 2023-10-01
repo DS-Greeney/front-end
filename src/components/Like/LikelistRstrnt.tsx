@@ -82,10 +82,12 @@ const LikelistRstrnt = ({data, navigation, userId}: propType) => {
     }
   };
 
+  // console.log(data.spotLike);
+
   return (
     <TouchableOpacity
       style={styles.container}
-      onPress={() => navigation.navigate('TourspotDetail')}>
+      onPress={() => navigation.navigate('RestaurantDetail', data.spotLike)}>
       <View style={styles.line} />
       <View style={styles.content}>
         <View style={styles.wrapper}>

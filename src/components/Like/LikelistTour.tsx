@@ -84,7 +84,7 @@ const LikelistTour = ({data, navigation, userId}: propType) => {
   return (
     <TouchableOpacity
       style={styles.container}
-      onPress={() => navigation.navigate('TourspotDetail')}>
+      onPress={() => navigation.navigate('TourspotDetail', data.spotLike)}>
       <View style={styles.line} />
       <View style={styles.content}>
         <View style={styles.wrapper}>

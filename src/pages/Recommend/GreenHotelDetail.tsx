@@ -52,7 +52,14 @@ const GreenHotelDetail = (route: any) => {
   });
   let [inputCount, setInputCount] = useState(0);
   let navigation = useNavigation();
-  let hotelId = route.route.params.hotelId;
+
+  let hotelId = 0;
+  if (route.route.params.hotelId) {
+    hotelId = route.route.params.hotelId;
+  } else if (route.route.params.spotId) {
+    hotelId = route.route.params.spotId;
+  }
+
   // let lat = route.route.params.hotelLa;
   // let log = route.route.params.hotelLo;
   // const [lat, setLat] = useState(0);

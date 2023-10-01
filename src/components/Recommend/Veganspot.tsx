@@ -18,6 +18,7 @@ interface propType {
 }
 
 const Veganspot = ({data, navigation}: propType) => {
+  // console.log(data);
   const Key = Config.google_map_api_key;
   return (
     <TouchableOpacity

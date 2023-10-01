@@ -62,7 +62,14 @@ export default function TourspotDetail(route: any) {
   });
   let [inputCount, setInputCount] = useState(0);
   let navigation = useNavigation();
-  let tourspotId = route.route.params.tourspotId;
+
+  let tourspotId = 0;
+  if (route.route.params.tourspotId) {
+    tourspotId = route.route.params.tourspotId;
+  } else if (route.route.params.spotId) {
+    tourspotId = route.route.params.spotId;
+  }
+
   // let lat = route.route.params.latitude;
   // let log = route.route.params.longitude;
   const [likeState, setLikeState] = useState(0);
