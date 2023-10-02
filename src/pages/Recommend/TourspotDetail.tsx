@@ -62,7 +62,16 @@ export default function TourspotDetail(route: any) {
   });
   let [inputCount, setInputCount] = useState(0);
   let navigation = useNavigation();
-  let tourspotId = route.route.params.tourspotId;
+
+  let tourspotId = 0;
+  if (route.route.params.tourspotId) {
+    tourspotId = route.route.params.tourspotId;
+  } else if (route.route.params.spotId) {
+    tourspotId = route.route.params.spotId;
+  } else if (route.route.params) {
+    tourspotId = route.route.params;
+  }
+
   // let lat = route.route.params.latitude;
   // let log = route.route.params.longitude;
   const [likeState, setLikeState] = useState(0);
@@ -87,7 +96,7 @@ export default function TourspotDetail(route: any) {
       const response = await axios.get(
         `${Config.API_URL}/greeney/main/tourlist/detail/${tourspotId}?userId=${userId}`,
       );
-      // console.log(response.data || []);
+      console.log(response.data || []);
       setTourSpot(response.data.tourspot || []);
       setReviewList(response.data.reviewList || []);
       setLikeState(response.data.like || 0);
@@ -105,12 +114,13 @@ export default function TourspotDetail(route: any) {
   // console.log(tourSpot.summary);
 
   const infoIndex = tourSpot.summary.indexOf('이용안내');
-  const info = tourSpot.summary.substr(infoIndex - 1);
+  const info = tourSpot.summary.substr(infoIndex + 5);
   // console.log(info);
 
   const linkFirstIndex = tourSpot.summary.indexOf('http://');
   const linkLastIndex = tourSpot.summary.indexOf('/', linkFirstIndex + 7);
   const linkTemp = tourSpot.summary.substring(linkFirstIndex, linkLastIndex);
+  // console.log(tourSpot.summary[linkFirstIndex]);
 
   var area = '';
   switch (tourSpot.areaCode) {
@@ -282,10 +292,14 @@ export default function TourspotDetail(route: any) {
           <Text style={styles.extext}>주소</Text>
           <Text style={styles.text}>{tourSpot.addr}</Text>
         </View>
-        <View style={styles.view2}>
-          <Text style={styles.extext}>전화번호</Text>
-          <Text style={styles.text}>{tourSpot.tel}</Text>
-        </View>
+        {tourSpot.tel ? (
+          <View style={styles.view2}>
+            <Text style={styles.extext}>전화번호</Text>
+            <Text style={styles.text}>{tourSpot.tel}</Text>
+          </View>
+        ) : (
+          <View />
+        )}
         {linkFirstIndex === -1 ? (
           <View />
         ) : (
@@ -294,8 +308,16 @@ export default function TourspotDetail(route: any) {
             <Text style={styles.text}>{linkTemp + '/'}</Text>
           </View>
         )}
+        {infoIndex === -1 ? (
+          <View />
+        ) : (
+          <View style={styles.view2}>
+            <Text style={styles.extext}>이용안내</Text>
+            <Text style={styles.text}>{info}</Text>
+          </View>
+        )}
         <Text style={[styles.text, {margin: 20}]}>{summaryStr[0]}</Text>
-        <Text style={[styles.text, {margin: 20}]}>{info}</Text>
+        {/* <Text style={[styles.text, {margin: 20}]}>{info}</Text> */}
         {tourSpot.mainimage === '' ? (
           <Image
             style={styles.image2}
@@ -432,7 +454,6 @@ const styles = StyleSheet.create({
     width: '100%',
     height: 200,
     resizeMode: 'cover',
-    marginTop: 20,
     marginBottom: 20,
   },
   image3: {

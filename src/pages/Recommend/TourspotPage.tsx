@@ -1,5 +1,5 @@
 import React, {useEffect, useState, useContext} from 'react';
-import {View, Text, StyleSheet, ScrollView, FlatList} from 'react-native';
+import {View, Text, StyleSheet, ScrollView, FlatList, Alert} from 'react-native';
 import {AppContext} from '../../components/Common/Context';
 import Header from '../../components/Common/Header';
 import SearchBar from '../../components/SearchBar';
@@ -85,23 +85,68 @@ export default function TourspotPage() {
     //console.log('areaCodeMap[areaCode]: ', areaCodeMap[areaCode]);
   };
 
+  const [searchText, setSearchText] = useState('');
+  const [showSearchResults, setShowSearchResults] = useState(false);
+  const [searchList, setSearchlist] = useState([]);
+
+  const handleSearch = async () => {
+    if (searchText !== '') {
+      try {
+        const response = await axios.get(
+          `${Config.API_URL}/greeney/main/tourlist/1?latitude=${location.latitude}&longitude=${location.latitude}&search=${searchText}`,
+        );
+        // console.log(response.data.tourlists || []);
+        if (response.data.success === false) {
+          Alert.alert('일시적 오류', '검색에 실패하였습니다.');
+        } else {
+          setSearchlist(response.data.tourlists || []);
+          setShowSearchResults(true);
+        }
+      } catch (error) {
+        Alert.alert('일시적 오류', '검색에 실패하였습니다.');
+        console.error('Error fetching data:', error);
+      }
+    } else {
+      Alert.alert('공백 감지', '검색어를 입력해주세요!');
+    }
+  };
+
   return (
     <View style={styles.tourspot}>
       <Header navigation={navigation} type={'BACK'} title={'생태 관광'} />
-      <SearchBar placeholderText={'검색어를 입력해주세요'} />
+      <SearchBar
+        placeholderText={'검색어를 입력해주세요'}
+        searchText={searchText}
+        onSearch={setSearchText}
+        onSearchButtonPress={handleSearch}
+      />
       <FilterList areaList={areaList} func={handleAreaChange} />
 
-      <View style={styles.spotlist}>
-        <FlatList
-          keyExtractor={(item, index) => index.toString()}
-          disableVirtualization={false}
-          initialNumToRender={4}
-          data={tourList}
-          renderItem={({item}) => (
-            <Tourspot data={item} navigation={navigation} />
-          )}
-        />
-      </View>
+      {showSearchResults ? (
+        <View style={styles.spotlist}>
+          <FlatList
+            keyExtractor={(item, index) => index.toString()}
+            disableVirtualization={false}
+            initialNumToRender={4}
+            data={searchList}
+            renderItem={({item}) => (
+              <Tourspot data={item} navigation={navigation} />
+            )}
+          />
+        </View>
+      ) : (
+        <View style={styles.spotlist}>
+          <FlatList
+            keyExtractor={(item, index) => index.toString()}
+            disableVirtualization={false}
+            initialNumToRender={4}
+            data={tourList}
+            renderItem={({item}) => (
+              <Tourspot data={item} navigation={navigation} />
+            )}
+          />
+        </View>
+      )}
     </View>
   );
 }
