@@ -334,17 +334,8 @@ export default function Mypage() {
           <View
             style={{
               flexDirection: 'row',
-              justifyContent: 'space-between',
-              alignItems: 'center',
             }}>
-            <View>
-              <Text style={{fontSize: 25}}>{user.userNickname}</Text>
-            </View>
-            <TouchableOpacity style={styles.newBtn}>
-              <Text style={{color: '#1A6F3F', fontSize: 10}}>
-                새로{'\n'}고침
-              </Text>
-            </TouchableOpacity>
+            <Text style={{fontSize: 25}}>{user.userNickname}</Text>
           </View>
           <View style={{flexDirection: 'row'}}>
             <TouchableOpacity disabled={true} style={styles.title}>
@@ -550,13 +541,5 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     borderRadius: 20,
     padding: 10,
-  },
-  newBtn: {
-    borderWidth: 1,
-    borderStyle: 'solid',
-    borderRadius: 20,
-    borderColor: '#1A6F3F',
-    paddingVertical: 5,
-    paddingHorizontal: 10,
   },
 });
