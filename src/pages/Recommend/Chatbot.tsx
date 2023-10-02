@@ -63,6 +63,11 @@ export default function ChatbotPage() {
       <Header navigation={navigation} type={'BACK'} title={'그리니 챗봇'} />
       <View style={styles.flatList}>
         <FlatList
+          maintainVisibleContentPosition={{
+            minIndexForVisible: 0,
+            autoscrollToTopThreshold: 80,
+          }}
+          automaticallyAdjustKeyboardInsets={true}
           data={messages}
           keyExtractor={item => item.id.toString()}
           renderItem={({item}) => (
@@ -70,7 +75,7 @@ export default function ChatbotPage() {
           )}
         />
       </View>
-      <KeyboardAvoidingView style={styles.keyboard}>
+      <KeyboardAvoidingView style={styles.keyboard} behavior="padding" enabled>
         <View style={styles.sendBox}>
           <TextInput
             style={styles.textInput}
@@ -79,11 +84,23 @@ export default function ChatbotPage() {
             onChangeText={text => {
               setInputText(text);
             }}
-            placeholder="무엇이든 물어보세요!"
+            placeholder="그리니 챗봇에게 무엇이든 물어보세요!"
           />
-          <TouchableOpacity style={{backgroundColor: '#005F29', margin: 10, padding: 7, borderRadius: 10}} onPress={sendQuestion}>
-            <Icon name="send" size={36} color="#eee" style={{}} />
+          <TouchableOpacity
+            style={{
+              backgroundColor: '#005F29',
+              // margin: 10,
+              padding: 7,
+              borderRadius: 10,
+            }}
+            onPress={sendQuestion}>
+            <Icon name="send" size={32} color="#eee" style={{}} />
           </TouchableOpacity>
+        </View>
+        <View style={{justifyContent: 'center', alignItems: 'center'}}>
+          <Text style={{fontSize: 10, marginVertical: 5}}>
+            Customer Inquiry: greenavengers4@naver.com
+          </Text>
         </View>
       </KeyboardAvoidingView>
     </View>
@@ -97,21 +114,34 @@ const styles = StyleSheet.create({
   },
   flatList: {
     marginHorizontal: 20,
-    flex: 6.5,
+    // marginBottom: 10,
+    flex: 4,
+    // flex: 6.5,
+    // marginHorizontal: 20,
+    // flex: 6,
   },
   keyboard: {
     flex: 1,
-    justifyContent: 'flex-end',
+    justifyContent: 'center',
+    // marginVertical: 10,
   },
   sendBox: {
     flexDirection: 'row',
-    margin: 10,
-    justifyContent: 'center',
+    marginHorizontal: 15,
+    // margin: 10,
+    justifyContent: 'space-between',
     alignItems: 'center',
-    height: 70,
+    height: 65,
+    // marginHorizontal: 15,
+    // // marginVertical: 20,
+    // flexDirection: 'row',
+    // // margin: 10,
+    // justifyContent: 'space-between',
+    // alignItems: 'center',
+    // backgroundColor: '#fff',
   },
   textInput: {
-    width: '80%',
+    width: '85%',
     flexShrink: 0,
     borderRadius: 20,
     borderWidth: 3,
@@ -120,5 +150,16 @@ const styles = StyleSheet.create({
     fontSize: 16,
     paddingHorizontal: 20,
     color: '#005F29',
+    // width: '85%',
+    // marginVertical: 20,
+    // height: 60,
+    // flexShrink: 0,
+    // borderRadius: 20,
+    // borderWidth: 3,
+    // borderStyle: 'solid',
+    // borderColor: '#005F29',
+    // fontSize: 16,
+    // paddingHorizontal: 20,
+    // color: '#005F29',
   },
 });
