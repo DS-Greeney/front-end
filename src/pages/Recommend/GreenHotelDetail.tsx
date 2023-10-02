@@ -204,7 +204,7 @@ const GreenHotelDetail = (route: any) => {
           </Text>
         </View> */}
         {/* {renderMapView()} */}
-        {/* <View style={styles.view2}>
+        <View style={styles.view2}>
           {loading ? (
             <TouchableOpacity
               disabled={true}
@@ -230,7 +230,7 @@ const GreenHotelDetail = (route: any) => {
               />
             </MapView>
           )}
-        </View> */}
+        </View>
         <View style={styles.view2}>
           <Text style={styles.extext}>주소</Text>
           <Text style={styles.text}>{greenHotel.hotelAddr}</Text>

@@ -75,7 +75,7 @@ export default function ChatbotPage() {
           )}
         />
       </View>
-      <KeyboardAvoidingView style={styles.keyboard} behavior="padding" enabled>
+      <View style={styles.keyboard} behavior="padding" enabled>
         <View style={styles.sendBox}>
           <TextInput
             style={styles.textInput}
@@ -102,7 +102,7 @@ export default function ChatbotPage() {
             Customer Inquiry: greenavengers4@naver.com
           </Text>
         </View>
-      </KeyboardAvoidingView>
+      </View>
     </View>
   );
 }
@@ -121,7 +121,7 @@ const styles = StyleSheet.create({
     // flex: 6,
   },
   keyboard: {
-    flex: 1,
+    // flex: 1,
     justifyContent: 'center',
     // marginVertical: 10,
   },

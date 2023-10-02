@@ -168,7 +168,9 @@ export default function Homepage({navigation}: any) {
           {/* <SearchBar placeholderText={'어디로 여행을 떠날 예정이신가요?'} /> */}
           <View style={styles.container2}>
             <View style={styles.searchBar}>
-              <Text style={styles.searchInput}>어디로 여행을 떠날 예정이신가요?</Text>
+              <Text style={styles.searchInput}>
+                어디로 여행을 떠날 예정이신가요?
+              </Text>
               <Image
                 style={styles.searchImage}
                 source={require('../../assets/images/home/search_glass.png')}
@@ -180,7 +182,26 @@ export default function Homepage({navigation}: any) {
 
       <ScrollView horizontal={false} style={styles.container}>
         <View style={styles.menuContainer}>
-          {ImageMenuArray.map((menuList, idx) => {
+          <FlatList
+            data={ImageMenuArray}
+            renderItem={({item, index}) => (
+              <TouchableOpacity
+                key={index}
+                style={styles.menuItem}
+                onPress={() =>
+                  navigation.navigate(navigateList[index], {
+                    screen: navigateList[index],
+                  })
+                }>
+                <Image style={styles.images} source={item.image} />
+                <Text style={styles.title}>{item.text}</Text>
+              </TouchableOpacity>
+            )}
+            keyExtractor={(item, index) => index}
+            numColumns={2}
+            style={styles.flist}
+          />
+          {/* {ImageMenuArray.map((menuList, idx) => {
             return (
               <TouchableOpacity
                 key={idx}
@@ -196,7 +217,7 @@ export default function Homepage({navigation}: any) {
                 </View>
               </TouchableOpacity>
             );
-          })}
+          })} */}
         </View>
 
         <View style={styles.bottomItem}>
@@ -295,9 +316,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   menuContainer: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    // marginHorizontal: 40,
+    // flexDirection: 'row',
+    // flexWrap: 'wrap',
+    marginHorizontal: 50,
     justifyContent: 'center',
     alignItems: 'center',
     marginTop: 20,
@@ -317,9 +338,11 @@ const styles = StyleSheet.create({
     marginVertical: 5,
   },
   menuItem: {
-    // alignItems: 'center',
-    // justifyContent: 'center',
-    // textAlign: 'center',
+    marginHorizontal: 20,
+    marginVertical: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
+    textAlign: 'center',
     // paddingBottom: 10,
     // paddingLeft: 20,
     // paddingRight: 20,
@@ -329,6 +352,8 @@ const styles = StyleSheet.create({
     marginBottom: 5,
     color: '#000',
     fontSize: 16,
+    // alignItems: 'center',
+    // justifyContent: 'center',
   },
   slide: {
     flex: 1,
