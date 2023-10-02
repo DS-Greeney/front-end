@@ -23,6 +23,7 @@ const Veganspot = ({data, navigation}: propType) => {
   return (
     <TouchableOpacity
       style={styles.container}
+      key={data.rstrntId}
       onPress={() => navigation.navigate('RestaurantDetail', data)}>
       <View style={styles.wrapper}>
         <Image

@@ -107,7 +107,11 @@ const LikelistTour = ({data, navigation, userId}: propType) => {
                 {heart ? (
                   <IconC name="cards-heart" size={40} color={'#1A6F3F'} />
                 ) : (
-                  <IconC name="cards-heart-outline" size={40} color={'#1A6F3F'} />
+                  <IconC
+                    name="cards-heart-outline"
+                    size={40}
+                    color={'#1A6F3F'}
+                  />
                 )}
               </TouchableOpacity>
               <TouchableOpacity>

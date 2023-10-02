@@ -10,15 +10,16 @@ import {
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import axios from 'axios';
-import {NavigationProp} from '@react-navigation/native';
+// import {NavigationProp} from '@react-navigation/native';
 import Config from 'react-native-config';
 
-type Props = {
-  route: any;
-  navigation: NavigationProp<any>;
-};
+// type Props = {
+//   route: any;
+//   navigation: NavigationProp<any>;
+// };
 
-export default function NicknameChangePage(route: Props) {
+export default function NicknameChangePage(route: any) {
+  //console.log(route.route.params.setLoading);
   let navigation = useNavigation();
   const [nickname, setNickname] = useState('');
 
@@ -66,7 +67,10 @@ export default function NicknameChangePage(route: Props) {
             [
               {
                 text: '확인',
-                onPress: () => navigation.goBack(),
+                onPress: () => [
+                  route.route.params.setLoading(!route.route.params.loading),
+                  navigation.navigate('MyPage'),
+                ],
                 style: 'destructive',
               },
             ],

@@ -24,40 +24,6 @@ import Header from '../components/Common/Header';
 import TitleChangeModal from './Settings/TitleChangeModal';
 import Config from 'react-native-config';
 
-const logout = ({navigation}: any) => {
-  Alert.alert(
-    '로그아웃',
-    '로그아웃하시겠습니까?',
-    [
-      {text: '취소', onPress: () => {}},
-      {
-        text: '로그아웃',
-        onPress: () => {
-          // onDelete(id);
-          axios
-            .get(`${Config.API_URL}/api/users/logout`)
-            .then(function (response) {
-              // console.log(response.data);
-              if (response.data.success === true) {
-                console.log('로그아웃 성공');
-                navigation.navigate('Login');
-              } else {
-                Alert.alert('오류', '다시 시도해주세요');
-              }
-            })
-            .catch(function (error) {
-              console.log(error);
-            });
-        },
-      },
-    ],
-    {
-      cancelable: true,
-      onDismiss: () => {},
-    },
-  );
-};
-
 export default function Mypage() {
   const {userId} = useContext(AppContext);
 
@@ -67,6 +33,41 @@ export default function Mypage() {
 
   const toggleModal = () => {
     setModalVisible(!isModalVisible);
+  };
+
+  const logout = ({navigation}: any) => {
+    Alert.alert(
+      '로그아웃',
+      '로그아웃하시겠습니까?',
+      [
+        {text: '취소', onPress: () => {}},
+        {
+          text: '로그아웃',
+          onPress: () => {
+            goLogout();
+            //onDelete(id);
+          },
+        },
+      ],
+      {
+        cancelable: true,
+        onDismiss: () => {},
+      },
+    );
+  };
+
+  const goLogout = async () => {
+    try {
+      const response = await axios.get(`${Config.API_URL}/api/users/logout`);
+      if (response.data.success === true) {
+        Alert.alert('로그아웃 되었습니다.');
+        navigation.navigate('Login');
+      } else {
+        Alert.alert('오류', '다시 시도해주세요');
+      }
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
   };
 
   const withdrawal = () => {
@@ -212,7 +213,12 @@ export default function Mypage() {
         },
         {
           text: '변경',
-          onPress: () => navigation.navigate('PassChangePage', {userId}),
+          onPress: () =>
+            navigation.navigate('PassChangePage', {
+              userId,
+              loading,
+              setLoading,
+            }),
           style: 'destructive',
         },
       ],
@@ -231,7 +237,12 @@ export default function Mypage() {
         {text: '취소', onPress: () => {}, style: 'cancel'},
         {
           text: '변경',
-          onPress: () => navigation.navigate('NicknameChangePage', {userId}),
+          onPress: () =>
+            navigation.navigate('NicknameChangePage', {
+              userId,
+              loading,
+              setLoading,
+            }),
           style: 'destructive',
         },
       ],
@@ -320,7 +331,10 @@ export default function Mypage() {
         )}
         {/* </View> */}
         <View>
-          <View style={{flexDirection: 'row'}}>
+          <View
+            style={{
+              flexDirection: 'row',
+            }}>
             <Text style={{fontSize: 25}}>{user.userNickname}</Text>
           </View>
           <View style={{flexDirection: 'row'}}>
@@ -380,6 +394,8 @@ export default function Mypage() {
               <TitleChangeModal
                 isVisible={isModalVisible}
                 toggleModal={toggleModal}
+                loading={loading}
+                setLoading={setLoading}
               />
               <TouchableOpacity
                 style={styles.btnView2}

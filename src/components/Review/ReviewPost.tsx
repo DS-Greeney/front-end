@@ -308,10 +308,10 @@ const ReviewPost = ({itemId, reviewData, category}: propType) => {
             textAlignVertical="top"
             multiline
             editable
-            numberOfLines={4}
-            maxLength={200}
-            style={{height: 100}}
-            placeholder="여러분의 소중한 여행 후기를 남겨주세요"
+            numberOfLines={12}
+            maxLength={500}
+            style={{height: 240}}
+            placeholder={`여러분의 소중한 여행 후기를 남겨주세요.\n\n※ 단, 다음의 내용이 포함된 리뷰게시글은 삭제될 수 있으며 관련 법률에 따라 처벌받을 수 있습니다.\n- 타인의 권리를 침해하거나 불쾌감을 주는 행위\n- 범죄, 불법 행위 등 법령을 위반하는 행위\n- 욕설, 비하, 차별, 혐오, 자살, 폭력 관련 내용을 포함한 게시물 작성 행위\n- 음란물, 성적 수치심을 유발하는 행위\n- 공포, 속임, 놀라게 하는 행위\n- 홍보 및 판매 관련 행위`}
             placeholderTextColor="#C2C2C2"
           />
           {selectedImages.length >= 1 ? (
@@ -505,7 +505,7 @@ const styles = StyleSheet.create({
   },
   textInput: {
     width: 350,
-    height: 150,
+    height: 300,
     fontSize: 15,
     borderWidth: 3,
     borderRadius: 10,

@@ -13,12 +13,7 @@ import axios from 'axios';
 import {NavigationProp} from '@react-navigation/native';
 import Config from 'react-native-config';
 
-type Props = {
-  route: any;
-  navigation: NavigationProp<any>;
-};
-
-export default function PassChangePage(route: Props) {
+export default function PassChangePage(route: any) {
   let navigation = useNavigation();
   const [pass, setPass] = useState('');
   const [passChk, setPassChk] = useState('');
@@ -45,7 +40,10 @@ export default function PassChangePage(route: Props) {
               [
                 {
                   text: '확인',
-                  onPress: () => navigation.goBack(),
+                  onPress: () => [
+                    route.route.params.setLoading(!route.route.params.loading),
+                    navigation.navigate('MyPage'),
+                  ],
                   style: 'destructive',
                 },
               ],
