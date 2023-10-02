@@ -213,7 +213,12 @@ export default function Mypage() {
         },
         {
           text: '변경',
-          onPress: () => navigation.navigate('PassChangePage', {userId}),
+          onPress: () =>
+            navigation.navigate('PassChangePage', {
+              userId,
+              loading,
+              setLoading,
+            }),
           style: 'destructive',
         },
       ],
@@ -232,7 +237,12 @@ export default function Mypage() {
         {text: '취소', onPress: () => {}, style: 'cancel'},
         {
           text: '변경',
-          onPress: () => navigation.navigate('NicknameChangePage', {userId}),
+          onPress: () =>
+            navigation.navigate('NicknameChangePage', {
+              userId,
+              loading,
+              setLoading,
+            }),
           style: 'destructive',
         },
       ],
@@ -321,8 +331,20 @@ export default function Mypage() {
         )}
         {/* </View> */}
         <View>
-          <View style={{flexDirection: 'row'}}>
-            <Text style={{fontSize: 25}}>{user.userNickname}</Text>
+          <View
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+            }}>
+            <View>
+              <Text style={{fontSize: 25}}>{user.userNickname}</Text>
+            </View>
+            <TouchableOpacity style={styles.newBtn}>
+              <Text style={{color: '#1A6F3F', fontSize: 10}}>
+                새로{'\n'}고침
+              </Text>
+            </TouchableOpacity>
           </View>
           <View style={{flexDirection: 'row'}}>
             <TouchableOpacity disabled={true} style={styles.title}>
@@ -381,6 +403,8 @@ export default function Mypage() {
               <TitleChangeModal
                 isVisible={isModalVisible}
                 toggleModal={toggleModal}
+                loading={loading}
+                setLoading={setLoading}
               />
               <TouchableOpacity
                 style={styles.btnView2}
@@ -526,5 +550,13 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     borderRadius: 20,
     padding: 10,
+  },
+  newBtn: {
+    borderWidth: 1,
+    borderStyle: 'solid',
+    borderRadius: 20,
+    borderColor: '#1A6F3F',
+    paddingVertical: 5,
+    paddingHorizontal: 10,
   },
 });

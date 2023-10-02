@@ -12,7 +12,7 @@ import axios from 'axios';
 import {AppContext} from '../../components/Common/Context';
 import Config from 'react-native-config';
 
-const TitleChangeModal = ({isVisible, toggleModal}) => {
+const TitleChangeModal = ({isVisible, toggleModal, loading, setLoading}) => {
   const {userId} = useContext(AppContext);
 
   const [challengeInfo, setChallengeInfo] = useState({
@@ -60,6 +60,7 @@ const TitleChangeModal = ({isVisible, toggleModal}) => {
       );
       // console.log(response.data);
       Alert.alert('알림', '칭호가 변경되었습니다.');
+      setLoading(!loading);
     } catch (error) {
       console.error('Error fetching data:', error);
       Alert.alert('경고', '칭호에 실패하였습니다. 다시 시도해주세요.');
