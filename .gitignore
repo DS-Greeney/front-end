@@ -67,3 +67,6 @@ yarn-error.log
 
 #api
 .env
+
+#apk
+android/gradle.properties

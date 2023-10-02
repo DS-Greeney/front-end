@@ -1,5 +1,8 @@
 import React from 'react';
-import {NavigationContainer} from '@react-navigation/native';
+import {
+  NavigationContainer,
+  getFocusedRouteNameFromRoute,
+} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
 import MainNavigator from './MainNavigator';
@@ -25,7 +28,25 @@ import GreenHotelDetail from '../pages/Recommend/GreenHotelDetail';
 
 const Stack = createNativeStackNavigator();
 
-export default function MypageStack() {
+export default function MypageStack({navigation, route}: any) {
+  React.useLayoutEffect(() => {
+    const routeName = getFocusedRouteNameFromRoute(route);
+    if (
+      routeName === 'Homepage' ||
+      routeName === 'Home' ||
+      routeName === undefined ||
+      routeName === 'Map' ||
+      routeName === 'Search' ||
+      routeName === 'Mypage' ||
+      routeName === 'My' ||
+      routeName === 'MyPage'
+    ) {
+      navigation.setOptions({tabBarStyle: {display: 'flex'}});
+    } else {
+      navigation.setOptions({tabBarStyle: {display: 'none'}});
+    }
+  }, [navigation, route]);
+
   return (
     <Stack.Navigator
       initialRouteName="MyPage"

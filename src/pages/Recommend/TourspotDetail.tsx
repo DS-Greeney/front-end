@@ -263,7 +263,7 @@ export default function TourspotDetail(route: any) {
             {firstStr[0] + '.'}
           </Text>
         </View>
-        {/* <View style={styles.view2}>
+        <View style={styles.view2}>
           {loading ? (
             <TouchableOpacity
               disabled={true}
@@ -287,7 +287,7 @@ export default function TourspotDetail(route: any) {
               />
             </MapView>
           )}
-        </View> */}
+        </View>
         <View style={styles.view2}>
           <Text style={styles.extext}>주소</Text>
           <Text style={styles.text}>{tourSpot.addr}</Text>

@@ -102,61 +102,6 @@ export default function RestaurantDetail(route: any) {
     );
   };
 
-  var area = '';
-  switch (restaurant.areaCode) {
-    case 1:
-      area = '서울특별시';
-      break;
-    case 2:
-      area = '인천광역시';
-      break;
-    case 3:
-      area = '대전광역시';
-      break;
-    case 4:
-      area = '대구광역시';
-      break;
-    case 5:
-      area = '광주광역시';
-      break;
-    case 6:
-      area = '부산광역시';
-      break;
-    case 7:
-      area = '울산광역시';
-      break;
-    case 8:
-      area = '세종특별자치시';
-      break;
-    case 31:
-      area = '경기도';
-      break;
-    case 32:
-      area = '강원특별자치도';
-      break;
-    case 33:
-      area = '충청북도';
-      break;
-    case 34:
-      area = '충청남도';
-      break;
-    case 35:
-      area = '경상북도';
-      break;
-    case 36:
-      area = '경상남도';
-      break;
-    case 37:
-      area = '전라북도';
-      break;
-    case 38:
-      area = '전라남도';
-      break;
-    case 39:
-      area = '제주특별자치도';
-      break;
-  }
-
   return (
     <View style={styles.view}>
       <Header
@@ -172,14 +117,6 @@ export default function RestaurantDetail(route: any) {
           style={styles.image}
         />
         <View style={styles.title1}>
-          <Text
-            style={{
-              fontSize: 20,
-              color: '#666',
-              marginRight: 5,
-            }}>
-            {area}
-          </Text>
           <Text
             style={{
               fontSize: 20,
@@ -214,7 +151,7 @@ export default function RestaurantDetail(route: any) {
             {restaurant.rstrntStar} / 5
           </Text>
         </View>
-        {/* <View style={styles.view2}>
+        <View style={styles.view2}>
           {loading ? (
             <TouchableOpacity
               disabled={true}
@@ -238,7 +175,7 @@ export default function RestaurantDetail(route: any) {
               />
             </MapView>
           )}
-        </View> */}
+        </View>
         <View style={styles.view2}>
           <Text style={styles.extext}>주소</Text>
           <Text ellipsizeMode="tail" style={[styles.text, {flex: 1}]}>
