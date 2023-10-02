@@ -54,7 +54,7 @@ export default function Homepage({navigation}: any) {
         handleInputChange('userTitle', response.data.userTitle);
         handleInputChange('userNickname', response.data.userNickname);
         handleInputChange('userPicture', response.data.userPicture);
-        console.log(response.data.userPicture);
+        // console.log(response.data.userPicture);
       })
       .catch(function (error) {
         console.log(error);
@@ -164,7 +164,18 @@ export default function Homepage({navigation}: any) {
           navigation={navigation}
           img={'../../assets/images/home/logo.png'}
         /> */}
-        <SearchBar placeholderText={'어디로 여행을 떠날 예정이신가요?'} />
+        <TouchableOpacity onPress={() => navigation.navigate('Search')}>
+          {/* <SearchBar placeholderText={'어디로 여행을 떠날 예정이신가요?'} /> */}
+          <View style={styles.container2}>
+            <View style={styles.searchBar}>
+              <Text style={styles.searchInput}>어디로 여행을 떠날 예정이신가요?</Text>
+              <Image
+                style={styles.searchImage}
+                source={require('../../assets/images/home/search_glass.png')}
+              />
+            </View>
+          </View>
+        </TouchableOpacity>
       </View>
 
       <ScrollView horizontal={false} style={styles.container}>
@@ -339,5 +350,25 @@ const styles = StyleSheet.create({
     width: 40,
     height: 40,
     marginRight: 5,
+  },
+  container2: {
+    alignItems: 'center',
+  },
+  searchBar: {
+    width: 340,
+    height: 40,
+    backgroundColor: '#F3F3F3',
+    borderRadius: 30,
+    paddingLeft: 30,
+    marginTop: 2,
+    marginBottom: 15,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  searchImage: {
+    width: 20,
+    height: 20,
+    marginRight: 30,
   },
 });

@@ -19,6 +19,9 @@ import NicknameChangePage from '../pages/Settings/NicknameChangePage';
 import PassChangePage from '../pages/Settings/PassChangePage';
 import TOS from '../pages/Settings/TOS';
 import PrivacyPolicy from '../pages/Settings/PrivacyPolicy';
+import RestaurantDetail from '../pages/Recommend/RestaurantDetail';
+import TourspotDetail from '../pages/Recommend/TourspotDetail';
+import GreenHotelDetail from '../pages/Recommend/GreenHotelDetail';
 
 const Stack = createNativeStackNavigator();
 
@@ -39,6 +42,10 @@ export default function MypageStack() {
         <Stack.Screen name="TourSpot" component={TourSpot} />
         <Stack.Screen name="Restaurant" component={Restaurant} /> */}
       <Stack.Screen name="Likelist" component={Likelist} />
+      <Stack.Screen name="RestaurantDetail" component={RestaurantDetail} />
+      <Stack.Screen name="TourspotDetail" component={TourspotDetail} />
+      <Stack.Screen name="GreenHotelDetail" component={GreenHotelDetail} />
+
       <Stack.Screen name="ChallengeAchieve" component={ChallengeAchieve} />
       <Stack.Screen name="DailyChallenge" component={DailyChallenge} />
       <Stack.Screen name="NicknameChangePage" component={NicknameChangePage} />

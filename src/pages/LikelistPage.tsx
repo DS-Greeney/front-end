@@ -121,7 +121,7 @@ export default function LikeListPage() {
       const response = await axios.get(
         `${Config.API_URL}/greeney/mypage/like/${userId}`,
       );
-      // console.log(response.data.spotLikeList || []);
+      console.log(response.data.spotLikeList || []);
       setLikeList([...likeList, response.data.spotLikeList]);
     } catch (error) {
       console.error('Error fetching data:', error);

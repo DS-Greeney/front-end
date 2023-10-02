@@ -13,6 +13,7 @@ import Header from '../components/Common/Header';
 import MypageStack from './MypageStack';
 
 import HomeStack from './HomeStack';
+import SearchStack from './SearchStack';
 
 const Tab = createBottomTabNavigator();
 
@@ -93,7 +94,7 @@ export default function MainNavigator({navigation}: any) {
       {/* SearchStack, MapStack, MyStack요런거 연결하기 */}
       <Tab.Screen
         name="Search"
-        component={Search}
+        component={SearchStack}
         options={{
           title: '검색',
           tabBarIcon: ({color, size}) => (

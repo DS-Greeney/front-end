@@ -5,6 +5,20 @@ import IconC from 'react-native-vector-icons/MaterialCommunityIcons';
 import axios from 'axios';
 import Config from 'react-native-config';
 
+interface SpotLikeHotel {
+  areaCode: number;
+  hotelAddr: string;
+  hotelId: number;
+  hotelInfo: string;
+  hotelLa: number;
+  hotelLo: number;
+  hotelName: string;
+  hotelService: string;
+  hotelStar: number;
+  hotelTel: string;
+  hotelUrl: string;
+}
+
 interface SpotLikeTour {
   addr: string;
   areaCode: number;
@@ -32,7 +46,7 @@ interface SpotLikeRstrnt {
   rstrntTel: string;
 }
 
-type SpotLike = SpotLikeTour | SpotLikeRstrnt;
+type SpotLike = SpotLikeTour | SpotLikeRstrnt | SpotLikeHotel;
 
 interface dataType {
   categoryNumber: number;
@@ -46,8 +60,9 @@ interface propType {
   userId: number;
 }
 
-const LikelistTour = ({data, navigation, userId}: propType) => {
+const LikelistHotel = ({data, navigation, userId}: propType) => {
   // console.log(data);
+  const Key = Config.google_map_api_key;
   const [heart, setHeart] = useState(true);
 
   const toggleHeart = () => {
@@ -62,7 +77,7 @@ const LikelistTour = ({data, navigation, userId}: propType) => {
   const clickLike = async () => {
     try {
       const response = await axios.post(
-        `${Config.API_URL}/greeney/mypage/like?userId=${userId}&itemId=${data.spotLike.tourspotId}`,
+        `${Config.API_URL}/greeney/mypage/like?userId=${userId}&itemId=${data.spotLike.hotelId}`,
       );
       console.log(response.data);
     } catch (error) {
@@ -73,7 +88,7 @@ const LikelistTour = ({data, navigation, userId}: propType) => {
   const cancleLike = async () => {
     try {
       const response = await axios.delete(
-        `${Config.API_URL}/greeney/mypage/dislike?categoryNumber=${data.categoryNumber}&spotId=${data.spotLike.tourspotId}&userId=${userId}`,
+        `${Config.API_URL}/greeney/mypage/dislike?categoryNumber=${data.categoryNumber}&spotId=${data.spotLike.hotelId}&userId=${userId}`,
       );
       console.log(response.data);
     } catch (error) {
@@ -84,12 +99,14 @@ const LikelistTour = ({data, navigation, userId}: propType) => {
   return (
     <TouchableOpacity
       style={styles.container}
-      onPress={() => navigation.navigate('TourspotDetail', data.spotLike)}>
+      onPress={() => navigation.navigate('GreenHotelDetail', data.spotLike)}>
       <View style={styles.line} />
       <View style={styles.content}>
         <View style={styles.wrapper}>
           <Image
-            source={{uri: data.spotLike.mainimage}}
+            source={{
+              uri: `https://maps.googleapis.com/maps/api/streetview?size=400x400&location=${data.spotLike.hotelLa}, ${data.spotLike.hotelLo}&fov=80&heading=70&pitch=0&key=${Key}`,
+            }}
             style={{
               width: 100,
               height: 100,
@@ -99,8 +116,8 @@ const LikelistTour = ({data, navigation, userId}: propType) => {
           />
           <View style={styles.title}>
             <View style={styles.textwrap}>
-              <Text style={styles.name}>{data.spotLike.title}</Text>
-              <Text style={styles.location}>{data.spotLike.addr}</Text>
+              <Text style={styles.name}>{data.spotLike.hotelName}</Text>
+              <Text style={styles.location}>{data.spotLike.hotelAddr}</Text>
             </View>
             <View style={styles.heratColumn}>
               <TouchableOpacity onPress={toggleHeart}>
@@ -111,7 +128,7 @@ const LikelistTour = ({data, navigation, userId}: propType) => {
                 )}
               </TouchableOpacity>
               <TouchableOpacity>
-                <Text style={styles.type}>관광</Text>
+                <Text style={styles.type}>호텔</Text>
               </TouchableOpacity>
             </View>
           </View>
@@ -199,4 +216,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default LikelistTour;
+export default LikelistHotel;

@@ -69,10 +69,6 @@ export default function Mypage() {
     setModalVisible(!isModalVisible);
   };
 
-  const closeModal = () => {
-    setModalVisible(false);
-  };
-
   const withdrawal = () => {
     Alert.alert(
       '탈퇴',

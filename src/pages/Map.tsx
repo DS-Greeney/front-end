@@ -47,11 +47,11 @@ export default function Map() {
 
   const [tourList, setTourlist] = useState([]);
   const [veganList, setVeganlist] = useState([]);
-  // const [tourList, setTourlist] = useState([]);
+  const [hotelList, setHotellist] = useState([]);
 
-  // useEffect(() => {
-  //   getData(selectedAreaCode);
-  // }, [selectedAreaCode]);
+  useEffect(() => {
+    getData(selectedAreaCode);
+  }, []);
 
   const getData = async (areaCode: any) => {
     try {
@@ -84,6 +84,22 @@ export default function Map() {
       );
       // console.log(response.data.restaurants || []);
       setVeganlist(response.data.restaurants || []);
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+    try {
+      const response = await axios.get(
+        `${Config.API_URL}/greeney/main/hotellist`,
+        {
+          params: {
+            latitude: location.latitude,
+            longitude: location.longitude,
+            areaCode: areaCode,
+          },
+        },
+      );
+      // console.log(response.data.hotels || []);
+      setHotellist(response.data.hotels || []);
     } catch (error) {
       console.error('Error fetching data:', error);
     }
@@ -121,12 +137,12 @@ export default function Map() {
             </Marker>
           );
         })} */}
-        {/* {tourList.map((marker, index) => {
+        {tourList.map((marker, index) => {
           const coordinateTour: LatLng = {
             latitude: marker.latitude,
             longitude: marker.longitude,
           };
-          // console.log(coordinateTour);
+          // console.log(typeof coordinateTour.latitude);
           return (
             <Marker
               style={styles.marker}
@@ -138,14 +154,36 @@ export default function Map() {
               <Image source={tourmarkerImage} style={styles.markerImg} />
             </Marker>
           );
-        })} */}
-        {/* {veganList.map((marker, index) => {
+        })}
+        {veganList.map((marker, index) => {
           if (!marker || !marker.rstrntLa || !marker.rstrntLo) {
             return null;
+          } else {
+            const coordinateVegan: LatLng = {
+              latitude: parseFloat(marker.rstrntLa) as number,
+              longitude: parseFloat(marker.rstrntLo) as number,
+            };
+            // console.log(coordinateVegan);
+            return (
+              <Marker
+                style={styles.marker}
+                key={index}
+                onPress={() =>
+                  handleMarkerPress(marker, marker.rstrntName, marker.rstrntAddr)
+                }
+                coordinate={coordinateVegan}>
+                <Image source={resmarkerImage} style={styles.markerImg} />
+              </Marker>
+            );
           }
-          const coordinateVegan: LatLng = {
-            latitude: marker.rstrntLa,
-            longitude: marker.rstrntLo,
+        })}
+        {hotelList.map((marker, index) => {
+          if (!marker || !marker.hotelLa || !marker.hotelLo) {
+            return null;
+          }
+          const coordinateHotel: LatLng = {
+            latitude: marker.hotelLa,
+            longitude: marker.hotelLo,
           };
           // console.log(coordinateVegan);
           return (
@@ -153,13 +191,13 @@ export default function Map() {
               style={styles.marker}
               key={index}
               onPress={() =>
-                handleMarkerPress(marker, marker.rstrntName, marker.rstrntAddr)
+                handleMarkerPress(marker, marker.hotelName, marker.hotelAddr)
               }
-              coordinate={coordinateVegan}>
-              <Image source={resmarkerImage} style={styles.markerImg} />
+              coordinate={coordinateHotel}>
+              <Image source={hotelmarkerImage} style={styles.markerImg} />
             </Marker>
           );
-        })} */}
+        })}
       </MapView>
 
       {selectedMarker && (

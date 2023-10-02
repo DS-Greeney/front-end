@@ -36,6 +36,7 @@ interface dataType {
 }
 
 export default function RestaurantDetail(route: any) {
+  console.log(route);
   const {userId} = useContext(AppContext);
   const Key = Config.google_map_api_key;
   const [loading, setLoading] = useState(true);
@@ -54,9 +55,16 @@ export default function RestaurantDetail(route: any) {
   });
   let [inputCount, setInputCount] = useState(0);
   let navigation = useNavigation();
-  let rstrntId = route.route.params.rstrntId;
-  // let lat = Number(route.route.params.rstrntLa);
-  // let log = Number(route.route.params.rstrntLo);
+
+  let rstrntId = 0;
+  if (route.route.params.rstrntId) {
+    rstrntId = route.route.params.rstrntId;
+  } else if (route.route.params.spotId) {
+    rstrntId = route.route.params.spotId;
+  } else if (route.route.params) {
+    rstrntId = route.route.params;
+  }
+
   const [likeState, setLikeState] = useState(0);
   const [reviewList, setReviewList] = useState([]);
 
@@ -246,6 +254,7 @@ export default function RestaurantDetail(route: any) {
           <Text style={styles.extext}>메뉴</Text>
         </View>
         <MemuComponent data={memu} />
+        {/* <Text>{restaurant.rstrntMenuinfo}</Text> */}
         <View style={styles.view2}>
           <TouchableOpacity
             disabled={true}
