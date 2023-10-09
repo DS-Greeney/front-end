@@ -1,7 +1,7 @@
 import React, {useEffect, useState, useContext} from 'react';
 import Header from '../components/Common/Header';
 import Likelist from '../components/Like/Likelist';
-import {StyleSheet, View, FlatList} from 'react-native';
+import {StyleSheet, View, FlatList, SafeAreaView} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import axios from 'axios';
 import {AppContext} from '../components/Common/Context';
@@ -69,14 +69,16 @@ export default function LikeListPage() {
   return (
     <View style={styles.likelist}>
       <Header navigation={navigation} type={'BACK'} title={'내가 찜한 목록'} />
-      <View style={styles.listwrap}>
-        <FlatList
-          data={likeList}
-          renderItem={({item}) => (
-            <Likelist data={item} navigation={navigation} userId={userId} />
-          )}
-        />
-      </View>
+      <SafeAreaView style={{flex: 1}}>
+        <View>
+          <FlatList
+            data={likeList}
+            renderItem={({item}) => (
+              <Likelist data={item} navigation={navigation} userId={userId} />
+            )}
+          />
+        </View>
+      </SafeAreaView>
     </View>
   );
 }
@@ -85,8 +87,5 @@ const styles = StyleSheet.create({
   likelist: {
     backgroundColor: '#fff',
     flex: 1,
-  },
-  listwrap: {
-    height: '84%',
   },
 });
