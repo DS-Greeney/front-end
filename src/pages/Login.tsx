@@ -6,8 +6,10 @@ import {
   StyleSheet,
   TextInput,
   TouchableOpacity,
+  KeyboardAvoidingView,
   Alert,
 } from 'react-native';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {AppContext} from '../components/Common/Context';
 import axios from 'axios';
 import Config from 'react-native-config';
@@ -78,11 +80,14 @@ export default function Login({navigation}: any) {
         <Text style={styles.title}>로그인</Text>
       </View>
 
-      <View style={styles.container}>
+      <KeyboardAwareScrollView
+        contentContainerStyle={styles.container}
+        style={styles.scrollview}
+        resetScrollToCoords={{x: 0, y: 0}}
+        scrollEnabled={true}>
         {/* <TouchableOpacity style={styles.langWrapper}>
           <Text style={styles.langText}>Language</Text>
         </TouchableOpacity> */}
-
         <TextInput
           placeholder="아이디를 입력하세요"
           placeholderTextColor={'#005F29'}
@@ -119,7 +124,7 @@ export default function Login({navigation}: any) {
           onPress={() => navigation.push('SignUp')}>
           <Text style={styles.signupText}>회원가입</Text>
         </TouchableOpacity>
-      </View>
+      </KeyboardAwareScrollView>
     </SafeAreaView>
   );
 }
@@ -138,10 +143,19 @@ const styles = StyleSheet.create({
     fontSize: 36,
   },
   container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+    paddingVertical: 10,
+    // flex: 1,
+    // alignItems: 'center',
+    // justifyContent: 'center',
+  },
+  scrollview: {
+    // flex: 1,
+    // display: 'flex',
+    // flex: 1,
+    // alignItems: 'center',
+    // justifyContent: 'center',
     marginHorizontal: 40,
+    marginTop: 100,
   },
   langWrapper: {
     borderBottomWidth: 1,
