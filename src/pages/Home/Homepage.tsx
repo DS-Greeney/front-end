@@ -304,11 +304,13 @@ const styles = StyleSheet.create({
   bottomItem: {
     marginHorizontal: 30,
     marginVertical: 20,
+    alignItems: 'center',
   },
   bottomtitle: {
     color: '#000',
     fontSize: 16,
     marginBottom: 10,
+    width: 330,
   },
   wrapper: {
     height: 200,

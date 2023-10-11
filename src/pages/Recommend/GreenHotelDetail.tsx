@@ -211,24 +211,28 @@ const GreenHotelDetail = (route: any) => {
               style={{height: 130, backgroundColor: '#ccc'}}
             />
           ) : (
-            <MapView
-              style={styles.loadview}
-              provider={PROVIDER_GOOGLE}
-              initialRegion={{
-                // latitude: 37.6874303,
-                // longitude: 127.0344916,
-                latitude: greenHotel.hotelLa,
-                longitude: greenHotel.hotelLo,
-                latitudeDelta: 0.001,
-                longitudeDelta: 0.001,
-              }}>
-              <Marker
-                coordinate={{
-                  latitude: greenHotel.hotelLa,
-                  longitude: greenHotel.hotelLo,
-                }}
-              />
-            </MapView>
+            // <MapView
+            //   style={styles.loadview}
+            //   provider={PROVIDER_GOOGLE}
+            //   initialRegion={{
+            //     // latitude: 37.6874303,
+            //     // longitude: 127.0344916,
+            //     latitude: greenHotel.hotelLa,
+            //     longitude: greenHotel.hotelLo,
+            //     latitudeDelta: 0.001,
+            //     longitudeDelta: 0.001,
+            //   }}>
+            //   <Marker
+            //     coordinate={{
+            //       latitude: greenHotel.hotelLa,
+            //       longitude: greenHotel.hotelLo,
+            //     }}
+            //   />
+            // </MapView>
+            <TouchableOpacity
+              disabled={true}
+              style={{height: 130, backgroundColor: '#ccc'}}
+            />
           )}
         </View>
         <View style={styles.view2}>

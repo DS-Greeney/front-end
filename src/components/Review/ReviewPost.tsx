@@ -504,7 +504,6 @@ const styles = StyleSheet.create({
     width: 70,
   },
   textInput: {
-    width: 350,
     height: 300,
     fontSize: 15,
     borderWidth: 3,
