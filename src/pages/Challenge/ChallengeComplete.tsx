@@ -1,11 +1,5 @@
-import React, { useContext, useEffect, useState } from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-  Image
-} from 'react-native';
+import React, {useContext, useEffect, useState} from 'react';
+import {View, Text, StyleSheet, TouchableOpacity, Image} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import Header from '../../components/Common/Header';
 import {useNavigation} from '@react-navigation/native';
@@ -48,7 +42,10 @@ export default function ChallengeComplete() {
       .then(function (response) {
         handleInputChange('goal', response.data.goal);
         handleInputChange('userTitleList', response.data.userTitleList);
-        handleInputChange('userRemainChallengeNum', response.data.userRemainChallengeNum);
+        handleInputChange(
+          'userRemainChallengeNum',
+          response.data.userRemainChallengeNum,
+        );
         handleInputChange('userChallengeNum', response.data.userChallengeNum);
         handleInputChange('userNowTitle', response.data.userNowTitle);
       })
@@ -67,7 +64,9 @@ export default function ChallengeComplete() {
       });
   }, [userId]);
 
-  const variableWidthPercentage = `${(challengeInfo.userChallengeNum / challengeInfo.goal) * 100}%`;
+  const variableWidthPercentage = `${
+    (challengeInfo.userChallengeNum / challengeInfo.goal) * 100
+  }%`;
 
   return (
     <View style={styles.view}>
@@ -80,7 +79,9 @@ export default function ChallengeComplete() {
         <View style={{marginBottom: 20}}>
           <Text style={styles.title}>지금까지 달성한 도전 과제는</Text>
           <View style={styles.title}>
-            <Text style={styles.title2}>{challengeInfo.userChallengeNum}개</Text>
+            <Text style={styles.title2}>
+              {challengeInfo.userChallengeNum}개
+            </Text>
             <Text style={styles.title}> 입니다</Text>
           </View>
         </View>
@@ -89,11 +90,14 @@ export default function ChallengeComplete() {
           <View style={styles.iconleft}>
             <Image
               style={styles.trophy}
-              source={require('../../assets/images/challenge/trophy.png')}
+              source={require('../../assets/images/challenge/medal.png')}
             />
             <View style={styles.title}>
               <Text style={styles.title}>다음 목표 달성까지</Text>
-              <Text style={styles.title4}> {challengeInfo.userRemainChallengeNum}개</Text>
+              <Text style={styles.title4}>
+                {' '}
+                {challengeInfo.userRemainChallengeNum}개
+              </Text>
             </View>
           </View>
         </View>
@@ -103,10 +107,19 @@ export default function ChallengeComplete() {
             style={[styles.graph2, {width: `${variableWidthPercentage}`}]}
           />
         </TouchableOpacity>
-        <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-          <Text style={{fontSize: 18, color: '#000'}}>{challengeInfo.userChallengeNum} / {challengeInfo.goal}</Text>
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            marginTop: 5,
+          }}>
+          <Text style={{fontSize: 18, color: '#000'}}>
+            {challengeInfo.userChallengeNum} / {challengeInfo.goal}
+          </Text>
           <View style={styles.graphtext}>
-            <TouchableOpacity style={styles.touchable} onPress={() => navigation.navigate('DailyChallenge')}>
+            <TouchableOpacity
+              style={styles.touchable}
+              onPress={() => navigation.navigate('DailyChallenge')}>
               <Text style={{fontSize: 14, color: '#555'}}>일일 도전 과제</Text>
               <Icon
                 name="arrow-forward-ios"
@@ -118,10 +131,29 @@ export default function ChallengeComplete() {
           </View>
         </View>
         <View style={styles.line} />
-        <Text style={styles.title3}>현재 {challengeInfo.userNickname}님의 칭호</Text>
+        <Text style={styles.title3}>
+          현재 {challengeInfo.userNickname}님의 칭호
+        </Text>
         <View style={styles.badge}>
-          <TouchableOpacity disabled={true} style={{width: 150, height: 150, backgroundColor: '#ccc', borderRadius: 100}}></TouchableOpacity>
-          <Text style={{fontSize: 16, color: '#000'}}>{challengeInfo.userNowTitle}</Text>
+          {/* <TouchableOpacity
+            disabled={true}
+            style={{
+              width: 150,
+              height: 150,
+              backgroundColor: '#ccc',
+              borderRadius: 100,
+            }}></TouchableOpacity> */}
+          <Image
+            style={{
+              width: 130,
+              height: 130,
+              marginVertical: 20,
+            }}
+            source={require('../../assets/images/challenge/silver-medal.png')}
+          />
+          <Text style={{fontSize: 16, color: '#000', marginBottom: 20}}>
+            {challengeInfo.userNowTitle}
+          </Text>
         </View>
       </View>
     </View>
@@ -186,8 +218,8 @@ const styles = StyleSheet.create({
   },
   trophy: {
     marginRight: 20,
-    height: 60,
-    width: 60,
+    height: 52,
+    width: 52,
   },
   touchable: {
     flexDirection: 'row',
@@ -195,14 +227,14 @@ const styles = StyleSheet.create({
   },
   graph1: {
     width: '100%',
-    height: 35,
+    height: 25,
     backgroundColor: '#ccc',
     borderRadius: 20,
   },
   graph2: {
     alignItems: 'center',
     justifyContent: 'center',
-    height: 35,
+    height: 25,
     backgroundColor: '#1A6F3F',
     borderRadius: 20,
   },
@@ -212,7 +244,10 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   badge: {
+    width: '100%',
+    borderRadius: 20,
+    backgroundColor: 'rgba(0, 95, 41, 0.13)',
     alignItems: 'center',
-    marginTop: 5,
+    justifyContent: 'center',
   },
 });
