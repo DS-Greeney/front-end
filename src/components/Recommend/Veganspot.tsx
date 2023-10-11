@@ -69,6 +69,7 @@ const styles = StyleSheet.create({
   wrapper: {},
   textwrap: {
     marginTop: 10,
+    width: 151,
   },
   type: {
     color: '#7A7A7A',
