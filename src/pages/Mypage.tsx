@@ -417,7 +417,7 @@ export default function Mypage() {
               <Text style={styles.titleText}>이용 안내</Text>
               <View style={styles.rowView}>
                 <Text style={{fontSize: 20, color: '#000'}}>앱 버전</Text>
-                <Text style={{fontSize: 20, color: '#000'}}>1.0.0</Text>
+                <Text style={{fontSize: 20, color: '#000'}}>1.0.4</Text>
               </View>
               <TouchableOpacity
                 style={styles.btnView2}

@@ -35,9 +35,9 @@ const SideBar = ({navigation, data}: propType) => {
     setModalVisible(false);
   };
 
-  const menuList = ['마이페이지', '일일 도전과제', '찜 목록', '언어 설정'];
+  const menuList = ['마이페이지', '일일 도전과제', '찜 목록'];
 
-  const menuURL = ['Mypage', 'DailyChallenge', 'LikelistPage', 'Mypage'];
+  const menuURL = ['Mypage', 'DailyChallenge', 'LikelistPage'];
 
   const logout = () => {
     Alert.alert(
