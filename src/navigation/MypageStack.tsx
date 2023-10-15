@@ -25,6 +25,7 @@ import PrivacyPolicy from '../pages/Settings/PrivacyPolicy';
 import RestaurantDetail from '../pages/Recommend/RestaurantDetail';
 import TourspotDetail from '../pages/Recommend/TourspotDetail';
 import GreenHotelDetail from '../pages/Recommend/GreenHotelDetail';
+import WrittenReviewPage from '../pages/WrittenReviewPage';
 
 const Stack = createNativeStackNavigator();
 
@@ -73,6 +74,7 @@ export default function MypageStack({navigation, route}: any) {
       <Stack.Screen name="PassChangePage" component={PassChangePage} />
       <Stack.Screen name="TOS" component={TOS} />
       <Stack.Screen name="PrivacyPolicy" component={PrivacyPolicy} />
+      <Stack.Screen name="WrittenReviewPage" component={WrittenReviewPage} />
     </Stack.Navigator>
   );
 }
