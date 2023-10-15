@@ -350,7 +350,9 @@ export default function Mypage() {
         <ScrollView contentContainerStyle={{flexGrow: 1}}>
           <View style={styles.scrollView}>
             <TouchableOpacity disabled={true} style={styles.box}>
-              {/* <TouchableOpacity style={styles.btnView1}>
+              <TouchableOpacity
+                style={styles.btnView1}
+                onPress={() => navigation.navigate('WrittenReviewPage')}>
                 <Icon
                   name="rate-review"
                   size={32}
@@ -358,7 +360,8 @@ export default function Mypage() {
                   style={{marginRight: 5}}
                 />
                 <Text style={{fontSize: 20, color: '#000'}}>내가 쓴 후기</Text>
-              </TouchableOpacity> */}
+              </TouchableOpacity>
+
               <TouchableOpacity
                 style={styles.btnView1}
                 onPress={() => navigation.navigate('Likelist')}>
@@ -417,7 +420,7 @@ export default function Mypage() {
               <Text style={styles.titleText}>이용 안내</Text>
               <View style={styles.rowView}>
                 <Text style={{fontSize: 20, color: '#000'}}>앱 버전</Text>
-                <Text style={{fontSize: 20, color: '#000'}}>1.0.0</Text>
+                <Text style={{fontSize: 20, color: '#000'}}>1.0.4</Text>
               </View>
               <TouchableOpacity
                 style={styles.btnView2}

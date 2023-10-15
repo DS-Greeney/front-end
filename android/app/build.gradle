@@ -84,8 +84,8 @@ android {
         applicationId "com.greeney_client"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 2
-        versionName "1.0.1"
+        versionCode 5
+        versionName "1.0.4"
         //manifestPlaceholders = [googleMapApiKey:googleMapApiKey] //hide API key
     }
     signingConfigs {
@@ -115,7 +115,7 @@ android {
             signingConfig signingConfigs.release
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
-            resValue "string", "google_maps_api_key", "${debuggoogleMapsApiKey}"
+            resValue "string", "google_maps_api_key", "${releasegoogleMaspApiKey}"
         }
     }
 }

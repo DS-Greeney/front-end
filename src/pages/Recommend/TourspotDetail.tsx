@@ -45,7 +45,11 @@ interface dataType {
 //   user_picture: string;
 // }
 
-export default function TourspotDetail(route: any) {
+interface propType {
+  id: number | 0;
+}
+
+export default function TourspotDetail(route: any, {id}: propType) {
   const {userId} = useContext(AppContext);
   const [tourSpot, setTourSpot] = useState<dataType>({
     tourspotId: 0,
@@ -70,6 +74,8 @@ export default function TourspotDetail(route: any) {
     tourspotId = route.route.params.spotId;
   } else if (route.route.params) {
     tourspotId = route.route.params;
+  } else {
+    tourspotId = id;
   }
 
   // let lat = route.route.params.latitude;
