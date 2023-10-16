@@ -72,7 +72,7 @@ def jscFlavor = 'org.webkit:android-jsc:+'
 Properties properties = new Properties()
 properties.load(project.rootProject.file('local.properties').newDataInputStream())
 def debuggoogleMapsApiKey = properties.getProperty('debug_google_maps_api_key')
-def releasegoogleMaspApiKey = properties.getProperty('release_google_maps_api_key')
+def releasegoogleMapsApiKey = properties.getProperty('release_google_maps_api_key')
 
 android {
     ndkVersion rootProject.ext.ndkVersion
@@ -84,8 +84,8 @@ android {
         applicationId "com.greeney_client"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 5
-        versionName "1.0.4"
+        versionCode 6
+        versionName "1.0.5"
         //manifestPlaceholders = [googleMapApiKey:googleMapApiKey] //hide API key
     }
     signingConfigs {
@@ -115,7 +115,7 @@ android {
             signingConfig signingConfigs.release
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
-            resValue "string", "google_maps_api_key", "${releasegoogleMaspApiKey}"
+            resValue "string", "google_maps_api_key", "${releasegoogleMapsApiKey}"
         }
     }
 }
