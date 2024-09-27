@@ -19,7 +19,7 @@
 <br>
 
 ## 👨‍💻 Front-end Developer
-<table align="center">
+<table>
     <tr align="center">
       <td style="min-width: 100px;">
             <a href="https://github.com/won0324">
