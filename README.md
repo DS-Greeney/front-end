@@ -12,7 +12,8 @@
 <br>
 
 ## 📖 Description
-- 2023 관광 데이터 활용 공모전 최우수상
+- 2023 관광데이터 활용 공모전 최우수상
+- 주관 기관: 한국관광공사
 - 개발 기간: 2023.03-2023.12
 - 사용 스택: <strong>React Native, TypeScript</strong>
 
