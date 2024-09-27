@@ -1,79 +1,78 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# Greeney
+![Greeney_thumbnail](https://github.com/user-attachments/assets/da32ade3-c7dd-4c3f-ae60-2068cf4502f8)
 
-# Getting Started
 
->**Note**: Make sure you have completed the [React Native - Environment Setup](https://reactnative.dev/docs/environment-setup) instructions till "Creating a new application" step, before proceeding.
+<div align="center">
+  국내 친환경 관광지 · 비건 식당 · 친환경 숙소 정보를 제공하여 <br>
+  사용자의 <strong>지속 가능한 친환경 여행</strong>을 돕는 앱 서비스입니다.
+</div>
 
-## Step 1: Start the Metro Server
 
-First, you will need to start **Metro**, the JavaScript _bundler_ that ships _with_ React Native.
 
-To start Metro, run the following command from the _root_ of your React Native project:
+<br>
 
-```bash
-# using npm
-npm start
+## 📖 Description
+- 2023 관광 데이터 활용 공모전 최우수상
+- 개발 기간: 2023.03-2023.12
+- 사용 스택: <strong>React Native, TypeScript</strong>
 
-# OR using Yarn
-yarn start
-```
+<br>
 
-## Step 2: Start your Application
+## 👨‍💻 Front-end Developer
+<table align="center">
+    <tr align="center">
+      <td style="min-width: 100px;">
+            <a href="https://github.com/won0324">
+                <img src="https://github.com/user-attachments/assets/76d86bc7-9001-4db4-b5ae-9219da1b5853" width="200" alt="프로필사진">
+              <br />
+            </a>
+        </td>
+      <td style="min-width: 150px;">
+                <img src="https://avatars.githubusercontent.com/u/90364686?v=4" width="200" alt="프로필사진">
+              <br />
+        </td>
+    </tr>
+    <tr align="center">
+       <td>
+            <a href="https://github.com/won0324">권희원</a>
+      </td>
+       <td>
+             박유정
+      </td>
+    </tr>
+</table>
 
-Let Metro Bundler run in its _own_ terminal. Open a _new_ terminal from the _root_ of your React Native project. Run the following command to start your _Android_ or _iOS_ app:
+<br>
 
-### For Android
+## 💻 Main Feature
+![main1](https://github.com/user-attachments/assets/4bd641ef-0b4b-44fe-a352-25a9752c2bb3)
+- 친환경 관광지 추천
+- 비건 식당 추천
+- 친환경 숙소 추천
+- 사용자 리뷰와 인기 관광지 정보 제공
 
-```bash
-# using npm
-npm run android
+<br>
 
-# OR using Yarn
-yarn android
-```
+![main2](https://github.com/user-attachments/assets/26f9f37c-95e7-411a-ac12-2b6fe8a74bb8)
+- 장소 위치 정보 제공
+- 챗봇 서비스
+- 친환경 실천 도전 과제
+- 사용자 개인 찜 목록
 
-### For iOS
+<br>
 
-```bash
-# using npm
-npm run ios
+## 🔨 Service Architecture
+![service](https://github.com/user-attachments/assets/56461988-7511-4a9c-9bea-881cf41b4c83)
 
-# OR using Yarn
-yarn ios
-```
+<br>
 
-If everything is set up _correctly_, you should see your new app running in your _Android Emulator_ or _iOS Simulator_ shortly provided you have set up your emulator/simulator correctly.
+## 📄 Dataset
+- 한국관광공사 생태 관광정보
+- 경상남도 자연관광
+- 채식 식당 정보(베지테리언)
 
-This is one way to run your app — you can also run it directly from within Android Studio and Xcode respectively.
+<br>
 
-## Step 3: Modifying your App
-
-Now that you have successfully run the app, let's modify it.
-
-1. Open `App.tsx` in your text editor of choice and edit some lines.
-2. For **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Developer Menu** (<kbd>Ctrl</kbd> + <kbd>M</kbd> (on Window and Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (on macOS)) to see your changes!
-
-   For **iOS**: Hit <kbd>Cmd ⌘</kbd> + <kbd>R</kbd> in your iOS Simulator to reload the app and see your changes!
-
-## Congratulations! :tada:
-
-You've successfully run and modified your React Native App. :partying_face:
-
-### Now what?
-
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [Introduction to React Native](https://reactnative.dev/docs/getting-started).
-
-# Troubleshooting
-
-If you can't get this to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
-
-# Learn More
-
-To learn more about React Native, take a look at the following resources:
-
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+## <img src="https://github.com/user-attachments/assets/b9d54e7a-ed2d-4121-a1ac-d334b2a23f57" width="30" alt="" align="left" style="margin-right: 10px;"> App
+- <a href="https://play.google.com/store/apps/details?id=com.greeney_client&pcampaignid=web_share">Google Play Store</a>
+- 현재 서버 종료
